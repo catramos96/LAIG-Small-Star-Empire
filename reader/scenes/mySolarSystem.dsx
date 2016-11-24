@@ -1,0 +1,1428 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+
+<dsx>
+  
+    <scene root="sceneRoot" axis_length="3" /> 
+  
+    <views default="general" >
+		<perspective id="general" near="0.1" far="500" angle="35">
+            <from x="20" y="15" z="20" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+
+        <perspective id="from_above" near="0.1" far="500" angle="50">
+            <from x="3.1" y="20" z="3" />
+            <to x="3" y="0" z="3" />
+        </perspective>
+		
+		<perspective id="from_front" near="0.1" far="500" angle="50">
+            <from x="15" y="6" z="15" />
+            <to x="0" y="3" z="0" />
+        </perspective>
+    </views>  
+
+    <illumination doublesided="0" local="1" >
+        <ambient r="0.1" g="0.1" b="0.1" a="1" />
+        <background r="0" g="0" b="0" a="1" />					      
+    </illumination>
+
+    <lights>
+        <omni id="omni_general" enabled="0" > 
+            <location x="30" y="30" z="30" w="1" />						
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+	
+        <spot id="spot_base1" enabled="1" angle="60" exponent="3">
+            <target x="2" y="1" z="9" />
+            <location x="2" y="5" z="9" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.2" g="0.2" b="0.2" a="1" />
+        </spot>
+
+		<spot id="spot_zero" enabled="1" angle="60" exponent="6">
+            <target x="6" y="6" z="6" />
+            <location x="0" y="0" z="0" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1" />
+            <specular r="0.6" g="0.6" b="0.6" a="1" />
+        </spot>
+
+		<spot id="spot_base2" enabled="1" angle="60" exponent="8">
+            <target x="9" y="1" z="2" />
+            <location x="9" y="5" z="2" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="0.6" g="0.6" b="0.6" a="1" />
+        </spot>
+    </lights>
+
+    <textures>
+        <texture id="skyTexture" file="../resources/sky.png" length_s="0.4" length_t="0.4" />
+        <texture id="neptuneTexture" file="../resources/neptune.jpg" length_s="1" length_t="1" />
+        <texture id="earthTexture" file="../resources/earth.jpg" length_s="1" length_t="1" />
+        <texture id="saturnTexture" file="../resources/saturn.png" length_s="1" length_t="1" />
+        <texture id="saturnRingsTexture" file="../resources/saturn_rings.png" length_s="1" length_t="1" />
+        <texture id="sunTexture" file="../resources/sun.jpg" length_s="1" length_t="1" />
+        <texture id="uranusTexture" file="../resources/uranus.jpg" length_s="1" length_t="1" />
+        <texture id="jupiterTexture" file="../resources/jupiter.jpg" length_s="1" length_t="1" />
+        <texture id="marsTexture" file="../resources/mars.png" length_s="1" length_t="1" />
+        <texture id="venusTexture" file="../resources/venus.jpg" length_s="1" length_t="1" />
+        <texture id="mercuryTexture" file="../resources/mercury.png" length_s="1" length_t="1" />
+        <texture id="satelliteTexture" file="../resources/spaceship.png" length_s="1" length_t="1" />
+        <texture id="metalTexture" file="../resources/metal.jpg" length_s="1" length_t="1" />
+		<texture id="cometHeadTexture" file="../resources/cometa.jpg" length_s="1" length_t="1" />
+		<texture id="cometTailTexture" file="../resources/cauda.jpg" length_s="0.4" length_t="0.4" />   
+		<texture id="marmoreTexture" file="../resources/marmore.jpg" length_s="0.4" length_t="0.4" />		
+    </textures>
+
+    <materials>
+        <material id="light" >
+            <emission r="1" g="1" b="1" a="1" />
+            <ambient r="1" g="1" b="1" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="100" />
+        </material>
+	
+		<material id="light2" >
+            <emission r="1" g="1" b="0" a="1" />
+            <ambient r="1" g="1" b="0" a="1" />
+            <diffuse r="1" g="1" b="0" a="1" />
+            <specular r="1" g="1" b="0" a="1" />
+            <shininess value="100" />
+        </material>
+		
+		<material id="shiny" >
+			<emission r="0" g="0" b="0" a="0" />
+            <ambient r="1" g="1" b="1" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="100" />
+        </material>
+		
+		<material id="matt1" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="0.1" g="0.6" b="0.3" a="1" />
+            <diffuse r="0.1" g="0.6" b="0.3" a="1" />
+            <specular r="0.1" g="0.6" b="0.3" a="1" />
+            <shininess value="20" />
+        </material>
+		
+		<material id="matt2" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="0.8" g="0.6" b="0.6" a="1" />
+            <diffuse r="0.8" g="0.6" b="0.6" a="1" />
+            <specular r="0.8" g="0.6" b="0.6" a="1" />
+            <shininess value="20" />
+        </material>
+				
+		<material id="matt3" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="0.6" g="0.6" b="0.1" a="1" />
+            <diffuse r="0.6" g="0.6" b="0.1" a="1" />
+            <specular r="0.6" g="0.6" b="0.1" a="1" />
+            <shininess value="20" />
+        </material>   
+    </materials>
+
+    <transformations>
+		<transformation id="solarSystemPosition">
+			<translate x="4" y="1.5" z="5" />
+			<scale x="0.5" y = "0.5" z="0.5" />
+        </transformation>
+		
+		<transformation id="stickPosition">
+			<translate x="4" y="1.5" z="5" />
+			<rotate axis="x" angle="90"/>
+        </transformation>
+    </transformations>
+
+    <primitives>
+        <primitive id="rectangle">
+            <rectangle x1="0" y1="0" x2="1" y2="1" />				
+        </primitive>
+
+        <primitive id="triangle">
+            <triangle x1="0" y1="0" z1="0" x2="1" y2="0" z2="0" x3="0.5" y3="5" z3="0" />
+        </primitive>
+
+        <primitive id="hexCylinder">
+            <cylinder base="1" top="1" height="1" slices="6" stacks="10" />
+        </primitive>
+
+        <primitive id="cone">
+            <cylinder base="1" top="0.5" height="1" slices="6" stacks="10" />
+        </primitive>
+
+        <primitive id="sphere">
+            <sphere radius="1" slices="30" stacks="30" />
+        </primitive>
+
+        <primitive id="torus">
+            <torus inner="0.7" outer="1" slices="50" loops="50" />
+        </primitive>
+
+        <primitive id="miniTorus">
+            <torus inner="0.4" outer="0.5" slices="10" loops="10" />
+        </primitive>
+		
+		<primitive id="cylinder">
+            <cylinder base="0.03" top="0.03" height="1.5" slices="6" stacks="10" />
+        </primitive>
+		
+		<!-- novas primitivas -->
+	
+		<primitive id="firstBoard">
+       		<chessboard du="20" dv="20" textureref="satelliteTexture" su="8" sv="8">
+				<c1 r="0.3" g="0.15" b="0.15" a="1.0" />
+				<c2 r="0.8" g="0.6" b="0.6" a="1.0" />
+				<cs r="1.0" g="0.0" b="0.0" a="1.0" />
+            </chessboard>
+       </primitive>
+	   
+	   <primitive id="base1Board">
+       		<chessboard du="3" dv="15" textureref="marmoreTexture" su="-1" sv="-1">
+				<c1 r="0.25" g="0.5" b="0.5" a="1.0" />
+				<c2 r="0.75" g="0.75" b="0.75" a="1.0" />
+				<cs r="0.0" g="1.0" b="0.0" a="1.0" />
+            </chessboard>
+       </primitive>
+	   
+	   	<primitive id="base2Board">
+       		<chessboard du="50" dv="50" textureref="marmoreTexture" su="7" sv="3">
+				<c1 r="0.25" g="0.0" b="0.25" a="1.0" />
+				<c2 r="0.75" g="0.75" b="0.75" a="1.0" />
+				<cs r="0.0" g="0.0" b="1.0" a="1.0" />
+            </chessboard>
+       </primitive> 
+	   
+	   <primitive id="spaceShip">
+       		<vehicle> </vehicle>
+       </primitive>
+    </primitives>
+
+    <!-- novo bloco de animacao -->
+    <animations>
+		<animation id="animationComets" span="12" type="linear">
+			<controlpoint xx="0" yy="1" zz="5" />
+			<controlpoint xx="0.5" yy="0.9" zz="4.5" />
+			<controlpoint xx="1" yy="0.8" zz="4" />
+			<controlpoint xx="2" yy="0.7" zz="3" />
+			<controlpoint xx="2" yy="0.6" zz="3" />
+			<controlpoint xx="2.5" yy="0.5" zz="2.5" />
+			<controlpoint xx="3" yy="0.4" zz="2" />
+			<controlpoint xx="3.5" yy="0.3" zz="1.5" />
+			<controlpoint xx="4" yy="0.2" zz="1" />
+			<controlpoint xx="4.5" yy="0.1" zz="0.5" />
+			<controlpoint xx="5" yy="0" zz="0" />
+		</animation>
+	
+		<animation id="rotAnimation" span="6" type="circular" centerx="0" centery="0" centerz="0" radius="0.01" startang="0" rotang="-360" />
+		
+		<animation id="animSatellite1" span="9" type="linear">
+			<controlpoint xx="0" yy="1" zz="0" />
+			<controlpoint xx="4" yy="0" zz="3" />
+		</animation>
+		
+		<animation id="animSatellite2" span="3" type="circular" centerx="0" centery="0" centerz="0" radius="5" startang="-37" rotang="55" /> 
+    
+		<animation id="animSpaceShip1" span="4" type="linear">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0" yy="3" zz="26" />
+		</animation>
+		
+		<animation id="animSpaceShip2" span="2" type="circular" centerx="4" centery="3" centerz="24" radius="4" startang="-120" rotang="90" /> 
+		
+		<animation id="animSpaceShip3" span="4" type="linear">
+			<controlpoint xx="8" yy="3" zz="26" />
+			<controlpoint xx="26" yy="3" zz="26" />
+			<controlpoint xx="26" yy="-1" zz="26" />
+		</animation>
+		
+		<animation id="animSpaceShip4" span="2" type="circular" centerx="26" centery="-1" centerz="26" radius="0.01" startang="0" rotang="160" /> 
+	</animations>
+
+    <components>
+		<component id="sceneRoot">
+		  
+			<transformation>
+			</transformation>
+					
+			<materials>
+				<material id="shiny" />
+			</materials>
+					
+			<texture id="none" />
+							 
+			<children>
+				<componentref id="Space" />
+				<componentref id="Comets" />
+				<componentref id="Ovnis" />
+				<componentref id="Planets" />
+				<componentref id="Stars" />
+			</children>   
+		</component>
+		
+		<!-- Space -->
+		
+		<component id="Space">																
+        
+            <transformation>
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="skyTexture" />
+
+			<children>
+				<componentref id = "Walls" />
+				<componentref id = "Boards" />
+				<componentref id = "Sticks" />
+            </children>
+            
+        </component>
+		
+		<!-- Walls -->
+		
+		<component id="Walls">																														
+        
+            <transformation>
+            </transformation>
+       
+			<materials>
+				<material id="shiny" />
+            </materials>
+                         
+			<texture id="skyTexture" />
+
+			<children>
+            	<componentref id = "Wall1" />
+				<componentref id = "Wall2" />
+				<componentref id = "Wall3" />
+				<componentref id = "Wall4" />
+				<componentref id = "Wall5" />
+				<componentref id = "Wall6" />
+            </children>
+            
+        </component>
+		  
+        <component id="Wall1">																
+        
+            <transformation>
+            	<scale x="12" y="12" z="12" />
+            	<translate x="0" y ="0" z ="1"/>
+            	<rotate axis="y" angle="90"/>	
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="rectangle"/>
+            </children>
+            
+        </component>
+		
+		<component id="Wall2">																
+        
+            <transformation>
+            	<scale x="12" y="12" z="12" />
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="rectangle"/>
+            </children>
+            
+        </component>
+
+        <component id="Wall3">																
+        
+            <transformation>
+            	<scale x="12" y="12" z="12" />
+            	<translate x="0" y ="0" z ="1"/>
+            	<rotate axis="x" angle="-90"/>
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="rectangle"/>
+            </children>
+            
+        </component>
+
+        <component id="Wall4">																
+        
+            <transformation>
+            	<translate x="12" y ="0" z ="1"/>
+            	<scale x="12" y="12" z="12" />
+            	<translate x="0" y ="0" z ="1"/>
+            	<rotate axis="y" angle="180"/>
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="rectangle"/>
+            </children>
+            
+        </component>
+
+        <component id="Wall5">																
+        
+            <transformation>
+            	<translate x="12" y ="0" z ="1"/>
+            	<scale x="12" y="12" z="12" />
+            	<rotate axis="y" angle="-90"/>
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="rectangle"/>
+            </children>
+            
+        </component>
+
+        <component id="Wall6">																
+        
+            <transformation>
+            	<translate x="0" y ="12" z ="0"/>
+            	<scale x="12" y="12" z="12" />
+            	<rotate axis="x" angle="90"/>	
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="rectangle"/>
+            </children>
+            
+        </component>
+		
+		<!-- Boards -->
+	
+		<component id="Boards">																														
+        
+            <transformation>
+				<rotate axis="y" angle="-90"/>
+            	<rotate axis="x" angle="-90"/>
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="none" />
+
+			<children>
+            	<componentref id="Board1"/>
+				<componentref id="Board2"/>
+				<componentref id="Board3"/>
+            </children>
+            
+        </component>
+	
+		<component id="Board1">																														
+        
+            <transformation>
+            	<scale x="7" y="7" z="7" />
+            	<translate x="0.5" y ="0.5" z ="0.01"/>
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="none" />
+
+			<children>
+            	<primitiveref id="firstBoard"/>
+            </children>
+            
+        </component>
+		
+		<component id="Board2">																														
+        
+            <transformation>
+            	<scale x="2" y="2" z="1" />
+            	<translate x="5" y ="1" z ="1.5"/>
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="none" />
+
+			<children>
+            	<primitiveref id="base1Board"/>
+            </children>
+            
+        </component>
+		
+		<component id="Board3">																														
+        
+            <transformation>
+            	<scale x="3" y="3" z="1" />
+            	<translate x="0.8" y ="3.2" z ="1"/>
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="none" />
+
+			<children>
+            	<primitiveref id="base2Board"/>
+            </children>
+            
+        </component>
+		
+		<!-- Sticks -->
+		
+		<component id="Sticks">																														
+        
+            <transformation>
+				<transformationref id="stickPosition"/>
+            </transformation>
+       
+			<materials>
+				<material id="matt1" />
+				<material id="matt2" />
+				<material id="matt3" />
+            </materials>
+                         
+			<texture id="none" />
+
+			<children>
+            	<componentref id = "StickStar" />
+				<componentref id = "StickMercury" />
+				<componentref id = "StickVenus" />
+				<componentref id = "StickEarth" />
+				<componentref id = "StickMars" />
+				<componentref id = "StickJupiter" />
+				<componentref id = "StickSaturn" />
+				<componentref id = "StickUranus" />
+				<componentref id = "StickNeptune" />
+            </children>
+            
+        </component>
+		
+		<component id="StickStar">																
+        
+			<transformation>
+				<translate x="-1" y="-2" z="0"/>
+			</transformation>
+       
+			<materials>
+				<material id="inherit" />
+			</materials>
+							 
+			<texture id="none" />
+
+			<children>
+				<componentref id = "stick" />
+			</children>
+				
+        </component>
+		
+		<component id="StickMercury">																
+        
+			<transformation>
+				<translate x="0" y="1.25" z="0"/>
+			</transformation>
+       
+			<materials>
+				<material id="inherit" />
+			</materials>
+							 
+			<texture id="none" />
+
+			<children>
+				<componentref id = "stick" />
+			</children>
+				
+        </component>
+		
+		<component id="StickVenus">																
+        
+			<transformation>
+				<translate x="1" y="1" z="0" />
+			</transformation>
+       
+			<materials>
+				<material id="inherit" />
+			</materials>
+							 
+			<texture id="none" />
+
+			<children>
+				<componentref id = "stick" />
+			</children>
+				
+        </component>
+		
+		<component id="StickEarth">																
+        
+			<transformation>
+				<translate x="2" y="0" z="0" />
+			</transformation>
+       
+			<materials>
+				<material id="inherit" />
+			</materials>
+							 
+			<texture id="none" />
+
+			<children>
+				<componentref id = "stick" />
+			</children>
+				
+        </component>
+		
+		<component id="StickMars">																
+        
+			<transformation>
+				<translate x="2.5" y="-1.5" z="0" />
+			</transformation>
+       
+			<materials>
+				<material id="inherit" />
+			</materials>
+							 
+			<texture id="none" />
+
+			<children>
+				<componentref id = "stick" />
+			</children>
+				
+        </component>
+		
+		<component id="StickJupiter">																
+        
+			<transformation>
+				<translate x="2.1" y="-3" z="0" />
+			</transformation>
+       
+			<materials>
+				<material id="inherit" />
+			</materials>
+							 
+			<texture id="none" />
+
+			<children>
+				<componentref id = "stick" />
+			</children>
+				
+        </component>
+		
+		<component id="StickSaturn">																
+        
+			<transformation>
+				<translate x="0" y="-4" z="0" />
+			</transformation>
+       
+			<materials>
+				<material id="inherit" />
+			</materials>
+							 
+			<texture id="none" />
+
+			<children>
+				<componentref id = "stick" />
+			</children>
+				
+        </component>
+		
+		<component id="StickUranus">																
+        
+			<transformation>
+				<translate x="-2" y="-4" z="0" />
+			</transformation>
+       
+			<materials>
+				<material id="inherit" />
+			</materials>
+							 
+			<texture id="none" />
+
+			<children>
+				<componentref id = "stick" />
+			</children>
+				
+        </component>
+		
+		<component id="StickNeptune">																
+        
+			<transformation>
+				<translate x="-3.5" y="-3" z="0" />
+			</transformation>
+       
+			<materials>
+				<material id="inherit" />
+			</materials>
+							 
+			<texture id="none" />
+
+			<children>
+				<componentref id = "stick" />
+			</children>
+				
+        </component>
+		
+		<component id="stick">																
+        
+			<transformation>
+			</transformation>
+       
+			<materials>
+				<material id="inherit"/>
+			</materials>
+							 
+			<texture id="none" />
+
+			<children>
+				<primitiveref id = "cylinder" />
+			</children>
+			
+        </component>
+	
+	    <!-- Comets -->
+	
+		<component id="Comets">
+		  
+			<transformation>
+				<translate x="4" y ="5" z ="3"/>
+			</transformation>
+			  
+			<animation>
+				<animationref id="animationComets"/>
+			</animation>
+				
+			<materials>
+				<material id="light" />
+			</materials>
+				
+			<texture id="none" />
+			
+			<children>
+				<componentref id="Comet1" />
+				<componentref id="Comet2" />
+				<componentref id="Comet3" />
+			</children>
+
+		</component>
+			
+		<component id="Comet1">
+		
+			<transformation>	
+			</transformation>
+			
+			<materials>
+				<material id="inherit" />
+			</materials>
+				
+			<texture id="none" />
+			
+			<children>
+				<componentref id="Comet_head" />
+				<componentref id="Comet_tail" />
+			</children>
+		</component>
+		
+		<component id="Comet2">
+		
+			<transformation>	
+				<translate x="-0.3" y ="0.3" z ="0.3"/>
+            </transformation>
+			
+			<materials>
+                <material id="inherit" />
+            </materials>
+			
+			<texture id="none" />
+		
+			<children>
+				<componentref id="Comet_head" />
+				<componentref id="Comet_tail" />
+            </children>
+		
+		</component>
+		
+		<component id="Comet3">
+		
+			<transformation>	
+				<translate x="0.2" y ="0.2" z ="0.3"/>
+            </transformation>
+			
+			<materials>
+                <material id="inherit" />
+            </materials>
+			
+			<texture id="none" />
+		
+			<children>
+				<componentref id="Comet_head" />
+				<componentref id="Comet_tail" />
+            </children>
+		
+		</component>
+		
+		<component id="Comet_head">
+		
+			<transformation>	
+				<scale x="0.05" y="0.05" z="0.05" />
+            </transformation>
+			
+			<materials>
+                <material id="light" />
+				<material id="light2" />
+            </materials>
+			
+			<texture id="cometHeadTexture" />
+		
+			<children>
+				<primitiveref id="sphere" />
+            </children>
+		
+		</component>
+		
+		<component id="Comet_tail">
+		
+			<transformation>	
+            </transformation>
+			
+			<materials>
+				<material id="inherit" />
+            </materials>
+			
+			<texture id="cometTailTexture" />
+		
+			<children>
+				<componentref id="Comet_tailUp" />
+				<componentref id="Comet_tailDown" />
+            </children>
+		
+		</component>
+		
+		<component id="Comet_tailUp">
+		
+			<transformation>	
+				<rotate axis="x" angle="-90"/>
+				<translate x="-0.05" y ="0" z ="0"/>
+				<scale x="0.1" y="0.3" z="0" />
+            </transformation>
+			
+			<materials>
+                <material id="inherit" />
+            </materials>
+			
+			<texture id="inherit" />
+		
+			<children>
+				<primitiveref id="triangle" />
+            </children>
+		
+		</component>
+		
+		<component id="Comet_tailDown">
+		
+			<transformation>	
+				<rotate axis="x" angle="-90"/>
+				<rotate axis="y" angle="180"/>
+				<translate x="-0.05" y ="0" z ="0"/>
+				<scale x="0.1" y="0.3" z="0" />
+            </transformation>
+			
+			<materials>
+                <material id="inherit" />
+            </materials>
+			
+			<texture id="inherit" />
+		
+			<children>
+				<primitiveref id="triangle" />
+            </children>
+		
+		</component>
+
+		<!-- ovnis -->
+
+		<component id="Ovnis">																
+        
+            <transformation>    	
+            </transformation>
+			
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="none" />
+
+			<children>
+				<componentref id = "Satellites" />
+				<componentref id = "SpaceShip" />
+            </children>
+            
+        </component>
+		
+		<!-- SpaceShip -->
+		
+		<component id="SpaceShip">																
+        
+            <transformation>  
+				<translate x="1.5" y="2" z="9.7" />
+				<scale x="0.3" y="0.3" z="0.3" />
+				<rotate axis="y" angle="90" />
+            </transformation>
+			
+			<animation>
+				<animationref id="animSpaceShip1" />
+				<animationref id="animSpaceShip2" />
+				<animationref id="animSpaceShip3" />
+				<animationref id="animSpaceShip4" />
+			</animation>
+			
+			<materials>
+				<material id="shiny" />
+            </materials>
+                         
+			<texture id="satelliteTexture" />
+
+			<children>
+				<primitiveref id = "spaceShip" />
+            </children>
+            
+        </component>
+		
+		<!-- Satellites -->
+		
+        <component id="Satellites">																
+        
+            <transformation>    	
+            </transformation>
+	    
+			<materials>
+				<material id="shiny" />
+				<material id="matt1" />
+				<material id="matt2" />
+				<material id="matt3" />
+            </materials>
+                         
+			<texture id="satelliteTexture" />
+
+			<children>
+				<componentref id = "Satellite1" />
+				<componentref id = "Satellite2" />
+            </children>
+            
+        </component>
+
+        <component id="Satellite1">																
+        
+            <transformation>
+            	<translate x="1" y="7" z ="7"/>
+            	<rotate axis = "x" angle = "-20" />
+            	<rotate axis = "y" angle = "80" />
+            	<scale x="0.7" y="0.7" z="0.7" />
+            </transformation>
+       
+	   		<animation>
+				<animationref id="animSatellite1"/>
+				<animationref id="animSatellite2"/>
+			</animation>
+			
+	   
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="none" />
+
+			<children>
+				<componentref id = "SatelliteBasic" />
+            </children>
+            
+        </component>
+
+        <component id="Satellite2">																
+        
+            <transformation>
+            	<translate x="4" y="5" z ="5"/>
+            	<rotate axis = "x" angle = "-35" />
+            	<rotate axis = "y" angle = "-70" />
+            	<scale x="0.5" y="0.5" z="0.5" />  	
+            </transformation>
+			
+			<animation>
+				<animationref id="animSatellite1"/>
+				<animationref id="animSatellite2"/>
+			</animation>
+			
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="none" />
+
+			<children>
+				<componentref id = "SatelliteBasic" />
+            </children>
+            
+        </component>
+
+        <component id="SatelliteBasic">																
+        
+            <transformation>  	
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="satelliteTexture" />
+
+			<children>
+				<componentref id = "SidePart1" />
+				<componentref id = "SidePart2" />
+				<componentref id = "ControlPart" />
+				<componentref id = "Conection1" />
+				<componentref id = "Conection2" />
+				<componentref id = "Cabine" />
+            </children>
+            
+        </component>
+
+        <component id="SidePart1">																
+        
+            <transformation>
+            	<translate x="0" y="0" z ="0.7"/> 
+            	<scale x="1" y="1" z="0.1"/>  	
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="hexCylinder"/>
+            </children>
+            
+        </component>
+
+         <component id="SidePart2">																
+        
+            <transformation>
+            	<translate x="0" y="0" z ="-0.8"/> 
+            	<scale x="1" y="1" z="0.1"/>  	
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="hexCylinder"/>
+            </children>
+            
+        </component>
+
+        <component id="ControlPart">																
+        
+            <transformation>	
+            	<scale x = "0.4" y = "0.4" z = "0.4" />
+            	<rotate axis = "y" angle = "90" />
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="sphere"/>
+            </children>
+            
+        </component>
+
+        <component id="Conection1">																
+        
+            <transformation>	
+            	<scale x = "0.15" y = "0.15" z = "0.85" />
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="cone"/> -->
+            </children>
+            
+        </component>
+
+        <component id="Conection2">																
+        
+            <transformation>	
+            	<scale x = "0.15" y = "0.15" z = "0.85" />
+            	<rotate axis = "x" angle = "180" />
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="inherit" />
+
+			<children>
+            	<primitiveref id="cone"/> 
+            </children>
+            
+        </component>
+
+        <component id="Cabine">																
+        
+            <transformation>
+            	<translate x = "0.3" y = "0" z = "0" />	
+            	<scale x = "0.6" y = "0.6" z = "0.6" />
+            	<rotate axis = "y" angle = "90" />
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="metalTexture" />
+
+			<children>
+            	<primitiveref id="miniTorus"/> 
+            </children>
+            
+        </component>
+		
+		<!-- Planets -->
+         
+        <component id="Planets">																
+        
+            <transformation>
+            	<transformationref id="solarSystemPosition"/>
+            </transformation>
+	   
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="none" />
+
+			<children>
+				<componentref id = "Mercury" />
+				<componentref id = "Venus" />
+				<componentref id = "Earth" />
+				<componentref id = "Mars" />
+				<componentref id = "Jupiter" />
+				<componentref id = "Saturn" />
+				<componentref id = "Uranus" />
+            	<componentref id = "Neptune" />
+            </children>
+            
+        </component>
+		
+		<component id="Mercury">																
+        
+            <transformation>
+            	<translate x="0" y="0" z="2.5" />
+				<scale x="0.2" y = "0.2" z="0.2" />
+            </transformation>
+			
+			<animation>
+				<animationref id="rotAnimation"/>
+				<animationref id="rotAnimation"/>
+			</animation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="mercuryTexture" />
+
+			<children>
+                <primitiveref id="sphere" />
+            </children>
+            
+        </component> 
+
+		<component id="Venus">																
+        
+            <transformation>
+            	<translate x="2" y="0" z="2" />
+				<scale x="0.3" y = "0.3" z="0.3" />
+            </transformation>
+			
+			<animation>
+				<animationref id="rotAnimation"/>
+				<animationref id="rotAnimation"/>
+			</animation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="venusTexture" />
+
+			<children>
+                <primitiveref id="sphere" />   
+            </children>
+            
+        </component> 
+
+        <component id="Earth">																
+        
+            <transformation>
+           		<translate x="4" y="0" z="0" />
+           		<!-- <rotate axis= "x" angle="-120"/> -->
+            	<scale x="0.45" y = "0.45" z="0.45" />
+            </transformation>
+			
+			<animation>
+				<animationref id="rotAnimation"/>
+				<animationref id="rotAnimation"/>
+			</animation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="earthTexture" />
+
+			<children>
+                <primitiveref id="sphere" />       
+            </children>
+            
+        </component> 
+
+        <component id="Mars">																
+        
+            <transformation>
+            	<translate x="5" y="0" z="-3" />
+				<scale x="0.4" y = "0.4" z="0.4" />
+            </transformation>
+			
+			<animation>
+				<animationref id="rotAnimation"/>
+				<animationref id="rotAnimation"/>
+			</animation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="marsTexture" />
+
+			<children>
+                <primitiveref id="sphere" />  
+            </children>
+            
+        </component>
+
+         <component id="Jupiter">																
+        
+            <transformation>
+            	<translate x="4" y="0" z="-6" />
+            	<!-- <rotate axis= "x" angle="-120"/> -->
+            	<scale x="1.2" y = "1.2" z="1.2" />
+            </transformation>
+			
+			<animation>
+				<animationref id="rotAnimation"/>
+				<animationref id="rotAnimation"/>
+			</animation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="jupiterTexture" />
+
+			<children>
+                <primitiveref id="sphere" />
+            </children>
+            
+        </component>
+
+        <component id="Saturn">																
+        
+            <transformation>
+            	<translate x="0" y="0" z="-8" />
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="none" />
+
+			<children>
+				<componentref id = "SaturnPlanet" />
+				<componentref id = "SaturnRing" />          
+            </children>
+            
+        </component>
+
+        <component id="SaturnPlanet">																
+        
+            <transformation>
+            </transformation>
+			
+			<animation>
+				<animationref id="rotAnimation"/>
+				<animationref id="rotAnimation"/>
+			</animation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="saturnTexture" />
+
+			<children>
+                <primitiveref id = "sphere" /> 
+            </children>
+            
+        </component>
+
+        <component id="SaturnRing">																
+        
+            <transformation>
+				<rotate axis= "x" angle="-120"/>
+            	<scale x="2" y="2" z="0.2" />
+            </transformation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="saturnTexture" />
+
+			<children>
+               <primitiveref id = "torus" />
+            </children>
+            
+        </component>
+
+		<component id="Uranus">																
+        
+            <transformation>
+            	<translate x="-4" y="0" z="-8" />
+				<scale x="0.5" y = "0.5" z="0.5" />
+            </transformation>
+			
+			<animation>
+				<animationref id="rotAnimation"/>
+				<animationref id="rotAnimation"/>
+			</animation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="uranusTexture" />
+
+			<children>
+                <primitiveref id="sphere" />     
+            </children>
+            
+        </component> 
+
+        <component id="Neptune">																
+        
+            <transformation>
+            	<translate x="-7" y="0" z="-6" />
+            	<!--<rotate axis= "x" angle="-120"/> -->
+				<scale x="0.5" y = "0.5" z="0.5" />
+            </transformation>
+			
+			<animation>
+				<animationref id="rotAnimation"/>
+				<animationref id="rotAnimation"/>
+			</animation>
+       
+			<materials>
+				<material id="inherit" />
+            </materials>
+                         
+			<texture id="neptuneTexture" />
+
+			<children>
+                <primitiveref id="sphere" />      
+            </children>
+            
+        </component> 
+		
+		<!-- Stars -->
+
+        <component id="Stars">																
+        
+			<transformation>
+			   <translate x="3" y="2" z="3"/>
+			   <scale x="0.8" y="0.8" z="0.8"/>
+			</transformation>
+			
+			<animation>
+				<animationref id="rotAnimation"/>
+				<animationref id="rotAnimation"/>
+			</animation>
+		   
+			<materials>
+				<material id="light" />
+			</materials>
+							 
+			<texture id="sunTexture" />
+
+			<children>
+				<primitiveref id = "sphere" />
+			</children>
+            
+        </component>
+	</components>
+
+</dsx>
