@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea97a6b0-fd5f-417a-a7fc-6cbe11762bd2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reader/MyCircleData.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reader/scenes/game.dsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/MyCircle.js" afterPath="$PROJECT_DIR$/reader/MyCircle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/MySceneGraph.js" afterPath="$PROJECT_DIR$/reader/MySceneGraph.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/XMLscene.js" afterPath="$PROJECT_DIR$/reader/XMLscene.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/main.js" afterPath="$PROJECT_DIR$/reader/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/scenes/game.dsx" afterPath="$PROJECT_DIR$/reader/scenes/game.dsx" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,8 +36,8 @@
       <file leaf-file-name="game.dsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reader/scenes/game.dsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="145" column="30" lean-forward="true" selection-start-line="145" selection-start-column="30" selection-end-line="145" selection-end-column="30" />
+            <state relative-caret-position="444">
+              <caret line="128" column="41" lean-forward="false" selection-start-line="128" selection-start-column="41" selection-end-line="128" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -116,6 +111,7 @@
       <find>translate</find>
       <find>scale</find>
       <find>ROTAR</find>
+      <find>rotate</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -285,15 +281,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1480496270028</updated>
-      <workItem from="1480496271281" duration="4505000" />
+      <workItem from="1480496271281" duration="5427000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4505000" />
+    <option name="totallyTimeSpent" value="5427000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2489019" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -391,8 +387,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reader/scenes/game.dsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="145" column="30" lean-forward="true" selection-start-line="145" selection-start-column="30" selection-end-line="145" selection-end-column="30" />
+        <state relative-caret-position="444">
+          <caret line="128" column="41" lean-forward="false" selection-start-line="128" selection-start-column="41" selection-end-line="128" selection-end-column="41" />
           <folding />
         </state>
       </provider>

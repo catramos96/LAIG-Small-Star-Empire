@@ -40,14 +40,8 @@
     </materials>
 
     <transformations>
-		<transformation id="solarSystemPosition">
-			<translate x="4" y="1.5" z="5" />
-			<scale x="0.5" y = "0.5" z="0.5" />
-        </transformation>
-
-		<transformation id="stickPosition">
-			<translate x="4" y="1.5" z="5" />
-			<rotate axis="x" angle="90"/>
+		<transformation id="boardPosition">
+		     <rotate axis="x" angle="-90"/>
         </transformation>
     </transformations>
 
@@ -57,11 +51,11 @@
         </primitive>
 
         <primitive id="trade">
-            <cylinder base="1" top="1" height="1" slices="6" stacks="5" />
+            <cylinder base="0.3" top="0.3" height="0.3" slices="10" stacks="5" />
         </primitive>
 
         <primitive id="colony">
-            <cylinder base="1" top="0" height="1" slices="6" stacks="5" />
+            <cylinder base="0.3" top="0" height="0.6" slices="10" stacks="5" />
         </primitive>
 
 	   <primitive id="spaceShip">
@@ -97,6 +91,7 @@
 		<component id="board">
 
         	<transformation>
+        	    <transformationref id="boardPosition"/>
         	</transformation>
 
         	<materials>
@@ -112,7 +107,8 @@
 
         <component id="colony">
              <transformation>
-                <translate x="0" y="0" z="10" />
+                <translate x="0" y="0" z="5" />
+                <rotate axis="x" angle="-90"/>
              </transformation>
 
               <materials>
@@ -129,7 +125,8 @@
         <component id="trade">
 
             <transformation>
-                <translate x="10" y="0" z="0" />
+                <translate x="5" y="0" z="0" />
+                <rotate axis="x" angle="-90"/>
             </transformation>
 
             <materials>
@@ -144,7 +141,6 @@
         </component>
 
     <component id="spaceship">
-
         <transformation>
         </transformation>
 
