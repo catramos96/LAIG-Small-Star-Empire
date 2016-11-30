@@ -115,8 +115,8 @@ XMLscene.prototype.initPrimitives = function () {
 		else if(value instanceof MyPatchData){			//aditional primitive
 			this.primitivesInit.set(id,new MyPatch(this, value));
 		}
-		else if(value instanceof MyChessBoardData){		//aditional primitive
-			this.primitivesInit.set(id,new MyChessBoard(this, value));
+		else if(value instanceof NewChessBoardData){		//aditional primitive
+			this.primitivesInit.set(id,new NewChessBoard(this, value));
 		}
 		else if(value instanceof MyVehicleData){		//aditional primitive
 			this.primitivesInit.set(id,new MyVehicle(this));
@@ -307,8 +307,8 @@ XMLscene.prototype.displayComponents = function (component,materials,texture) {
 		{
 			primInit = this.primitivesInit.get(prim.getId());	//objeto com a primitiva  
 		
-			//if MyChessBoard apply the appearance received and bind it
-			if(primInit instanceof MyChessBoard)
+			//if NewChessBoard apply the appearance received and bind it
+			if(primInit instanceof NewChessBoard)
 			{
 				textAppearance = primInit.getTexture().getAppearance();
 				appearance.setTexture(textAppearance);
