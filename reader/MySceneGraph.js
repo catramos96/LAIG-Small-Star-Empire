@@ -742,7 +742,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 
 	var primitive,prim,tagName;
 
-	//Each primitice...
+	//Each primitive...
 	for(var i = 0; i < n_primitives; i++){
 
 		primitive = primitives_elems[0].children[i];
@@ -909,6 +909,10 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 			case "vehicle" : {	//NEW
 				prim = new MyVehicleData(id);
 				break;
+			}
+			case "circle" :{
+                var slices = this.reader.getFloat(primitive.children[0], 'slices');
+				prim = new MyCircleData(id,slices);
 			}
 		}
 

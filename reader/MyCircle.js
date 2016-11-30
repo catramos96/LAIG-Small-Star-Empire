@@ -3,9 +3,9 @@
  * Constroi um circulo com numero de slices decidido pelo utilizador
  * @constructor
  */
-function MyCircle(scene, slices) {
+function MyCircle(scene, data) {
     CGFobject.call(this, scene);
-    this.slices = slices;
+    this.slices = data.getSlices();
     this.initBuffers();
 }
 ;

@@ -121,6 +121,9 @@ XMLscene.prototype.initPrimitives = function () {
 		else if(value instanceof MyVehicleData){		//aditional primitive
 			this.primitivesInit.set(id,new MyVehicle(this));
 		}
+        else if(value instanceof MyCircleData){		//aditional primitive
+            this.primitivesInit.set(id,new MyCircle(this,value));
+        }
 	}
 }
 

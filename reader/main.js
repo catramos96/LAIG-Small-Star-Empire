@@ -45,6 +45,8 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js',
 								'CircularAnimation.js',	//new
 								'MyChessBoardData.js',	//new
 								'MyChessBoard.js',		//new
+								'MyCircle.js',		//new
+								'MyCircleData.js',		//new
 
 main=function()
 {
@@ -65,7 +67,7 @@ main=function()
 
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
-	var filename=getUrlVars()['file'] || "mySolarSystem.dsx";
+	var filename=getUrlVars()['file'] || "game.dsx";
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors

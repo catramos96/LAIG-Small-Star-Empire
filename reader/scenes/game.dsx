@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+
+<dsx>
+
+    <scene root="sceneRoot" axis_length="3" />
+
+    <views default="general" >
+		<perspective id="general" near="0.1" far="500" angle="35">
+            <from x="20" y="15" z="20" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+    </views>
+
+    <illumination doublesided="0" local="1" >
+        <ambient r="0.1" g="0.1" b="0.1" a="1" />
+        <background r="0" g="0" b="0" a="1" />
+    </illumination>
+
+    <lights>
+        <omni id="omni_general" enabled="1" >
+            <location x="15" y="15" z="15" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+    </lights>
+
+    <textures>
+        <texture id="skyTexture" file="../resources/sky.png" length_s="0.4" length_t="0.4" />
+    </textures>
+
+    <materials>
+		<material id="shiny" >
+			<emission r="0" g="0" b="0" a="0" />
+            <ambient r="1" g="1" b="1" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="100" />
+        </material>
+    </materials>
+
+    <transformations>
+		<transformation id="solarSystemPosition">
+			<translate x="4" y="1.5" z="5" />
+			<scale x="0.5" y = "0.5" z="0.5" />
+        </transformation>
+
+		<transformation id="stickPosition">
+			<translate x="4" y="1.5" z="5" />
+			<rotate axis="x" angle="90"/>
+        </transformation>
+    </transformations>
+
+    <primitives>
+        <primitive id="hexagon">
+            <circle slices="6" />
+        </primitive>
+
+        <primitive id="trade">
+            <cylinder base="1" top="1" height="1" slices="6" stacks="5" />
+        </primitive>
+
+        <primitive id="colony">
+            <cylinder base="1" top="0" height="1" slices="6" stacks="5" />
+        </primitive>
+
+	   <primitive id="spaceShip">
+       		<vehicle> </vehicle>
+       </primitive>
+    </primitives>
+
+    <!-- novo bloco de animacao -->
+    <animations>
+        <animation id="rotAnimation" span="6" type="circular" centerx="0" centery="0" centerz="0" radius="0.01" startang="0" rotang="-360" />
+	</animations>
+
+    <components>
+		<component id="sceneRoot">
+
+			<transformation>
+			</transformation>
+
+			<materials>
+				<material id="shiny" />
+			</materials>
+
+			<texture id="none" />
+
+			<children>
+			    <componentref id="board"/>
+                <componentref id="trade"/>
+			    <componentref id="colony"/>
+			    <componentref id="spaceship"/>
+			</children>
+		</component>
+
+		<component id="board">
+
+        	<transformation>
+        	</transformation>
+
+        	<materials>
+        		<material id="shiny" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+                <primitiveref id="hexagon"/>
+        	</children>
+        </component>
+
+        <component id="colony">
+             <transformation>
+                <translate x="0" y="0" z="10" />
+             </transformation>
+
+              <materials>
+                <material id="shiny" />
+              </materials>
+
+               <texture id="none" />
+
+               <children>
+                    <primitiveref id="colony"/>
+               </children>
+        </component>
+
+        <component id="trade">
+
+            <transformation>
+                <translate x="10" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="shiny" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="trade"/>
+            </children>
+        </component>
+
+    <component id="spaceship">
+
+        <transformation>
+            <rotate axis="x" angle="90"/>
+            <scale x="0.2" y = "0.2" z="0.2" />
+        </transformation>
+
+        <materials>
+            <material id="shiny" />
+        </materials>
+
+        <texture id="none" />
+
+         <children>
+            <primitiveref id="spaceShip"/>
+         </children>
+     </component>
+
+   </components>
+</dsx>
