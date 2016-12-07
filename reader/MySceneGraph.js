@@ -875,8 +875,10 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				break;
 			}
 			case "chessboard": {		//NEW
-				var du,dv,su,sv,texture,c = [];
+				var dx,dy,du,dv,su,sv,texture,c = [];
 
+                var dx = this.reader.getFloat(primitive.children[0], 'dx');
+                var dy = this.reader.getFloat(primitive.children[0], 'dy');
 				var du = this.reader.getFloat(primitive.children[0], 'du');
 				var dv = this.reader.getFloat(primitive.children[0], 'dv');
 				var su = this.reader.getFloat(primitive.children[0], 'su');
@@ -903,7 +905,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 							this.reader.getFloat(colors[nc], 'a')));
 				}
 				
-				prim = new MyChessBoardData(id,du,dv,texture,su,sv,c[0],c[1],c[2]);
+				prim = new NewChessBoardData(id,dx,dy,du,dv,texture,su,sv,c[0],c[1],c[2]);
 				break;
 			}
 			case "vehicle" : {
