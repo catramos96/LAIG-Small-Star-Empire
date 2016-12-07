@@ -30,6 +30,8 @@ XMLscene.prototype.init = function (application) {
 	this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE);
 */
 	this.lastTime = -1;		//for update scene
+
+    //this.setPickEnabled(true);
 };
 
 /**
@@ -115,8 +117,9 @@ XMLscene.prototype.initPrimitives = function () {
 		else if(value instanceof MyPatchData){			//aditional primitive
 			this.primitivesInit.set(id,new MyPatch(this, value));
 		}
-		else if(value instanceof NewChessBoardData){		//aditional primitive
-			this.primitivesInit.set(id,new NewChessBoard(this, value));
+		else if(value instanceof AuxiliarBoardData){		//aditional primitive
+            console.log("ENTROU 3");
+			this.primitivesInit.set(id,new AuxiliarBoard(this, value));
 		}
 		else if(value instanceof MyVehicleData){		//aditional primitive
 			this.primitivesInit.set(id,new MyVehicle(this));
@@ -245,6 +248,10 @@ XMLscene.prototype.onGraphLoaded = function () {
  */
 XMLscene.prototype.displayComponents = function (component,materials,texture) {
 
+	//para o picking
+    //this.logPicking();
+	//this.clearPickRegistration();
+
 	this.pushMatrix();
 	
 	//Transformation matrix
@@ -307,15 +314,14 @@ XMLscene.prototype.displayComponents = function (component,materials,texture) {
 		{
 			primInit = this.primitivesInit.get(prim.getId());	//objeto com a primitiva  
 		
-			//if NewChessBoard apply the appearance received and bind it
-			if(primInit instanceof NewChessBoard)
+			//if AuxiliarBoard apply the appearance received and bind it
+			if(primInit instanceof AuxiliarBoard)
 			{
 				textAppearance = primInit.getTexture().getAppearance();
 				appearance.setTexture(textAppearance);
 				appearance.apply();
 				textAppearance.bind(1);
 			}
-			
 			primInit.display();
 	    }
 	}

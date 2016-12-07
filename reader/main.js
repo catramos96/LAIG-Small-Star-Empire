@@ -43,8 +43,8 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js',
 								'Animation.js',			//new
 								'LinearAnimation.js',	//new
 								'CircularAnimation.js',	//new
-								'NewChessBoardData.js',	//new
-								'NewChessBoard.js',		//new
+								'AuxiliarBoardData.js',	//new
+								'AuxiliarBoard.js',		//new
 								'MyCircle.js',		//new
 								'MyCircleData.js',		//new
 

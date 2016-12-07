@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea97a6b0-fd5f-417a-a7fc-6cbe11762bd2" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reader/Colony.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reader/Piece.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reader/Trade.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/MySceneGraph.js" afterPath="$PROJECT_DIR$/reader/MySceneGraph.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/XMLscene.js" afterPath="$PROJECT_DIR$/reader/XMLscene.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/main.js" afterPath="$PROJECT_DIR$/reader/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/scenes/game.dsx" afterPath="$PROJECT_DIR$/reader/scenes/game.dsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/shaders/board.frag" afterPath="$PROJECT_DIR$/reader/shaders/board.frag" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/shaders/board.vert" afterPath="$PROJECT_DIR$/reader/shaders/board.vert" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/reader/NewChessBoard.js" afterPath="$PROJECT_DIR$/reader/AuxiliarBoard.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/reader/NewChessBoardData.js" afterPath="$PROJECT_DIR$/reader/AuxiliarBoardData.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,31 +34,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="game.dsx" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/reader/scenes/game.dsx">
+      <file leaf-file-name="MySceneGraph.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/MySceneGraph.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="146" column="33" lean-forward="false" selection-start-line="146" selection-start-column="33" selection-end-line="146" selection-end-column="33" />
+            <state relative-caret-position="51">
+              <caret line="876" column="45" lean-forward="false" selection-start-line="876" selection-start-column="45" selection-end-line="876" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NewChessBoard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reader/NewChessBoard.js">
+      <file leaf-file-name="AuxiliarBoard.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="22" column="71" lean-forward="false" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="71" />
+            <state relative-caret-position="506">
+              <caret line="41" column="20" lean-forward="false" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NewChessBoardData.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reader/NewChessBoardData.js">
+      <file leaf-file-name="MyTexture.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/MyTexture.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+            <state relative-caret-position="52">
+              <caret line="8" column="48" lean-forward="false" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuxiliarBoardData.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoardData.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-33">
+              <caret line="4" column="33" lean-forward="false" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -57,28 +77,58 @@
       <file leaf-file-name="XMLscene.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="306" column="9" lean-forward="true" selection-start-line="306" selection-start-column="9" selection-end-line="306" selection-end-column="9" />
+            <state relative-caret-position="-565">
+              <caret line="322" column="16" lean-forward="false" selection-start-line="322" selection-start-column="16" selection-end-line="322" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MySceneGraph.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reader/MySceneGraph.js">
+      <file leaf-file-name="board.frag" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/shaders/board.frag">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15419">
-              <caret line="907" column="44" lean-forward="false" selection-start-line="907" selection-start-column="27" selection-end-line="907" selection-end-column="44" />
+            <state relative-caret-position="323">
+              <caret line="19" column="42" lean-forward="false" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="42" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mySolarSystem.dsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reader/scenes/mySolarSystem.dsx">
+      <file leaf-file-name="board.vert" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/shaders/board.vert">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="77" column="104" lean-forward="false" selection-start-line="77" selection-start-column="8" selection-end-line="77" selection-end-column="104" />
+            <state relative-caret-position="357">
+              <caret line="21" column="33" lean-forward="false" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Piece.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/Piece.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Colony.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/Colony.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Trade.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/Trade.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="1" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -86,17 +136,32 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>primitive</find>
       <find>translate</find>
       <find>scale</find>
       <find>ROTAR</find>
-      <find>rotate</find>
       <find>rota</find>
       <find>chess</find>
       <find>MyChessBoard</find>
       <find>auxBoard</find>
+      <find>rotate</find>
+      <find>newchess</find>
+      <find>aux</find>
+      <find>my</find>
+      <find>auxiliar</find>
+      <find>auxil</find>
+      <find>AuxiliarBoard</find>
+      <find>tex</find>
+      <find>bind</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -110,12 +175,20 @@
         <option value="$PROJECT_DIR$/reader/MyCircleData.js" />
         <option value="$PROJECT_DIR$/reader/MyChessBoardData.js" />
         <option value="$PROJECT_DIR$/reader/MyChessBoard.js" />
-        <option value="$PROJECT_DIR$/reader/MySceneGraph.js" />
-        <option value="$PROJECT_DIR$/reader/XMLscene.js" />
-        <option value="$PROJECT_DIR$/reader/main.js" />
         <option value="$PROJECT_DIR$/reader/NewChessBoardData.js" />
         <option value="$PROJECT_DIR$/reader/NewChessBoard.js" />
+        <option value="$PROJECT_DIR$/reader/Piece.js" />
+        <option value="$PROJECT_DIR$/reader/Colony.js" />
+        <option value="$PROJECT_DIR$/reader/shaders/board.frag" />
+        <option value="$PROJECT_DIR$/reader/shaders/board.vert" />
+        <option value="$PROJECT_DIR$/reader/Trade.js" />
         <option value="$PROJECT_DIR$/reader/scenes/game.dsx" />
+        <option value="$PROJECT_DIR$/reader/main.js" />
+        <option value="$PROJECT_DIR$/reader/XMLscene.js" />
+        <option value="$PROJECT_DIR$/reader/MySceneGraph.js" />
+        <option value="$PROJECT_DIR$/reader/AuxiliarBoardData.js" />
+        <option value="$PROJECT_DIR$/reader/MyTexture.js" />
+        <option value="$PROJECT_DIR$/reader/AuxiliarBoard.js" />
       </list>
     </option>
   </component>
@@ -156,6 +229,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="trabalho3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trabalho3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trabalho3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reader" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -248,33 +335,33 @@
       <workItem from="1480516913496" duration="7000" />
       <workItem from="1480522394826" duration="357000" />
       <workItem from="1480586696344" duration="72000" />
-      <workItem from="1481101677291" duration="2629000" />
+      <workItem from="1481101677291" duration="6154000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11442000" />
+    <option name="totallyTimeSpent" value="14967000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2489019" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,7 +383,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/NewChessBoard.js">
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="22" column="71" lean-forward="false" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="71" />
@@ -304,7 +391,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/NewChessBoardData.js">
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoardData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
           <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
@@ -344,7 +431,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/NewChessBoard.js">
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="71" lean-forward="false" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="71" />
@@ -352,7 +439,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/NewChessBoardData.js">
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoardData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
           <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
@@ -392,7 +479,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/NewChessBoard.js">
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="71" lean-forward="false" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="71" />
@@ -400,7 +487,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/NewChessBoardData.js">
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoardData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
           <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
@@ -440,7 +527,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/NewChessBoard.js">
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="71" lean-forward="true" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="71" />
@@ -448,7 +535,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/NewChessBoardData.js">
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoardData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
           <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
@@ -508,30 +595,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="46" column="36" lean-forward="false" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reader/MySceneGraph.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15419">
-          <caret line="907" column="44" lean-forward="false" selection-start-line="907" selection-start-column="27" selection-end-line="907" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reader/NewChessBoardData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reader/NewChessBoard.js">
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="22" column="71" lean-forward="false" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="71" />
@@ -547,18 +611,98 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
+    <entry file="file://$PROJECT_DIR$/reader/Piece.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="306" column="9" lean-forward="true" selection-start-line="306" selection-start-column="9" selection-end-line="306" selection-end-column="9" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/Colony.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/Trade.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="1" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reader/scenes/game.dsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="146" column="33" lean-forward="false" selection-start-line="146" selection-start-column="33" selection-end-line="146" selection-end-column="33" />
+        <state relative-caret-position="-559">
+          <caret line="148" column="45" lean-forward="false" selection-start-line="148" selection-start-column="45" selection-end-line="148" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="46" column="34" lean-forward="false" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/MyTexture.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="8" column="48" lean-forward="false" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoardData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-33">
+          <caret line="4" column="33" lean-forward="false" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-565">
+          <caret line="322" column="16" lean-forward="false" selection-start-line="322" selection-start-column="16" selection-end-line="322" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/shaders/board.vert">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="33" lean-forward="false" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/shaders/board.frag">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="42" lean-forward="false" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/MySceneGraph.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="876" column="45" lean-forward="false" selection-start-line="876" selection-start-column="45" selection-end-line="876" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="41" column="20" lean-forward="false" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
           <folding />
         </state>
       </provider>

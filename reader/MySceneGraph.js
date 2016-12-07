@@ -874,41 +874,11 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				prim = new MyPatchData(id,pU,pV,oU,oV,controlPointsTotal);	
 				break;
 			}
-			case "chessboard": {		//NEW
-				var dx,dy,du,dv,su,sv,texture,c = [];
-
-                var dx = this.reader.getFloat(primitive.children[0], 'dx');
-                var dy = this.reader.getFloat(primitive.children[0], 'dy');
-				var du = this.reader.getFloat(primitive.children[0], 'du');
-				var dv = this.reader.getFloat(primitive.children[0], 'dv');
-				var su = this.reader.getFloat(primitive.children[0], 'su');
-				var sv = this.reader.getFloat(primitive.children[0], 'sv');
-				var t = this.reader.getString(primitive.children[0], 'textureref');
-				var texture;
-
-				//If the texture id doesn't exists (can be an error, "inherit" or "none")
-				if(!this.texturesList.has(t))
-					return "Texture does not exist for chessboard";
-				else
-					texture = this.texturesList.get(t);
-
-				var colors = primitive.children[0].children;
-				var nc = 0;
-
-				if(colors.length != 3)
-					return "Wrong number of colors on chessboard";
-
-				for(nc = 0; nc < colors.length; nc++){
-					c.push(new MyColor(this.reader.getFloat(colors[nc], 'r'),
-							this.reader.getFloat(colors[nc], 'g'),
-							this.reader.getFloat(colors[nc], 'b'),
-							this.reader.getFloat(colors[nc], 'a')));
-				}
-				
-				prim = new NewChessBoardData(id,dx,dy,du,dv,texture,su,sv,c[0],c[1],c[2]);
+			case "auxiliarBoard": {		//NEW
+				prim = new AuxiliarBoardData(id);
 				break;
 			}
-			case "vehicle" : {	//NEW
+			case "ship" : {
 				prim = new MyVehicleData(id);
 				break;
 			}

@@ -15,17 +15,11 @@ varying vec4 coords;
 
 uniform float du;
 uniform float dv;
-uniform float su;
-uniform float sv;
+
 
 void main() {
 
 	coords = vec4(aVertexPosition, 1.0);
-
-	if((aTextureCoord.s >=(su/du) &&  aTextureCoord.s <=(su+1.0)/du) && 
-		(aTextureCoord.t>=(sv/dv) &&  aTextureCoord.t <=(sv+1.0)/dv) && 
-		su != -1.0 && sv != -1.0)
-	  		coords.z = 0.03;
 
 	gl_Position = uPMatrix * uMVMatrix * coords;
 
