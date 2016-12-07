@@ -1,8 +1,7 @@
 /*
-Class NewChessBoard
-Modification of MyChessBoard where you can choose your planeDimensions
+Class MyChessBoard
 */
-function NewChessBoard(scene, data) {
+function MyChessBoard(scene, data) {
      CGFobject.call(this,scene);
 
 	this.scene = scene;
@@ -15,12 +14,9 @@ function NewChessBoard(scene, data) {
 	this.c2 = data.getC2();					//cor secundaria
 	this.c3 = data.getC3();					//cor de peão selecionada
 
-	this.dX = data.getDX();
-	this.dY = data.getDY();
-
 	//composition
 	// x5 para um maior desnivel entre as celulas do tabuleiro
-	this.plane = new MyPlane(this.scene,new MyPlaneData("plane",this.dX,this.dY,this.dU*5,this.dV*5));
+	this.plane = new MyPlane(this.scene,new MyPlaneData("plane",1.0,1.0,this.dU*5,this.dV*5));
 	
 	//shader
 	this.shader = new CGFshader(this.scene.gl, "shaders/board.vert", "shaders/board.frag");
@@ -39,16 +35,16 @@ function NewChessBoard(scene, data) {
 	console.log(this.shader.getUniformsValues());
  }
 
+ 
+ MyChessBoard.prototype = Object.create(CGFobject.prototype);
+ MyChessBoard.prototype.constructor = MyChessBoard;
 
-NewChessBoard.prototype = Object.create(CGFobject.prototype);
-NewChessBoard.prototype.constructor = NewChessBoard;
 
-
-NewChessBoard.prototype.getTexture= function() {
+ MyChessBoard.prototype.getTexture= function() {
 		return this.texture;
   };
 
-NewChessBoard.prototype.display= function() {
+  MyChessBoard.prototype.display= function() {
   	this.scene.setActiveShader(this.shader);				//shader
 	this.plane.display();
 	this.scene.setActiveShader(this.scene.defaultShader);	//default shader
