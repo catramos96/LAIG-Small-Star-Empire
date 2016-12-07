@@ -68,24 +68,20 @@
     </transformations>
 
     <primitives>
-        <primitive id="hexagon">
-            <circle slices="6" />
-        </primitive>
-
-        <primitive id="trade">
-            <cylinder base="0.4" top="0.4" height="0.8" slices="10" stacks="5" />
-        </primitive>
-
-        <primitive id="colony">
-            <cylinder base="0.4" top="0" height="0.8" slices="10" stacks="5" />
-        </primitive>
-
        <primitive id="auxBoard">
             <auxiliarBoard></auxiliarBoard>
        </primitive>
 
 	   <primitive id="ship">
        		<ship> </ship>
+       </primitive>
+	   
+	   <primitive id="trade">
+       		<trade> </trade>
+       </primitive>
+	   
+	   <primitive id="colony">
+       		<colony> </colony>
        </primitive>
     </primitives>
 
@@ -107,14 +103,7 @@
 			<texture id="none" />
 
 			<children>
-			   <!-- <componentref id="board"/> -->
 			    <componentref id="AuxRedBoard"/>
-				<!--   
-				<componentref id="AuxBlueBoard"/>
-			    <componentref id="trade"/>
-			    <componentref id="colony"/>
-			    <componentref id="ship"/>
-			    -->
 			</children>
 		</component>
 
@@ -131,27 +120,58 @@
 
         	<children>
                 <primitiveref id="auxBoard"/>
+				<componentref id="trade"/>
+			    <componentref id="colony"/>
+			    <componentref id="ship"/>
         	</children>
         </component>
+		
+		<component id="ship">
+			<transformation>
+			</transformation>
 
-		<component id="AuxBlueBoard">
-        	<transformation>
-        	    <transformationref id="boardPositionLeft"/>
-        	</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
 
-        	<materials>
-        		<material id="red" />
-        	</materials>
+			<texture id="none" />
 
-        	<texture id="none" />
+			<children>
+				<primitiveref id="ship"/>
+			</children>
+		</component>
 
-        	<children>
-                <primitiveref id="auxBoard"/>
-                <componentref id="colonies"/>
-             <!--   <componentref id="trades"/>
-                <componentref id="ships"/>  -->
-        	</children>
-        </component>
+		<component id="trade">
+			<transformation>
+				<translate x="2" y="0" z="0"/>
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+
+			<texture id="none" />
+
+			<children>
+				<primitiveref id="trade"/>
+			</children>
+		</component>
+		
+		<component id="colony">
+			<transformation>
+				<translate x="4" y="0" z="0"/>
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+
+			<texture id="none" />
+
+			<children>
+				<primitiveref id="colony"/>
+			</children>
+		</component>		
 
         <component id="colonies">
         	<transformation>
@@ -225,39 +245,5 @@
                     <primitiveref id="colony"/>
                </children>
         </component>
-
-        <component id="trade">
-
-            <transformation>
-                <translate x="5" y="0" z="0" />
-                <rotate axis="x" angle="-90"/>
-            </transformation>
-
-            <materials>
-                <material id="shiny" />
-            </materials>
-
-            <texture id="none" />
-
-            <children>
-                <primitiveref id="trade"/>
-            </children>
-        </component>
-
-    <component id="ship">
-        <transformation>
-        </transformation>
-
-        <materials>
-            <material id="shiny" />
-        </materials>
-
-        <texture id="none" />
-
-         <children>
-            <primitiveref id="ship"/>
-         </children>
-     </component>
-
    </components>
 </dsx>

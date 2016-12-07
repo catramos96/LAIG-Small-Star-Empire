@@ -14,6 +14,9 @@ function AuxiliarBoard(scene, data) {
 	this.dX = data.getDX();
 	this.dY = data.getDY();
 
+    this.text = new MyTexture("auxBoard","../resources/sun.jpg",1,1);
+    this.text.init(this.scene);
+
 	//composition
 	// x5 para um maior desnivel entre as celulas do tabuleiro
 	this.plane = new MyPlane(this.scene,new MyPlaneData("plane",this.dX,this.dY,this.dU*5,this.dV*5));
@@ -24,9 +27,12 @@ function AuxiliarBoard(scene, data) {
 	this.shader.setUniformsValues({uSampler: 1});
 	this.shader.setUniformsValues({du: this.dU});
 	this.shader.setUniformsValues({dv: this.dV});
+	this.shader.setUniformsValues({su: 1});
+	this.shader.setUniformsValues({sv: 1});
 
 	this.shader.setUniformsValues({c1: [this.c1.getR(),this.c1.getG(),this.c1.getB(),this.c1.getA()]});	//vec4
 	this.shader.setUniformsValues({c2: [this.c2.getR(),this.c2.getG(),this.c2.getB(),this.c2.getA()]});	//vec4
+	this.shader.setUniformsValues({c3: [this.c2.getR(),this.c2.getG(),this.c2.getB(),this.c2.getA()]});	//vec4
 
 	console.log(this.shader.getUniformsValues());
  }
@@ -37,9 +43,7 @@ AuxiliarBoard.prototype.constructor = AuxiliarBoard;
 
 
 AuxiliarBoard.prototype.getTexture= function() {
-		var text = new MyTexture("auxBoard","../resources/marmore.jpg",1,1);
-		text.init(this.scene);
-		return text;
+		return this.text;
   };
 
 AuxiliarBoard.prototype.display= function() {

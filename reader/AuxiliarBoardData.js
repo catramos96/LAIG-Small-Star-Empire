@@ -9,8 +9,8 @@
      this.dV = 3;            //v dimensions
      this.dX = 8;
      this.dY = 3;
-     this.c1 = new MyColor(0,0,0,0);           //primary color
-     this.c2 = new MyColor(1,1,1,0);           //secondary color
+     this.c1 = new MyColor(0.3,0.3,0.3,0);           //primary color
+     this.c2 = new MyColor(0.8,0.8,0.8,0);           //secondary color
  }
 
 AuxiliarBoardData.prototype = new MyPrimitive(this.id);

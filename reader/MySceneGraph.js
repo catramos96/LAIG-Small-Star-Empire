@@ -874,18 +874,26 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				prim = new MyPatchData(id,pU,pV,oU,oV,controlPointsTotal);	
 				break;
 			}
+            case "circle" :{
+                var slices = this.reader.getFloat(primitive.children[0], 'slices');
+                prim = new MyCircleData(id,slices);
+            }
 			case "auxiliarBoard": {		//NEW
 				prim = new AuxiliarBoardData(id);
 				break;
 			}
 			case "ship" : {
-				prim = new MyVehicleData(id);
+				prim = new ShipData(id);
 				break;
 			}
-			case "circle" :{
-                var slices = this.reader.getFloat(primitive.children[0], 'slices');
-				prim = new MyCircleData(id,slices);
-			}
+            case "trade" : {
+                prim = new TradeData(id);
+                break;
+            }
+            case "colony" : {
+                prim = new ColonyData(id);
+                break;
+            }
 		}
 
 		this.primitivesList.set(id,prim);

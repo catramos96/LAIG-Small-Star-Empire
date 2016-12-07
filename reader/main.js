@@ -34,19 +34,25 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js',
 								'MySphereData.js',
 								'MyTorusData.js',
 								'MyInterface.js',
-								'MyPlane.js',			//new
-								'MyPatch.js',			//new
-								'MyVehicle.js',			//new
-								'MyPlaneData.js',		//new
-								'MyPatchData.js',		//new
-								'MyVehicleData.js',		//new
-								'Animation.js',			//new
-								'LinearAnimation.js',	//new
-								'CircularAnimation.js',	//new
-								'AuxiliarBoardData.js',	//new
-								'AuxiliarBoard.js',		//new
-								'MyCircle.js',		//new
-								'MyCircleData.js',		//new
+								'MyPlane.js',
+								'MyPatch.js',
+								'MyVehicle.js',
+								'MyPlaneData.js',
+								'MyPatchData.js',
+								'Animation.js',
+								'LinearAnimation.js',
+								'CircularAnimation.js',
+								'AuxiliarBoardData.js',
+								'AuxiliarBoard.js',
+								'MyCircle.js',
+								'MyCircleData.js',
+								'Piece.js',
+								'Colony.js',
+								'ColonyData.js',
+								'Trade.js',
+								'TradeData.js',
+								'Ship.js',
+								'ShipData.js',
 
 main=function()
 {

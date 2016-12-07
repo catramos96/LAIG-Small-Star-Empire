@@ -101,10 +101,13 @@ XMLscene.prototype.initPrimitives = function () {
 	this.primitivesInit = new Map();
 	
 	for (var [id, value] of this.graph.primitivesList) 
-	{	
+	{
 		if(value instanceof MyCylinderData){
 			this.primitivesInit.set(id,new MyCylinder(this, value));
 		}
+        else if(value instanceof MyCircleData){		//aditional primitive
+            this.primitivesInit.set(id,new MyCircle(this,value));
+        }
 		else if(value instanceof MySphereData){
 			this.primitivesInit.set(id,new MySphere(this, value));
 		}
@@ -114,18 +117,20 @@ XMLscene.prototype.initPrimitives = function () {
 		else if(value instanceof MyPlaneData){			//aditional primitive
 			this.primitivesInit.set(id,new MyPlane(this, value));
 		}
-		else if(value instanceof MyPatchData){			//aditional primitive
-			this.primitivesInit.set(id,new MyPatch(this, value));
-		}
+		else if(value instanceof MyPatchData) {			//aditional primitive
+            this.primitivesInit.set(id, new MyPatch(this, value));
+        }
 		else if(value instanceof AuxiliarBoardData){		//aditional primitive
-            console.log("ENTROU 3");
 			this.primitivesInit.set(id,new AuxiliarBoard(this, value));
 		}
-		else if(value instanceof MyVehicleData){		//aditional primitive
-			this.primitivesInit.set(id,new MyVehicle(this));
+		else if(value instanceof TradeData){
+			this.primitivesInit.set(id,new Trade(this,value));
 		}
-        else if(value instanceof MyCircleData){		//aditional primitive
-            this.primitivesInit.set(id,new MyCircle(this,value));
+        else if(value instanceof ColonyData){
+            this.primitivesInit.set(id,new Colony(this,value));
+        }
+        else if(value instanceof ShipData){
+            this.primitivesInit.set(id,new Ship(this,value));
         }
 	}
 }
