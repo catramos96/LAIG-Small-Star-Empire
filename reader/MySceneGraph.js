@@ -894,6 +894,10 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
                 prim = new ColonyData(id);
                 break;
             }
+			case "gameBoard" : {	//NEW
+				prim = new MyGameBoardData(id);
+				break;
+			}
 		}
 
 		this.primitivesList.set(id,prim);

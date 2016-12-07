@@ -53,6 +53,9 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js',
 								'TradeData.js',
 								'Ship.js',
 								'ShipData.js',
+								'MyGameBoardData.js',	//new
+								'MyGameBoard.js',		//new
+								'MyCell.js',			//new
 
 main=function()
 {

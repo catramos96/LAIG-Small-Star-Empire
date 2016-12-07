@@ -26,7 +26,7 @@
     </lights>
 
     <textures>
-       <texture id="marmoreTexture" file="../resources/marmore.jpg" length_s="0.4" length_t="0.4" />
+        <texture id="skyTexture" file="../resources/sky.png" length_s="0.4" length_t="0.4" />
     </textures>
 
     <materials>
@@ -83,6 +83,14 @@
 	   <primitive id="colony">
        		<colony> </colony>
        </primitive>
+
+    	<primitive id="gameBoard">
+    		<gameBoard />
+    	</primitive>
+
+	   <primitive id="spaceShip">
+       		<vehicle> </vehicle>
+       </primitive>
     </primitives>
 
     <!-- novo bloco de animacao -->
@@ -104,8 +112,24 @@
 
 			<children>
 			    <componentref id="AuxRedBoard"/>
+			    <componentref id="Board"/>
 			</children>
 		</component>
+		
+		<component id="Board">
+        	<transformation>
+        	</transformation>
+
+        	<materials>
+        		<material id="red" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+			    <primitiveref id="gameBoard"/>
+        	</children>
+        </component>
 
 		<component id="AuxRedBoard">
         	<transformation>

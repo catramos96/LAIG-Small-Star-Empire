@@ -117,12 +117,12 @@ XMLscene.prototype.initPrimitives = function () {
 		else if(value instanceof MyPlaneData){			//aditional primitive
 			this.primitivesInit.set(id,new MyPlane(this, value));
 		}
-		else if(value instanceof MyPatchData) {			//aditional primitive
-            this.primitivesInit.set(id, new MyPatch(this, value));
+        else if(value instanceof MyPatchData){			//aditional primitive
+            this.primitivesInit.set(id,new MyPatch(this, value));
         }
-		else if(value instanceof AuxiliarBoardData){		//aditional primitive
-			this.primitivesInit.set(id,new AuxiliarBoard(this, value));
-		}
+		else if(value instanceof AuxiliarBoardData) {		//aditional primitive
+            this.primitivesInit.set(id, new AuxiliarBoard(this, value));
+        }
 		else if(value instanceof TradeData){
 			this.primitivesInit.set(id,new Trade(this,value));
 		}
@@ -132,6 +132,9 @@ XMLscene.prototype.initPrimitives = function () {
         else if(value instanceof ShipData){
             this.primitivesInit.set(id,new Ship(this,value));
         }
+        else if(value instanceof MyGameBoardData){		//aditional primitive
+			this.primitivesInit.set(id,new MyGameBoard(this));
+		}
 	}
 }
 
@@ -318,7 +321,7 @@ XMLscene.prototype.displayComponents = function (component,materials,texture) {
 	    else if(this.primitivesInit.has(prim.getId()))
 		{
 			primInit = this.primitivesInit.get(prim.getId());	//objeto com a primitiva  
-		
+
 			//if AuxiliarBoard apply the appearance received and bind it
 			if(primInit instanceof AuxiliarBoard)
 			{

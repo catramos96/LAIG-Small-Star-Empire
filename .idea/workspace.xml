@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea97a6b0-fd5f-417a-a7fc-6cbe11762bd2" name="Default" comment="">
+<<<<<<< HEAD
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reader/ColonyData.js" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reader/Ship.js" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reader/TradeData.js" />
@@ -18,6 +19,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/shaders/board.frag" afterPath="$PROJECT_DIR$/reader/shaders/board.frag" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/shaders/board.vert" afterPath="$PROJECT_DIR$/reader/shaders/board.vert" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/reader/MyVehicleData.js" afterPath="$PROJECT_DIR$/reader/ShipData.js" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/scenes/game.dsx" afterPath="$PROJECT_DIR$/reader/scenes/game.dsx" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,32 +41,84 @@
     <favorites_list name="trabalho3" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="AuxiliarBoard.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoard.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="518">
               <caret line="52" column="4" lean-forward="true" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="4" />
+=======
+    <leaf>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="7" lean-forward="true" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="XMLscene.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
+      <file leaf-file-name="game.dsx" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/reader/scenes/game.dsx">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="444">
+              <caret line="128" column="41" lean-forward="false" selection-start-line="128" selection-start-column="41" selection-end-line="128" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="293">
+              <caret line="69" column="46" lean-forward="false" selection-start-line="69" selection-start-column="46" selection-end-line="69" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MySceneGraph.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/MySceneGraph.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="914" column="39" lean-forward="false" selection-start-line="914" selection-start-column="27" selection-end-line="914" selection-end-column="39" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyCircle.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/MyCircle.js">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="350">
               <caret line="322" column="48" lean-forward="false" selection-start-line="322" selection-start-column="35" selection-end-line="322" selection-end-column="48" />
+=======
+            <state relative-caret-position="85">
+              <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="29" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="board.frag" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reader/shaders/board.frag">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="544">
               <caret line="32" column="1" lean-forward="false" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+=======
+      <file leaf-file-name="MyCircleData.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/MyCircleData.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="12" lean-forward="false" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
               <folding />
             </state>
           </provider>
@@ -71,8 +127,23 @@
       <file leaf-file-name="AuxiliarBoardData.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoardData.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="134">
               <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+=======
+            <state relative-caret-position="294">
+              <caret line="328" column="46" lean-forward="true" selection-start-line="328" selection-start-column="16" selection-end-line="328" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XMLscene.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2108">
+              <caret line="124" column="31" lean-forward="false" selection-start-line="124" selection-start-column="17" selection-end-line="124" selection-end-column="31" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
               <folding />
             </state>
           </provider>
@@ -93,6 +164,7 @@
       <find>translate</find>
       <find>scale</find>
       <find>ROTAR</find>
+<<<<<<< HEAD
       <find>rota</find>
       <find>chess</find>
       <find>MyChessBoard</find>
@@ -107,6 +179,9 @@
       <find>bind</find>
       <find>tex</find>
       <find>dis</find>
+=======
+      <find>rotate</find>
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -117,6 +192,7 @@
       <list>
         <option value="$PROJECT_DIR$/reader/MyCircle.js" />
         <option value="$PROJECT_DIR$/reader/MyCircleData" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/reader/MyCircleData.js" />
         <option value="$PROJECT_DIR$/reader/MyChessBoardData.js" />
         <option value="$PROJECT_DIR$/reader/MyChessBoard.js" />
@@ -139,6 +215,13 @@
         <option value="$PROJECT_DIR$/reader/Ship.js" />
         <option value="$PROJECT_DIR$/reader/AuxiliarBoard.js" />
         <option value="$PROJECT_DIR$/reader/AuxiliarBoardData.js" />
+=======
+        <option value="$PROJECT_DIR$/reader/XMLscene.js" />
+        <option value="$PROJECT_DIR$/reader/main.js" />
+        <option value="$PROJECT_DIR$/reader/MySceneGraph.js" />
+        <option value="$PROJECT_DIR$/reader/MyCircleData.js" />
+        <option value="$PROJECT_DIR$/reader/scenes/game.dsx" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
       </list>
     </option>
   </component>
@@ -281,6 +364,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1480496270028</updated>
+<<<<<<< HEAD
       <workItem from="1480496271281" duration="8377000" />
       <workItem from="1480516913496" duration="7000" />
       <workItem from="1480522394826" duration="357000" />
@@ -288,11 +372,18 @@
       <workItem from="1481101677291" duration="8417000" />
       <workItem from="1481110514891" duration="2157000" />
       <workItem from="1481112831732" duration="597000" />
+=======
+      <workItem from="1480496271281" duration="5427000" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="19984000" />
+=======
+    <option name="totallyTimeSpent" value="5427000" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
@@ -495,16 +586,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/MyCircleData.js">
+    <entry file="file://$PROJECT_DIR$/reader/scenes/mySolarSystem.dsx">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="238">
           <caret line="14" column="12" lean-forward="false" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+=======
+        <state relative-caret-position="294">
+          <caret line="328" column="46" lean-forward="true" selection-start-line="328" selection-start-column="16" selection-end-line="328" selection-end-column="46" />
+          <folding />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reader/MyCircle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-271">
+        <state relative-caret-position="85">
           <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="29" />
         </state>
       </provider>
@@ -524,8 +621,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/scenes/mySolarSystem.dsx">
+    <entry file="file://$PROJECT_DIR$/reader/main.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="572">
           <caret line="77" column="104" lean-forward="false" selection-start-line="77" selection-start-column="8" selection-end-line="77" selection-end-column="104" />
         </state>
@@ -549,10 +647,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="66" />
+=======
+        <state relative-caret-position="293">
+          <caret line="69" column="46" lean-forward="false" selection-start-line="69" selection-start-column="46" selection-end-line="69" selection-end-column="46" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/reader/MyCylinder.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -669,42 +772,71 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="448">
           <caret line="54" column="41" lean-forward="false" selection-start-line="54" selection-start-column="41" selection-end-line="54" selection-end-column="41" />
+=======
+    <entry file="file://$PROJECT_DIR$/reader/MyCircleData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="12" lean-forward="false" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reader/shaders/board.vert">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="341">
           <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+=======
+        <state relative-caret-position="84">
+          <caret line="914" column="39" lean-forward="false" selection-start-line="914" selection-start-column="27" selection-end-line="914" selection-end-column="39" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoardData.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="134">
           <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+=======
+        <state relative-caret-position="2108">
+          <caret line="124" column="31" lean-forward="false" selection-start-line="124" selection-start-column="17" selection-end-line="124" selection-end-column="31" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/reader/shaders/board.frag">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
           <caret line="32" column="1" lean-forward="false" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+=======
+    <entry file="file://$PROJECT_DIR$/reader/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="7" lean-forward="true" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="350">
           <caret line="322" column="48" lean-forward="false" selection-start-line="322" selection-start-column="35" selection-end-line="322" selection-end-column="48" />
+=======
+        <state relative-caret-position="444">
+          <caret line="128" column="41" lean-forward="false" selection-start-line="128" selection-start-column="41" selection-end-line="128" selection-end-column="41" />
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/reader/AuxiliarBoard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
@@ -713,5 +845,7 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> 8ef8b6e4e8935cf9c78c1c1dbee4a14cf43a47d8
   </component>
 </project>
