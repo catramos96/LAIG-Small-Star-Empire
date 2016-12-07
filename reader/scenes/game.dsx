@@ -46,9 +46,9 @@
     </transformations>
 
     <primitives>
-        <primitive id="hexagon">
-            <circle slices="6" />
-        </primitive>
+    	<primitive id="gameBoard">
+    		<gameBoard />
+    	</primitive>
 
         <primitive id="trade">
             <cylinder base="0.3" top="0.3" height="0.3" slices="10" stacks="5" />
@@ -81,17 +81,16 @@
 			<texture id="none" />
 
 			<children>
-			    <componentref id="board"/>
+			    <componentref id="gameBoard"/>
                 <componentref id="trade"/>
 			    <componentref id="colony"/>
 			    <componentref id="spaceship"/>
 			</children>
 		</component>
 
-		<component id="board">
+		<component id="gameBoard">
 
         	<transformation>
-        	    <transformationref id="boardPosition"/>
         	</transformation>
 
         	<materials>
@@ -101,7 +100,7 @@
         	<texture id="none" />
 
         	<children>
-                <primitiveref id="hexagon"/>
+                <primitiveref id="gameBoard"/>
         	</children>
         </component>
 

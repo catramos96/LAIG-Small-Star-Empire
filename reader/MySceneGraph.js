@@ -906,13 +906,13 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				prim = new MyChessBoardData(id,du,dv,texture,su,sv,c[0],c[1],c[2]);
 				break;
 			}
-			case "vehicle" : {	//NEW
+			case "vehicle" : {
 				prim = new MyVehicleData(id);
 				break;
 			}
-			case "circle" :{
-                var slices = this.reader.getFloat(primitive.children[0], 'slices');
-				prim = new MyCircleData(id,slices);
+			case "gameBoard" : {	//NEW
+				prim = new MyGameBoardData(id);
+				break;
 			}
 		}
 
