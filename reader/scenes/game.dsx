@@ -54,8 +54,16 @@
     </materials>
 
     <transformations>
-		<transformation id="boardPosition">
-		     <rotate axis="x" angle="-90"/>
+		<transformation id="boardPositionRight">
+		    <translate x="5" y="0" z="0"/>
+		    <rotate axis="y" angle="90"/>
+		    <rotate axis="x" angle="-90"/>
+        </transformation>
+
+		<transformation id="boardPositionLeft">
+		    <translate x="-5" y="0" z="0"/>
+		    <rotate axis="y" angle="90"/>
+		    <rotate axis="x" angle="-90"/>
         </transformation>
     </transformations>
 
@@ -103,21 +111,24 @@
 			<texture id="none" />
 
 			<children>
-			    <componentref id="board"/>
-                <componentref id="trade"/>
+			   <!-- <componentref id="board"/> -->
+			    <componentref id="AuxRedBoard"/>
+			    <componentref id="AuxBlueBoard"/>
+			    <!--
+			    <componentref id="trade"/>
 			    <componentref id="colony"/>
 			    <componentref id="spaceship"/>
+			    -->
 			</children>
 		</component>
 
-		<component id="board">
-
+		<component id="AuxRedBoard">
         	<transformation>
-        	    <transformationref id="boardPosition"/>
+        	    <transformationref id="boardPositionRight"/>
         	</transformation>
 
         	<materials>
-        		<material id="shiny" />
+        		<material id="red" />
         	</materials>
 
         	<texture id="none" />
@@ -127,10 +138,85 @@
         	</children>
         </component>
 
-        <component id="colony">
+		<component id="AuxBlueBoard">
+        	<transformation>
+        	    <transformationref id="boardPositionLeft"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="red" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+                <primitiveref id="auxBoard"/>
+                <componentref id="colonies"/>
+             <!--   <componentref id="trades"/>
+                <componentref id="ships"/>  -->
+        	</children>
+        </component>
+
+        <component id="colonies">
+        	<transformation>
+        	    <transformationref id="boardPositionLeft"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+                <componentref id="colonyR1"/>
+                <componentref id="colonyR2"/>
+            <!--     <componentref id="colony3"/>
+                <componentref id="colony4"/>
+                <componentref id="colony5"/>
+                <componentref id="colony6"/>
+                <componentref id="colony7"/>
+                <componentref id="colony8"/>
+                <componentref id="colony9"/>
+                <componentref id="colony10"/>
+                <componentref id="colony11"/>
+                <componentref id="colony12"/>
+                <componentref id="colony13"/>
+                <componentref id="colony14"/>
+                <componentref id="colony15"/>
+                <componentref id="colony16"/>
+                <componentref id="trade1"/>
+                <componentref id="trade2"/>
+                <componentref id="trade3"/>
+                <componentref id="trade4"/>
+                <componentref id="ship1"/>
+                <componentref id="ship2"/>
+                <componentref id="ship3"/>
+                <componentref id="ship4"/> -->
+        	</children>
+        </component>
+
+        <component id="colonyR1">
              <transformation>
-                <translate x="0" y="0" z="5" />
-                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="-1.5" z="1" />
+                <rotate axis="y" angle="-90"/>
+             </transformation>
+
+              <materials>
+                <material id="shiny" />
+              </materials>
+
+               <texture id="none" />
+
+               <children>
+                    <primitiveref id="colony"/>
+               </children>
+        </component>
+
+        <component id="colonyR2">
+             <transformation>
+                <translate x="0" y="-2.5" z="1" />
+                <rotate axis="y" angle="-90"/>
              </transformation>
 
               <materials>
