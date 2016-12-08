@@ -42,6 +42,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js',
 								'Animation.js',
 								'LinearAnimation.js',
 								'CircularAnimation.js',
+								'EllipticalAnimation.js',
 								'AuxiliarBoardData.js',
 								'AuxiliarBoard.js',
 								'MyCircle.js',
@@ -53,9 +54,9 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js',
 								'TradeData.js',
 								'Ship.js',
 								'ShipData.js',
-								'MyGameBoardData.js',	//new
-								'MyGameBoard.js',		//new
-								'MyCell.js',			//new
+								'MyGameBoardData.js',
+								'MyGameBoard.js',
+								'MyCell.js',
 
 main=function()
 {

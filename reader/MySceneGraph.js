@@ -975,6 +975,18 @@ MySceneGraph.prototype.parseAnimations = function(rootElement) {
 				anim = new CircularAnimation(id,deltaT,tempPoint,r,sAng,rAng);
 				break;
 			}
+			case "elliptical":
+			{
+                var rx = this.reader.getFloat(animation, 'radiusx');
+                var rz = this.reader.getFloat(animation, 'radiusz');
+                var sAng = this.reader.getFloat(animation, 'startang');
+                var rAng = this.reader.getFloat(animation, 'rotang');
+                var tempPoint = new MyPoint(this.reader.getFloat(animation, 'centerx'),
+                    this.reader.getFloat(animation, 'centery'),
+                    this.reader.getFloat(animation, 'centerz'));
+                anim = new EllipticalAnimation(id,deltaT,tempPoint,rx,rz,sAng,rAng);
+                break;
+			}
 			default:
 				return "No type defined for Animation";
 		}
