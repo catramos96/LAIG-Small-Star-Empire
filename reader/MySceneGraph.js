@@ -939,8 +939,7 @@ MySceneGraph.prototype.parseAnimations = function(rootElement) {
 		{
 			return "id "+id+" from block 'animation' already exists!";
 		}
-		
-		var deltaT = this.reader.getFloat(animation, 'span');
+
 		var type = this.reader.getString(animation, 'type');
 		
 		var anim;
@@ -948,7 +947,9 @@ MySceneGraph.prototype.parseAnimations = function(rootElement) {
 		//cria a animacao de acordo com o seu tipo -> se nenhum ERRO
 		switch(type){
 			case "linear":
-			{	
+			{
+                var deltaT = this.reader.getFloat(animation, 'span');
+
 				//se linear, deve fazer uma lista de pontos de controlo
 				var list = []; 
 								
@@ -966,6 +967,8 @@ MySceneGraph.prototype.parseAnimations = function(rootElement) {
 			}
 			case "circular":
 			{
+                var deltaT = this.reader.getFloat(animation, 'span');
+
 				var r = this.reader.getFloat(animation, 'radius');
 				var sAng = this.reader.getFloat(animation, 'startang');
 				var rAng = this.reader.getFloat(animation, 'rotang');
@@ -977,6 +980,8 @@ MySceneGraph.prototype.parseAnimations = function(rootElement) {
 			}
 			case "elliptical":
 			{
+                var deltaT = this.reader.getFloat(animation, 'span');
+
                 var rx = this.reader.getFloat(animation, 'radiusx');
                 var rz = this.reader.getFloat(animation, 'radiusz');
                 var sAng = this.reader.getFloat(animation, 'startang');
@@ -985,6 +990,33 @@ MySceneGraph.prototype.parseAnimations = function(rootElement) {
                     this.reader.getFloat(animation, 'centery'),
                     this.reader.getFloat(animation, 'centerz'));
                 anim = new EllipticalAnimation(id,deltaT,tempPoint,rx,rz,sAng,rAng);
+                break;
+			}
+			case "keyFrame":
+			{
+                //se key frame, deve fazer uma lista de pontos de controlo
+                var list = [];
+
+                var n_points = animation.children.length;
+
+                for(var j = 0; j < n_points; j++)
+                {
+                	var myPoint = [];
+
+                	myPoint.push(this.reader.getFloat(animation.children[j], 't'));		//time
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'tx'));	//translation x,y,z
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'ty'));
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'tz'));
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'rx'));	//rotation x,y,z
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'ry'));
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'rz'));
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'sx'));	//scale x,y,z
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'sy'));
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'sz'));
+
+                    list.push(myPoint);
+                }
+                anim = new KeyFrameAnimation(id,list[n_points-1][0],list);
                 break;
 			}
 			default:
