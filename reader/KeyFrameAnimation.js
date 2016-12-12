@@ -45,9 +45,9 @@ KeyFrameAnimation.prototype.getTransformation = function(time){
     var frame = this.getActualFrame(time);
 
     transformation.translate(frame[0],frame[1],frame[2]);
-    transformation.rotate('x',frame[3]);
-    transformation.rotate('y',frame[4]);
-    transformation.rotate('z',frame[5]);
+    transformation.rotate('x',frame[3]*Math.PI/180);
+    transformation.rotate('y',frame[4]*Math.PI/180);
+    transformation.rotate('z',frame[5]*Math.PI/180);
     transformation.scale(frame[6],frame[7],frame[8]);
 
     return transformation;
