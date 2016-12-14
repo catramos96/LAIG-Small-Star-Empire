@@ -50,35 +50,71 @@
             <specular r="1" g="1" b="1" a="1" />
             <shininess value="100" />
         </material>
+        <material id="red" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="1" g="0" b="0" a="1" />
+            <diffuse r="1" g="0" b="0" a="1" />
+            <specular r="1" g="0" b="0" a="1" />
+            <shininess value="100" />
+        </material>
+        <material id="blue" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="0" g="0" b="1" a="1" />
+            <diffuse r="0" g="0" b="1" a="1" />
+            <specular r="0" g="0" b="1" a="1" />
+            <shininess value="100" />
+        </material>
     </materials>
 
     <transformations>
-		<transformation id="boardPosition">
-		     <rotate axis="x" angle="-90"/>
+		<transformation id="boardPositionRight">
+		    <translate x="5" y="0" z="0"/>
+		    <rotate axis="y" angle="90"/>
+		    <rotate axis="x" angle="-90"/>
+        </transformation>
+
+		<transformation id="boardPositionLeft">
+		    <translate x="-5" y="0" z="0"/>
+		    <rotate axis="y" angle="90"/>
+		    <rotate axis="x" angle="-90"/>
         </transformation>
     </transformations>
 
     <primitives>
+       <primitive id="auxBoard">
+            <auxiliarBoard></auxiliarBoard>
+       </primitive>
+
+	   <primitive id="ship">
+       		<ship> </ship>
+       </primitive>
+	   
+	   <primitive id="trade">
+       		<trade> </trade>
+       </primitive>
+	   
+	   <primitive id="colony">
+       		<colony> </colony>
+       </primitive>
+
     	<primitive id="gameBoard">
     		<gameBoard />
     	</primitive>
-
-        <primitive id="trade">
-            <cylinder base="0.3" top="0.3" height="0.3" slices="10" stacks="5" />
-        </primitive>
-
-        <primitive id="colony">
-            <cylinder base="0.3" top="0" height="0.6" slices="10" stacks="5" />
-        </primitive>
 
 	   <primitive id="spaceShip">
        		<vehicle> </vehicle>
        </primitive>
     </primitives>
 
-    <!-- novo bloco de animacao -->
     <animations>
-        <animation id="rotAnimation" span="6" type="circular" centerx="0" centery="0" centerz="0" radius="0.01" startang="0" rotang="-360" />
+        <animation id="teste" span="6" type="elliptical" centerx="0" centery="0" centerz="0" radiusx="2" radiusz="2.5" startang="0" rotang="180" />
+	    <animation id="testKey" type="keyFrame">
+	        <controlpoint t="0" tx="0" ty="0" tz="0" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="3" tx="1" ty="1" tz="1" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="6" tx="0" ty="0" tz="0" rx="90" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="9" tx="0" ty="0" tz="1" rx="0" ry="0" rz="0" sx="0.5" sy="0.5" sz="0.5"/>
+	        <controlpoint t="12" tx="0" ty="0" tz="0" rx="0" ry="90" rz="0" sx="2" sy="2" sz="2"/>
+	    </animation>
 	</animations>
 
     <components>
@@ -94,34 +130,140 @@
 			<texture id="none" />
 
 			<children>
-			    <componentref id="gameBoard"/>
-                <componentref id="trade"/>
-			    <componentref id="colony"/>
-			    <componentref id="spaceship"/>
+			    <componentref id="AuxRedBoard"/>
+			    <componentref id="Board"/>
+				<componentref id="colony"/>
 			</children>
 		</component>
-
-		<component id="gameBoard">
-
+		
+		<component id="Board">
         	<transformation>
-        		 <scale  x="10" y="10" z="10" />
         	</transformation>
 
         	<materials>
-        		<material id="shiny" />
+        		<material id="red" />
         	</materials>
 
         	<texture id="none" />
 
         	<children>
-                <primitiveref id="gameBoard"/>
+			    <primitiveref id="gameBoard"/>
         	</children>
         </component>
 
-        <component id="colony">
+		<component id="AuxRedBoard">
+        	<transformation>
+        	    <transformationref id="boardPositionRight"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="red" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+                <primitiveref id="auxBoard"/>
+				<componentref id="trade"/>
+			    <componentref id="colony"/>
+			    <componentref id="ship"/>
+        	</children>
+        </component>
+		
+		<component id="ship">
+			<transformation>
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+
+			<texture id="none" />
+
+			<children>
+				<primitiveref id="ship"/>
+			</children>
+		</component>
+
+		<component id="trade">
+			<transformation>
+				<translate x="2" y="0" z="0"/>
+			</transformation>	
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+
+			<texture id="none" />
+
+			<children>
+				<primitiveref id="trade"/>
+			</children>
+		</component>
+		
+		<component id="colony">
+			<transformation>
+				<translate x="4" y="0" z="0"/>
+			</transformation>
+			
+			<animation>
+			    <animationref id="testKey"/>
+			</animation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+
+			<texture id="none" />
+
+			<children>
+				<primitiveref id="colony"/>
+			</children>
+		</component>		
+
+        <component id="colonies">
+        	<transformation>
+        		 <scale  x="10" y="10" z="10" />
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+                <componentref id="colonyR1"/>
+                <componentref id="colonyR2"/>
+            <!--     <componentref id="colony3"/>
+                <componentref id="colony4"/>
+                <componentref id="colony5"/>
+                <componentref id="colony6"/>
+                <componentref id="colony7"/>
+                <componentref id="colony8"/>
+                <componentref id="colony9"/>
+                <componentref id="colony10"/>
+                <componentref id="colony11"/>
+                <componentref id="colony12"/>
+                <componentref id="colony13"/>
+                <componentref id="colony14"/>
+                <componentref id="colony15"/>
+                <componentref id="colony16"/>
+                <componentref id="trade1"/>
+                <componentref id="trade2"/>
+                <componentref id="trade3"/>
+                <componentref id="trade4"/>
+                <componentref id="ship1"/>
+                <componentref id="ship2"/>
+                <componentref id="ship3"/>
+                <componentref id="ship4"/> -->
+        	</children>
+        </component>
+
+        <component id="colonyR1">
              <transformation>
-                <translate x="0" y="0" z="5" />
-                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="-1.5" z="1" />
+                <rotate axis="y" angle="-90"/>
              </transformation>
 
               <materials>
@@ -135,38 +277,21 @@
                </children>
         </component>
 
-        <component id="trade">
+        <component id="colonyR2">
+             <transformation>
+                <translate x="0" y="-2.5" z="1" />
+                <rotate axis="y" angle="-90"/>
+             </transformation>
 
-            <transformation>
-                <translate x="5" y="0" z="0" />
-                <rotate axis="x" angle="-90"/>
-            </transformation>
-
-            <materials>
+              <materials>
                 <material id="shiny" />
-            </materials>
+              </materials>
 
-            <texture id="none" />
+               <texture id="none" />
 
-            <children>
-                <primitiveref id="trade"/>
-            </children>
+               <children>
+                    <primitiveref id="colony"/>
+               </children>
         </component>
-
-    <component id="spaceship">
-        <transformation>
-        </transformation>
-
-        <materials>
-            <material id="shiny" />
-        </materials>
-
-        <texture id="none" />
-
-         <children>
-            <primitiveref id="spaceShip"/>
-         </children>
-     </component>
-
    </components>
 </dsx>

@@ -874,42 +874,26 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
 				prim = new MyPatchData(id,pU,pV,oU,oV,controlPointsTotal);	
 				break;
 			}
-			case "chessboard": {		//NEW
-				var du,dv,su,sv,texture,c = [];
-
-				var du = this.reader.getFloat(primitive.children[0], 'du');
-				var dv = this.reader.getFloat(primitive.children[0], 'dv');
-				var su = this.reader.getFloat(primitive.children[0], 'su');
-				var sv = this.reader.getFloat(primitive.children[0], 'sv');
-				var t = this.reader.getString(primitive.children[0], 'textureref');
-				var texture;
-
-				//If the texture id doesn't exists (can be an error, "inherit" or "none")
-				if(!this.texturesList.has(t))
-					return "Texture does not exist for chessboard";
-				else
-					texture = this.texturesList.get(t);
-
-				var colors = primitive.children[0].children;
-				var nc = 0;
-
-				if(colors.length != 3)
-					return "Wrong number of colors on chessboard";
-
-				for(nc = 0; nc < colors.length; nc++){
-					c.push(new MyColor(this.reader.getFloat(colors[nc], 'r'),
-							this.reader.getFloat(colors[nc], 'g'),
-							this.reader.getFloat(colors[nc], 'b'),
-							this.reader.getFloat(colors[nc], 'a')));
-				}
-				
-				prim = new MyChessBoardData(id,du,dv,texture,su,sv,c[0],c[1],c[2]);
+            case "circle" :{
+                var slices = this.reader.getFloat(primitive.children[0], 'slices');
+                prim = new MyCircleData(id,slices);
+            }
+			case "auxiliarBoard": {		//NEW
+				prim = new AuxiliarBoardData(id);
 				break;
 			}
-			case "vehicle" : {
-				prim = new MyVehicleData(id);
+			case "ship" : {
+				prim = new ShipData(id);
 				break;
 			}
+            case "trade" : {
+                prim = new TradeData(id);
+                break;
+            }
+            case "colony" : {
+                prim = new ColonyData(id);
+                break;
+            }
 			case "gameBoard" : {	//NEW
 				prim = new MyGameBoardData(id);
 				break;
@@ -955,8 +939,7 @@ MySceneGraph.prototype.parseAnimations = function(rootElement) {
 		{
 			return "id "+id+" from block 'animation' already exists!";
 		}
-		
-		var deltaT = this.reader.getFloat(animation, 'span');
+
 		var type = this.reader.getString(animation, 'type');
 		
 		var anim;
@@ -964,7 +947,9 @@ MySceneGraph.prototype.parseAnimations = function(rootElement) {
 		//cria a animacao de acordo com o seu tipo -> se nenhum ERRO
 		switch(type){
 			case "linear":
-			{	
+			{
+                var deltaT = this.reader.getFloat(animation, 'span');
+
 				//se linear, deve fazer uma lista de pontos de controlo
 				var list = []; 
 								
@@ -982,6 +967,8 @@ MySceneGraph.prototype.parseAnimations = function(rootElement) {
 			}
 			case "circular":
 			{
+                var deltaT = this.reader.getFloat(animation, 'span');
+
 				var r = this.reader.getFloat(animation, 'radius');
 				var sAng = this.reader.getFloat(animation, 'startang');
 				var rAng = this.reader.getFloat(animation, 'rotang');
@@ -990,6 +977,47 @@ MySceneGraph.prototype.parseAnimations = function(rootElement) {
 											this.reader.getFloat(animation, 'centerz'));										
 				anim = new CircularAnimation(id,deltaT,tempPoint,r,sAng,rAng);
 				break;
+			}
+			case "elliptical":
+			{
+                var deltaT = this.reader.getFloat(animation, 'span');
+
+                var rx = this.reader.getFloat(animation, 'radiusx');
+                var rz = this.reader.getFloat(animation, 'radiusz');
+                var sAng = this.reader.getFloat(animation, 'startang');
+                var rAng = this.reader.getFloat(animation, 'rotang');
+                var tempPoint = new MyPoint(this.reader.getFloat(animation, 'centerx'),
+                    this.reader.getFloat(animation, 'centery'),
+                    this.reader.getFloat(animation, 'centerz'));
+                anim = new EllipticalAnimation(id,deltaT,tempPoint,rx,rz,sAng,rAng);
+                break;
+			}
+			case "keyFrame":
+			{
+                //se key frame, deve fazer uma lista de pontos de controlo
+                var list = [];
+
+                var n_points = animation.children.length;
+
+                for(var j = 0; j < n_points; j++)
+                {
+                	var myPoint = [];
+
+                	myPoint.push(this.reader.getFloat(animation.children[j], 't'));		//time
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'tx'));	//translation x,y,z
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'ty'));
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'tz'));
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'rx'));	//rotation x,y,z
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'ry'));
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'rz'));
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'sx'));	//scale x,y,z
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'sy'));
+                	myPoint.push(this.reader.getFloat(animation.children[j], 'sz'));
+
+                    list.push(myPoint);
+                }
+                anim = new KeyFrameAnimation(id,list[n_points-1][0],list);
+                break;
 			}
 			default:
 				return "No type defined for Animation";
