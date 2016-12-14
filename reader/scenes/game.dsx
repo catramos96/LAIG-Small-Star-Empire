@@ -27,6 +27,19 @@
 
     <textures>
         <texture id="skyTexture" file="../resources/sky.png" length_s="0.4" length_t="0.4" />
+
+        <!-- Texturas das Celulas do Board -->
+
+			<texture id="0planet" file="../resources/jupiter.jpg" length_s="1" length_t="1" />
+			<texture id="1planet" file="../resources/1planet.png" length_s="1" length_t="1" />
+			<texture id="2planet" file="../resources/cometa.jpg" length_s="1" length_t="1" />
+			<texture id="3planet" file="../resources/earth.jpg" length_s="1" length_t="1" />
+			<texture id="rnebula" file="../resources/marmore.jpg" length_s="1" length_t="1" />
+			<texture id="bnebula" file="../resources/venus.jpg" length_s="1" length_t="1" />
+			<texture id="blackhole" file="../resources/uranus.jpg" length_s="1" length_t="1" />
+			<texture id="rhomeworld" file="../resources/mars.png" length_s="1" length_t="1" />
+			<texture id="bhomeworld" file="../resources/cauda.jpg" length_s="1" length_t="1" />
+
     </textures>
 
     <materials>
@@ -91,6 +104,7 @@
 		<component id="gameBoard">
 
         	<transformation>
+        		 <scale  x="10" y="10" z="10" />
         	</transformation>
 
         	<materials>

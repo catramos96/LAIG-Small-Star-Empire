@@ -73,6 +73,16 @@ XMLscene.prototype.initTextures = function () {
 };
 
 /**
+ * Returns the list of textures
+ * Used to pass the textures to the board for the cell texture
+ */
+XMLscene.prototype.getTextures = function () {
+    return this.graph.texturesList;
+};
+
+
+
+/**
  * Init textures.
  * Search for the default camera ant initializes it
  */
