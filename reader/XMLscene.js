@@ -24,6 +24,8 @@ XMLscene.prototype.init = function (application) {
 	this.gl.enable(this.gl.CULL_FACE); 	//cull face    = back, enable
     this.gl.depthFunc(this.gl.LEQUAL); 	//depth func  = LEQUAL, enable
     this.gl.frontFace(this.gl.CCW); 	//front face   = CCW
+
+    this.setPickEnabled(true);
 	
 /*	//para a transparencia
 	this.gl.enable(this.gl.BLEND);
@@ -235,6 +237,27 @@ XMLscene.prototype.update = function(currTime) {
 	this.deltaTime = (currTime - this.lastTime)/1000;
 }
 
+/*
+ * Picking Functions
+ */
+
+XMLscene.prototype.logPicking = function ()
+{
+	if (this.pickMode == false) {
+		if (this.pickResults != null && this.pickResults.length > 0) {
+			for (var i=0; i< this.pickResults.length; i++) {
+				var obj = this.pickResults[i][0]; // o objeto seleccionado
+				if (obj)
+				{
+					var customId = this.pickResults[i][1]; // o ID do objeto seleccionado
+					console.log("Picked object: " + obj + ", with pick id " + customId);
+				}
+			}
+			this.pickResults.splice(0,this.pickResults.length);
+		}
+	}
+}
+
 /**
  * Handler called when the graph is finally loaded. 
  * As loading is asynchronous, this may be called already after the application has started the run loop.
@@ -265,10 +288,6 @@ XMLscene.prototype.onGraphLoaded = function () {
  * It calls recursivelly (the following component of its child components)
  */
 XMLscene.prototype.displayComponents = function (component,materials,texture) {
-
-	//para o picking
-    //this.logPicking();
-	//this.clearPickRegistration();
 
 	this.pushMatrix();
 	
@@ -385,6 +404,10 @@ XMLscene.prototype.display = function () {
 
 		//update lights
 		this.updateLights();
+
+		//para o picking
+		this.logPicking();
+		this.clearPickRegistration();
 
 		//Processes the components
 		this.displayComponents(this.graph.getRoot(),null,null);

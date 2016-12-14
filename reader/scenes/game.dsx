@@ -130,14 +130,15 @@
 			<texture id="none" />
 
 			<children>
-			    <componentref id="AuxRedBoard"/>
+			    <!-- <componentref id="AuxRedBoard"/> -->
 			    <componentref id="Board"/>
-				<componentref id="colony"/>
+				<!-- <componentref id="colony"/> -->
 			</children>
 		</component>
 		
 		<component id="Board">
         	<transformation>
+        		<scale x="10" y="10" z="10"/>
         	</transformation>
 
         	<materials>
@@ -150,7 +151,7 @@
 			    <primitiveref id="gameBoard"/>
         	</children>
         </component>
-
+<!--
 		<component id="AuxRedBoard">
         	<transformation>
         	    <transformationref id="boardPositionRight"/>
@@ -235,7 +236,7 @@
         	<children>
                 <componentref id="colonyR1"/>
                 <componentref id="colonyR2"/>
-            <!--     <componentref id="colony3"/>
+                <componentref id="colony3"/>
                 <componentref id="colony4"/>
                 <componentref id="colony5"/>
                 <componentref id="colony6"/>
@@ -256,7 +257,7 @@
                 <componentref id="ship1"/>
                 <componentref id="ship2"/>
                 <componentref id="ship3"/>
-                <componentref id="ship4"/> -->
+                <componentref id="ship4"/>
         	</children>
         </component>
 
@@ -293,5 +294,6 @@
                     <primitiveref id="colony"/>
                </children>
         </component>
+-->
    </components>
 </dsx>

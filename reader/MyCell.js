@@ -5,7 +5,7 @@ Class MyCell
      CGFobject.call(this,scene);
      this.scene = scene;
      this.id = id;
-     
+
      this.appearance = new CGFappearance(scene);
 	 this.appearance.setEmission(0,0,0,0);
  	 this.appearance.setAmbient(1,1,1,1);
