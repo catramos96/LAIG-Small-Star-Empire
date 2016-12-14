@@ -25,6 +25,8 @@ Class Board
      this.cellsPos = [];
      this.boardCells = [];
      this.init();
+
+     console.log(this.boardCells);
  }
 
  
@@ -37,9 +39,14 @@ Class Board
     var zpos = 0;
     var nrows_max = this.boardM.length;
     var ncolumn_max = this.boardM[0].length;
+    
+    var board_cells_row = [];
+    var pos_cells_row = [];
 
     for(var i = 0; i < this.boardM.length;i++){            //row
         xpos = 0;
+        board_cells_row = [];
+        pos_cells_row = [];
 
         for(var j = 0; j < this.boardM[i].length;j++){     //column
 
@@ -48,16 +55,17 @@ Class Board
 
           if(this.boardM[i][j] == -1) //espaçamento inicial
             xpos += 0.9;
-          if(this.boardM[i][j] == -2) //espaçamento de uma celula
+          else if(this.boardM[i][j] == -2) //espaçamento de uma celula
             xpos += 1.8;
           else{
-               this.createCell(id,this.boardM[i][j]);
-               this.cellsPos.push(new MyPoint(xpos,0,zpos));
+               board_cells_row.push(this.createCell(id,this.boardM[i][j]));
+               pos_cells_row.push(new MyPoint(xpos,0,zpos));
                xpos += 1.8;            //next column
           }
           id++; //cell id
         }
-
+        this.boardCells.push(board_cells_row);
+        this.cellsPos.push(pos_cells_row);
         zpos += 1.6;    //next row
     }
 
@@ -131,7 +139,7 @@ Creates the cell with the correct texture and id and pushes to the boardCells
          } 
      }
 
-    this.boardCells.push(new MyCell(id,this.scene,texture));
+    return new MyCell(id,this.scene,texture);
  }
 
  Board.prototype.display = function() {
@@ -143,16 +151,18 @@ Creates the cell with the correct texture and id and pushes to the boardCells
         
         for(var i = 0; i < this.boardCells.length;i++){        
 
-            x = this.cellsPos[i].getX();
-            y = this.cellsPos[i].getY();
-            z = this.cellsPos[i].getZ();
+            for(var j = 0; j < this.boardCells[i].length;j++){        
+                x = this.cellsPos[i][j].getX();
+                y = this.cellsPos[i][j].getY();
+                z = this.cellsPos[i][j].getZ();
 
-            this.scene.pushMatrix();
-                this.scene.translate(x,y,z);
-                //Picking
-                 this.scene.registerForPick(i+1, this.boardCells[i]);
-                this.boardCells[i].display();
-            this.scene.popMatrix();
+                this.scene.pushMatrix();
+                    this.scene.translate(x,y,z);
+                    //Picking
+                     this.scene.registerForPick(i+1, this.boardCells[i][j]);
+                    this.boardCells[i][j].display();
+                this.scene.popMatrix();
+             }
         }
      this.scene.popMatrix();
  };
