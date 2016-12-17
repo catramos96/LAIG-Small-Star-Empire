@@ -145,7 +145,7 @@ XMLscene.prototype.initPrimitives = function () {
             this.primitivesInit.set(id,new Ship(this,value));
         }
         else if(value instanceof MyGameBoardData){		//aditional primitive
-			this.primitivesInit.set(id,new MyGameBoard(this));
+			this.primitivesInit.set(id,new MyGameBoard(this,value));
 		}
 	}
 }
@@ -349,16 +349,8 @@ XMLscene.prototype.displayComponents = function (component,materials,texture) {
 	    }
 	    else if(this.primitivesInit.has(prim.getId()))
 		{
-			primInit = this.primitivesInit.get(prim.getId());	//objeto com a primitiva  
+			primInit = this.primitivesInit.get(prim.getId());	//objeto com a primitiva
 
-			//if AuxiliarBoard apply the appearance received and bind it
-			if(primInit instanceof AuxiliarBoard)
-			{
-				textAppearance = primInit.getTexture().getAppearance();
-				appearance.setTexture(textAppearance);
-				appearance.apply();
-				textAppearance.bind(1);
-			}
 			primInit.display();
 	    }
 	}

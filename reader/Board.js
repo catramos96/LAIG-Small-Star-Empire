@@ -2,8 +2,7 @@
 Class Board
 */
  function Board(scene,boardM) {
-     
-     
+
      this.scene = scene;
      
      var textures = this.scene.getTextures();
@@ -19,6 +18,8 @@ Class Board
      this.text_blackhole = textures.get("blackhole").getAppearance();
      this.text_rhomeworld = textures.get("rhomeworld").getAppearance();
      this.text_bhomeworld = textures.get("bhomeworld").getAppearance();
+     this.textRed_aux = textures.get("redblack").getAppearance();
+     this.textBlue_aux = textures.get("blueblack").getAppearance();
 
      this.boardM =  boardM;
 
@@ -26,8 +27,6 @@ Class Board
      this.boardCells = [];
      this.init();
  }
-
- 
 
  Board.prototype.init = function(){
     
@@ -48,7 +47,7 @@ Class Board
 
           if(this.boardM[i][j] == -1) //espaçamento inicial
             xpos += 0.9;
-          if(this.boardM[i][j] == -2) //espaçamento de uma celula
+          else if(this.boardM[i][j] == -2) //espaçamento de uma celula
             xpos += 1.8;
           else{
                this.createCell(id,this.boardM[i][j]);
@@ -72,7 +71,7 @@ Creates the cell with the correct texture and id and pushes to the boardCells
 */
  Board.prototype.createCell = function(id,type) {
 
-     var texture;
+     var texture = null;
      /*
      systemType(0,'S',0).		%ZeroPlanet
     systemType(1,'S',1).		%OnePlanet
@@ -128,7 +127,17 @@ Creates the cell with the correct texture and id and pushes to the boardCells
          {
              texture = this.text_blackhole;
              break;
-         } 
+         }
+         case 10:
+         {
+             texture = this.textRed_aux;
+             break;
+         }
+         case 11:
+         {
+             texture = this.textBlue_aux;
+             break;
+         }
      }
 
     this.boardCells.push(new MyCell(id,this.scene,texture));
