@@ -13,3 +13,7 @@ Class MyGameBoard
    Board.call(this,scene,boardM);
  }
 MyGameBoard.prototype = Object.create(Board.prototype);
+
+MyGameBoard.prototype.getCell = function(Row,Column) {
+       
+}
