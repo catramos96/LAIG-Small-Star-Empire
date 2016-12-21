@@ -7,6 +7,7 @@ Class MyCell
      this.id = id;
      this.board = board;    //apontador para o tabuleiro a que pertence
      this.piece = piece;    //apontador para a peca que ocupa esta celula
+     this.selected = 0;
 
      this.appearance = new CGFappearance(scene);
 	 this.appearance.setEmission(0,0,0,0);
@@ -34,8 +35,13 @@ Class MyCell
 
  Cell.prototype = Object.create(CGFobject.prototype);
 
+ Cell.prototype.setSelected = function(selected) {
+    this.selected = selected;
+ }
+
  Cell.prototype.display = function() {
-     this.board.cellShader.setUniformsValues({selected: 1});
+     this.board.cellShader.setUniformsValues({selected: this.selected});
+     this.board.cellShader.setUniformsValues({uSampler: 0});
 
     this.scene.pushMatrix();
         this.scene.translate(1,0,1);
@@ -44,7 +50,10 @@ Class MyCell
         this.appearance.apply();
         this.cell.display();
         this.defaultAppearance.apply();
-        if(this.piece != null)
-            this.piece.display();
     this.scene.popMatrix();
  };
+
+Cell.prototype.displayPiece = function() {
+    if(this.piece != null)
+        this.piece.display();
+}

@@ -78,31 +78,44 @@ Class Board
 
 
  Board.prototype.display = function() {
+     this.scene.logPicking();
+     this.scene.clearPickRegistration();
 
-     //this.scene.clearPickRegistration();
      this.scene.setActiveShader(this.cellShader);
-
-     var x = 0, y = 0, z = 0, id = 1;
-     this.scene.pushMatrix();
-        this.scene.scale(this.scale,this.scale,this.scale);
-        
-        for(var i = 0; i < this.boardCells.length;i++){        
-
-            for(var j = 0; j < this.boardCells[i].length;j++){        
-                x = this.cellsPos[i][j].getX();
-                y = this.cellsPos[i][j].getY();
-                z = this.cellsPos[i][j].getZ();
-
-                this.scene.pushMatrix();
-                    this.scene.translate(x,y,z);
-                    //Picking
-                    this.scene.registerForPick(id, this.boardCells[i][j]);
-                    this.boardCells[i][j].display();    //display de uma celula
-                this.scene.popMatrix();
-                id++;
-             }
-        }
-     this.scene.popMatrix();
-
+     this.displayAux(true);
      this.scene.setActiveShader(this.scene.defaultShader);
+     this.displayAux(false);
  };
+
+Board.prototype.displayAux = function(isCell) {
+
+    var x = 0, y = 0, z = 0, id = 1;
+    this.scene.pushMatrix();
+    this.scene.scale(this.scale,this.scale,this.scale);
+
+    for(var i = 0; i < this.boardCells.length;i++){
+
+        for(var j = 0; j < this.boardCells[i].length;j++){
+            x = this.cellsPos[i][j].getX();
+            y = this.cellsPos[i][j].getY();
+            z = this.cellsPos[i][j].getZ();
+
+            this.scene.pushMatrix();
+            this.scene.translate(x,y,z);
+
+            this.scene.registerForPick(id, this.boardCells[i][j]);   //Picking (duvida aqui)
+            if(isCell)
+            {
+                this.boardCells[i][j].display();    //display de uma celula
+            }
+            else
+            {
+                this.boardCells[i][j].displayPiece();    //display de uma celula
+            }
+            this.scene.popMatrix();
+            id++;
+        }
+    }
+    this.scene.popMatrix();
+
+}
