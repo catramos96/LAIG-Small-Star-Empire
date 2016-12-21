@@ -4,6 +4,8 @@ Class Board
  function Board(scene,boardM) {
 
      this.scene = scene;
+
+     this.cellShader = new CGFshader(this.scene.gl, "shaders/cell.vert", "shaders/cell.frag");
      
      var textures = this.scene.getTextures();
 
@@ -77,6 +79,9 @@ Class Board
 
  Board.prototype.display = function() {
 
+     //this.scene.clearPickRegistration();
+     this.scene.setActiveShader(this.cellShader);
+
      var x = 0, y = 0, z = 0, id = 1;
      this.scene.pushMatrix();
         this.scene.scale(this.scale,this.scale,this.scale);
@@ -98,4 +103,6 @@ Class Board
              }
         }
      this.scene.popMatrix();
+
+     this.scene.setActiveShader(this.scene.defaultShader);
  };

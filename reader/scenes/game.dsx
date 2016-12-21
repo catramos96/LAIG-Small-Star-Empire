@@ -23,6 +23,13 @@
             <diffuse r="0.7" g="0.7" b="0.7" a="1" />
             <specular r="0.7" g="0.7" b="0.7" a="1" />
         </omni>
+
+        <omni id="omni_1" enabled="1" >
+            <location x="-5" y="10" z="-5" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
     </lights>
 
     <textures>

@@ -35,6 +35,8 @@ Class MyCell
  Cell.prototype = Object.create(CGFobject.prototype);
 
  Cell.prototype.display = function() {
+     this.board.cellShader.setUniformsValues({selected: 1});
+
     this.scene.pushMatrix();
         this.scene.translate(1,0,1);
         this.scene.rotate(Math.PI/2,0,1,0);
@@ -43,6 +45,6 @@ Class MyCell
         this.cell.display();
         this.defaultAppearance.apply();
         if(this.piece != null)
-         this.piece.display();
+            this.piece.display();
     this.scene.popMatrix();
  };
