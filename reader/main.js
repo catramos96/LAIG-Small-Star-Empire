@@ -56,9 +56,9 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js',
 								'Board.js',
 								'AuxiliarBoard.js',
     							'AuxiliarBoardData.js',
-								'MyGameBoardData.js',
-								'MyGameBoard.js',
-								'MyCell.js',
+								'GameBoardData.js',
+								'GameBoard.js',
+								'Cell.js',
 								
 
 main=function()

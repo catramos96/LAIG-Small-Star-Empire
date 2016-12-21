@@ -144,8 +144,8 @@ XMLscene.prototype.initPrimitives = function () {
         else if(value instanceof ShipData){
             this.primitivesInit.set(id,new Ship(this,value));
         }
-        else if(value instanceof MyGameBoardData){		//aditional primitive
-			this.primitivesInit.set(id,new MyGameBoard(this,value));
+        else if(value instanceof GameBoardData){		//aditional primitive
+			this.primitivesInit.set(id,new GameBoard(this,value));
 		}
 	}
 }

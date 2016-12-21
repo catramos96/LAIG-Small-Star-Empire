@@ -148,15 +148,14 @@ Creates the cell with the correct texture and id and pushes to the boardCells
          }
      }
 
-    return new MyCell(id,this.scene,texture);
+    return new Cell(id,this.scene,texture);
  }
 
  Board.prototype.display = function() {
 
-    var x = 0, y = 0, z = 0;
-    this.scene.pushMatrix();
-
-       this.scene.scale(this.scale,this.scale,this.scale);
+     var x = 0, y = 0, z = 0, id = 1;
+     this.scene.pushMatrix();
+        this.scene.scale(this.scale,this.scale,this.scale);
         
         for(var i = 0; i < this.boardCells.length;i++){        
 
@@ -168,9 +167,10 @@ Creates the cell with the correct texture and id and pushes to the boardCells
                 this.scene.pushMatrix();
                     this.scene.translate(x,y,z);
                     //Picking
-                     this.scene.registerForPick(i+1, this.boardCells[i][j]);
+                     this.scene.registerForPick(id, this.boardCells[i][j]);
                     this.boardCells[i][j].display();
                 this.scene.popMatrix();
+                id++;
              }
         }
      this.scene.popMatrix();

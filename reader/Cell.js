@@ -1,7 +1,7 @@
 /*
 Class MyCell
 */
- function MyCell(id,scene,texture) {
+ function Cell(id,scene,texture) {
      CGFobject.call(this,scene);
      this.scene = scene;
      this.id = id;
@@ -23,9 +23,9 @@ Class MyCell
      this.cell = new MyCylinder(scene,new MyCylinderData(id,1,1,0.1,6,5));
  }
 
- MyCell.prototype = Object.create(CGFobject.prototype);
+ Cell.prototype = Object.create(CGFobject.prototype);
 
- MyCell.prototype.display = function() {
+ Cell.prototype.display = function() {
     this.scene.pushMatrix();
         this.scene.translate(1,0,1);
         this.scene.rotate(Math.PI/2,0,1,0);

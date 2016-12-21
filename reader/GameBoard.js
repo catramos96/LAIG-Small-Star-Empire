@@ -1,7 +1,7 @@
 /*
 Class MyGameBoard
 */
- function MyGameBoard(scene) {
+ function GameBoard(scene) {
      var boardM =  [[-1,1,0,2,4,3,0,1],		
                      [0,61,3,7,0,0,2,5],
                      [-1,2,0,0,3,2,4,1],
@@ -12,8 +12,8 @@ Class MyGameBoard
                      
    Board.call(this,scene,boardM);
  }
-MyGameBoard.prototype = Object.create(Board.prototype);
+GameBoard.prototype = Object.create(Board.prototype);
 
-MyGameBoard.prototype.getCell = function(Row,Column) {
+GameBoard.prototype.getCell = function(Row,Column) {
        
 }

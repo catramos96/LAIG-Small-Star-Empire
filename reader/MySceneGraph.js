@@ -896,7 +896,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
                 break;
             }
 			case "gameBoard" : {	//NEW
-				prim = new MyGameBoardData(id);
+				prim = new GameBoardData(id);
 				break;
 			}
 		}
