@@ -1,10 +1,12 @@
 /*
 Class MyCell
 */
- function Cell(id,scene,texture) {
+ function Cell(id,scene,texture,board,piece) {
      CGFobject.call(this,scene);
      this.scene = scene;
      this.id = id;
+     this.board = board;    //apontador para o tabuleiro a que pertence
+     this.piece = piece;    //apontador para a peca que ocupa esta celula
 
      this.appearance = new CGFappearance(scene);
 	 this.appearance.setEmission(0,0,0,0);
@@ -15,10 +17,17 @@ Class MyCell
 	 this.appearance.setTexture(texture);
 	 this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
+     this.defaultAppearance = new CGFappearance(scene);
+     this.defaultAppearance.setEmission(0,0,0,0);
+     this.defaultAppearance.setAmbient(1,1,1,1);
+     this.defaultAppearance.setDiffuse(1,1,1,1);
+     this.defaultAppearance.setSpecular(1,1,1,1);
+     this.defaultAppearance.setShininess(100);
+     this.defaultAppearance.setTextureWrap('REPEAT', 'REPEAT');
+
 	 /*
         Esta appearance vai ter que ser definida no dsx
 	 */
-     
 
      this.cell = new MyCylinder(scene,new MyCylinderData(id,1,1,0.1,6,5));
  }
@@ -32,5 +41,8 @@ Class MyCell
         this.scene.rotate(-Math.PI/2,1,0,0);
         this.appearance.apply();
         this.cell.display();
+        this.defaultAppearance.apply();
+        if(this.piece != null)
+         this.piece.display();
     this.scene.popMatrix();
  };

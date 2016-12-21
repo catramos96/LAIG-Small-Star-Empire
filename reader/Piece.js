@@ -1,14 +1,14 @@
 /**
  * Super classe Piece
  */
-function Piece(scene,id,piece) {
+function Piece(scene,id,cell) {
     this.scene = scene;
-    this.piece = piece;
+    this.cell = cell;
     this.id = id;
 }
 
-Piece.prototype.display = function(){
-    this.piece.display();
+Piece.prototype.setCell = function (cell) {
+    this.cell = cell;
 }
 
 //classe com apontador para um tile
