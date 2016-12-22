@@ -30,15 +30,15 @@
 
         <!-- Texturas das Celulas do Board -->
 
-			<texture id="0planet" file="../resources/jupiter.jpg" length_s="1" length_t="1" />
+			<texture id="0planet" file="../resources/0planet.png" length_s="1" length_t="1" />
 			<texture id="1planet" file="../resources/1planet.png" length_s="1" length_t="1" />
-			<texture id="2planet" file="../resources/cometa.jpg" length_s="1" length_t="1" />
-			<texture id="3planet" file="../resources/earth.jpg" length_s="1" length_t="1" />
-			<texture id="rnebula" file="../resources/marmore.jpg" length_s="1" length_t="1" />
-			<texture id="bnebula" file="../resources/venus.jpg" length_s="1" length_t="1" />
-			<texture id="blackhole" file="../resources/uranus.jpg" length_s="1" length_t="1" />
-			<texture id="rhomeworld" file="../resources/mars.png" length_s="1" length_t="1" />
-			<texture id="bhomeworld" file="../resources/cauda.jpg" length_s="1" length_t="1" />
+			<texture id="2planet" file="../resources/2planet.png" length_s="1" length_t="1" />
+			<texture id="3planet" file="../resources/3planet.png" length_s="1" length_t="1" />
+			<texture id="rnebula" file="../resources/rnebula.png" length_s="1" length_t="1" />
+			<texture id="bnebula" file="../resources/bnebula.png" length_s="1" length_t="1" />
+			<texture id="blackhole" file="../resources/blackhole.png" length_s="1" length_t="1" />
+			<texture id="rhomeworld" file="../resources/rhomeworld.png" length_s="1" length_t="1" />
+			<texture id="bhomeworld" file="../resources/bhomeworld.png" length_s="1" length_t="1" />
 
     </textures>
 
