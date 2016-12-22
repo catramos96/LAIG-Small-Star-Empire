@@ -2,10 +2,12 @@
 Class Board
 */
  function Board(scene,boardM) {
-     
-     
+
      this.scene = scene;
-     
+
+     this.cellShader = new CGFshader(this.scene.gl, "shaders/cell.vert", "shaders/cell.frag");
+     this.pieceShader = new CGFshader(this.scene.gl, "shaders/piece.vert", "shaders/piece.frag");
+
      var textures = this.scene.getTextures();
 
      /*Cells Textures depending on the system type*/
@@ -19,6 +21,8 @@ Class Board
      this.text_blackhole = textures.get("blackhole").getAppearance();
      this.text_rhomeworld = textures.get("rhomeworld").getAppearance();
      this.text_bhomeworld = textures.get("bhomeworld").getAppearance();
+     this.textRed_aux = textures.get("redblack").getAppearance();
+     this.textBlue_aux = textures.get("blueblack").getAppearance();
 
      this.boardM =  boardM;
 
@@ -28,8 +32,6 @@ Class Board
 
      console.log(this.boardCells);
  }
-
- 
 
  Board.prototype.init = function(){
     
@@ -61,8 +63,8 @@ Class Board
                board_cells_row.push(this.createCell(id,this.boardM[i][j]));
                pos_cells_row.push(new MyPoint(xpos,0,zpos));
                xpos += 1.8;            //next column
+              id++; //cell id
           }
-          id++; //cell id
         }
         this.boardCells.push(board_cells_row);
         this.cellsPos.push(pos_cells_row);
@@ -75,94 +77,49 @@ Class Board
         this.scale = 1/(nrows_max*1.6);
  }
 
-/*
-Creates the cell with the correct texture and id and pushes to the boardCells
-*/
- Board.prototype.createCell = function(id,type) {
-
-     var texture;
-     /*
-     systemType(0,'S',0).		%ZeroPlanet
-    systemType(1,'S',1).		%OnePlanet
-    systemType(2,'S',2).		%TwoPlanet
-    systemType(3,'S',3).		%ThreePlanet
-    systemType(4,'N','R').		%NebulaRed
-    systemType(5,'N','B').		%NebulaBlue
-    systemType(6,'H',' ').		%HomeWorld
-    systemType(7,'B',' ').	    %blackhole
-    */
-     switch(type){
-         case 0:
-         {
-             texture = this.text_0planet;
-             break;
-         }
-         case 1:
-         {
-             texture = this.text_1planet;
-             break;
-         } 
-         case 2:
-         {
-             texture = this.text_2planet;
-             break;
-         } 
-         case 3:
-         {
-             texture = this.text_3planet;
-             break;
-         } 
-         case 4:
-         {
-             texture = this.text_rnebula;
-             break;
-         } 
-         case 5:
-         {
-             texture = this.text_bnebula;
-             break;
-         }
-         case 61:
-         {
-             texture = this.text_rhomeworld;
-             break;
-         }
-         case 62:
-         {
-             texture = this.text_bhomeworld;
-             break;
-         }
-         case 7:
-         {
-             texture = this.text_blackhole;
-             break;
-         } 
-     }
-
-    return new MyCell(id,this.scene,texture);
- }
 
  Board.prototype.display = function() {
+     this.scene.logPicking();
+     this.scene.clearPickRegistration();
 
-    var x = 0, y = 0, z = 0;
-    this.scene.pushMatrix();
+     this.scene.setActiveShader(this.cellShader);
+     this.displayAux(true);
+     this.scene.setActiveShader(this.scene.defaultShader);
 
-       this.scene.scale(this.scale,this.scale,this.scale);
-        
-        for(var i = 0; i < this.boardCells.length;i++){        
-
-            for(var j = 0; j < this.boardCells[i].length;j++){        
-                x = this.cellsPos[i][j].getX();
-                y = this.cellsPos[i][j].getY();
-                z = this.cellsPos[i][j].getZ();
-
-                this.scene.pushMatrix();
-                    this.scene.translate(x,y,z);
-                    //Picking
-                     this.scene.registerForPick(i+1, this.boardCells[i][j]);
-                    this.boardCells[i][j].display();
-                this.scene.popMatrix();
-             }
-        }
-     this.scene.popMatrix();
+     this.scene.setActiveShader(this.pieceShader);
+     this.displayAux(false);
+     this.scene.setActiveShader(this.scene.defaultShader);
  };
+
+Board.prototype.displayAux = function(isCell) {
+
+    var x = 0, y = 0, z = 0, id = 1;
+    this.scene.pushMatrix();
+    this.scene.scale(this.scale,this.scale,this.scale);
+
+    for(var i = 0; i < this.boardCells.length;i++){
+
+        for(var j = 0; j < this.boardCells[i].length;j++){
+            x = this.cellsPos[i][j].getX();
+            y = this.cellsPos[i][j].getY();
+            z = this.cellsPos[i][j].getZ();
+
+            this.scene.pushMatrix();
+            this.scene.translate(x,y,z);
+
+            this.scene.registerForPick(id, this.boardCells[i][j]);   //Picking (duvida aqui)
+            if(isCell)
+            {
+                this.boardCells[i][j].display();    //display de uma celula
+            }
+            else
+            {
+                this.boardCells[i][j].displayPiece();    //display de uma celula
+            }
+            this.scene.popMatrix();
+            id++;
+        }
+    }
+    this.scene.popMatrix();
+
+}

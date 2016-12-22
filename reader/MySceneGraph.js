@@ -879,7 +879,8 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
                 prim = new MyCircleData(id,slices);
             }
 			case "auxiliarBoard": {		//NEW
-				prim = new AuxiliarBoardData(id);
+                var color = this.reader.getString(primitive.children[0], 'color');
+				prim = new AuxiliarBoardData(id,color);
 				break;
 			}
 			case "ship" : {
@@ -895,7 +896,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement) {
                 break;
             }
 			case "gameBoard" : {	//NEW
-				prim = new MyGameBoardData(id);
+				prim = new GameBoardData(id);
 				break;
 			}
 		}

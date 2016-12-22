@@ -23,6 +23,13 @@
             <diffuse r="0.7" g="0.7" b="0.7" a="1" />
             <specular r="0.7" g="0.7" b="0.7" a="1" />
         </omni>
+
+        <omni id="omni_1" enabled="1" >
+            <location x="-5" y="10" z="-5" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
     </lights>
 
     <textures>
@@ -68,22 +75,25 @@
 
     <transformations>
 		<transformation id="boardPositionRight">
-		    <translate x="5" y="0" z="0"/>
-		    <rotate axis="y" angle="90"/>
-		    <rotate axis="x" angle="-90"/>
+			<rotate axis="y" angle="90"/>
+			<translate x="-7.5" y="0" z="-7.5"/>
+			<scale x="7.5" y="7.5" z="7.5"/>
         </transformation>
 
 		<transformation id="boardPositionLeft">
-		    <translate x="-5" y="0" z="0"/>
-		    <rotate axis="y" angle="90"/>
-		    <rotate axis="x" angle="-90"/>
+			<translate x="0" y="0" z="-7.5"/>
+			<scale x="7.5" y="7.5" z="7.5"/>
         </transformation>
     </transformations>
 
     <primitives>
-       <primitive id="auxBoard">
-            <auxiliarBoard></auxiliarBoard>
+       <primitive id="auxRedBoard">
+            <auxiliarBoard color="red"/>
        </primitive>
+
+       <primitive id="auxBlueBoard">
+            <auxiliarBoard color="blue"/>
+		</primitive>
 
 	   <primitive id="ship">
        		<ship> </ship>
@@ -130,8 +140,12 @@
 			<texture id="none" />
 
 			<children>
-			    <!-- <componentref id="AuxRedBoard"/> -->
+			    <componentref id="AuxRedBoard"/> 
+			    <componentref id="AuxBlueBoard"/>
 			    <componentref id="Board"/>
+				<componentref id="trade"/>
+			    <componentref id="colony"/>
+			    <componentref id="ship"/>
 				<!-- <componentref id="colony"/> -->
 			</children>
 		</component>
@@ -151,10 +165,10 @@
 			    <primitiveref id="gameBoard"/>
         	</children>
         </component>
-<!--
+
 		<component id="AuxRedBoard">
         	<transformation>
-        	    <transformationref id="boardPositionRight"/>
+        	   <transformationref id="boardPositionRight"/>
         	</transformation>
 
         	<materials>
@@ -164,10 +178,23 @@
         	<texture id="none" />
 
         	<children>
-                <primitiveref id="auxBoard"/>
-				<componentref id="trade"/>
-			    <componentref id="colony"/>
-			    <componentref id="ship"/>
+                <primitiveref id="auxRedBoard"/>
+        	</children>
+        </component>
+		
+		<component id="AuxBlueBoard">
+        	<transformation>
+        	    <transformationref id="boardPositionLeft"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="red" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+                <primitiveref id="auxBlueBoard"/>
         	</children>
         </component>
 		
@@ -221,7 +248,7 @@
 				<primitiveref id="colony"/>
 			</children>
 		</component>		
-
+<!--
         <component id="colonies">
         	<transformation>
         		 <scale  x="10" y="10" z="10" />

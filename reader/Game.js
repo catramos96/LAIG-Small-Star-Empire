@@ -1,0 +1,6 @@
+/*
+ Class Game
+ */
+function Game() {
+
+}
