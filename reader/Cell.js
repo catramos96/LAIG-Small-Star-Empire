@@ -55,5 +55,10 @@ Class MyCell
 
 Cell.prototype.displayPiece = function() {
     if(this.piece != null)
+    {
+        this.board.pieceShader.setUniformsValues({selected: this.selected});
+        this.board.pieceShader.setUniformsValues({team: this.piece.getTeam()});
+
         this.piece.display();
+    }
 }

@@ -4,21 +4,21 @@ Modification of MyChessBoard where you can choose your planeDimensions
 */
 function AuxiliarBoard(scene, data) {
 
-	var x = 0;
+	this.team = 0;
 	if(data.getColor() == "red")
 	{
-		x = 10;
+        this.team = 1;
 	}
     else if(data.getColor() == "blue")
     {
-        x = 11;
+        this.team= 2;
     }
 
-    var boardM =   [[-2,x,x,x,x],
-					[-1,x,x,x,x,x],
-					[x,x,x,x,x,x],
-       				[-1,x,x,x,x,x],
-        			[-2,x,x,x,x]];
+    var boardM =   [[-2,0,0,0,0],
+					[-1,0,0,0,0,0],
+					[0,0,0,0,0,0],
+       				[-1,0,0,0,0,0],
+        			[-2,0,0,0,0]];
 
     Board.call(this,scene,boardM);
  }
@@ -41,13 +41,13 @@ AuxiliarBoard.prototype.createCell = function(id,type) {
 	 systemType(6,'H',' ').		%HomeWorld
 	 systemType(7,'B',' ').	    %blackhole
 	 */
-    switch(type){
-        case 10:
+    switch(this.team){
+        case 1:
         {
             texture = this.textRed_aux;
             break;
         }
-        case 11:
+        case 2:
         {
             texture = this.textBlue_aux;
             break;
@@ -56,11 +56,11 @@ AuxiliarBoard.prototype.createCell = function(id,type) {
 
     var piece = null;
     if(id <= 16){
-    	piece = new Colony(this.scene,new ColonyData(id),null);
+    	piece = new Colony(this.scene,new ColonyData(id),null,this.team);
 	}else if(id >= 17 && id <= 20){
-        piece = new Trade(this.scene,new TradeData(id),null);
+        piece = new Trade(this.scene,new TradeData(id),null,this.team);
 	}else if(id >= 21 && id <= 24) {
-        piece = new Ship(this.scene,new ShipData(id),null);
+        piece = new Ship(this.scene,new ShipData(id),null,this.team);
     }
 
     var cell = new Cell(id,this.scene,texture,this,piece);

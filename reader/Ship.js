@@ -1,9 +1,9 @@
 /**
  * Descendent of Piece
  */
-function Ship(scene,data,cell) {
+function Ship(scene,data,cell,team) {
     this.piece = new MyVehicle(scene);
-    Piece.call(this,scene,data.getId(),cell);
+    Piece.call(this,scene,data.getId(),cell,team);
 }
 
 Ship.prototype = Object.create(Piece.prototype);

@@ -6,7 +6,8 @@ Class Board
      this.scene = scene;
 
      this.cellShader = new CGFshader(this.scene.gl, "shaders/cell.vert", "shaders/cell.frag");
-     
+     this.pieceShader = new CGFshader(this.scene.gl, "shaders/piece.vert", "shaders/piece.frag");
+
      var textures = this.scene.getTextures();
 
      /*Cells Textures depending on the system type*/
@@ -84,7 +85,10 @@ Class Board
      this.scene.setActiveShader(this.cellShader);
      this.displayAux(true);
      this.scene.setActiveShader(this.scene.defaultShader);
+
+     this.scene.setActiveShader(this.pieceShader);
      this.displayAux(false);
+     this.scene.setActiveShader(this.scene.defaultShader);
  };
 
 Board.prototype.displayAux = function(isCell) {
