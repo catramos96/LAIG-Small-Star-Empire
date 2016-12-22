@@ -46,6 +46,8 @@
 			<texture id="blackhole" file="../resources/blackhole.png" length_s="1" length_t="1" />
 			<texture id="rhomeworld" file="../resources/rhomeworld.png" length_s="1" length_t="1" />
 			<texture id="bhomeworld" file="../resources/bhomeworld.png" length_s="1" length_t="1" />
+			<texture id="redblack" file="../resources/redblack.jpg" length_s="1" length_t="1" />
+			<texture id="blueblack" file="../resources/blueblack.jpg" length_s="1" length_t="1" />
 
     </textures>
 
