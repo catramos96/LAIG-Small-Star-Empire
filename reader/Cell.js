@@ -22,11 +22,15 @@ Class MyCell
     this.selected = selected;
  }
 
+Cell.prototype.setSelected = function(selected) {
+    this.selected = selected;
+}
+
  Cell.prototype.display = function() {
      this.board.cellShader.setUniformsValues({selected: this.selected});
      this.board.cellShader.setUniformsValues({uSampler: 0});
 
-    this.scene.pushMatrix();
+     this.scene.pushMatrix();
         this.scene.translate(1,0,1);
         this.scene.rotate(Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/2,1,0,0);

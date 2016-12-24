@@ -18,6 +18,10 @@ Piece.prototype.setCell = function (cell) {
     this.cell = cell;
 }
 
+Piece.prototype.getCell = function (cell) {
+    return this.cell;
+}
+
 Piece.prototype.getTeam = function () {
     return this.team;
 }
