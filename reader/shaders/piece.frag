@@ -2,12 +2,17 @@
 precision highp float;
 #endif
 
+//recebe do vertice
+varying vec2 vTextureCoord;
+
 //recebe do shader
 uniform float selected;
 uniform float team;
+uniform sampler2D uSampler;
 
 void main() {
 
+    vec4 colorText = texture2D(uSampler,vTextureCoord);
 	vec4 color = vec4(1.0,0.0,1.0,1.0);
 
 	if(selected == 0.0)
@@ -22,5 +27,5 @@ void main() {
 	    }
 	}
 
-	gl_FragColor = color;
+	gl_FragColor = color * colorText;
 }

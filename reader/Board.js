@@ -21,8 +21,6 @@ Class Board
      this.text_blackhole = textures.get("blackhole").getAppearance();
      this.text_rhomeworld = textures.get("rhomeworld").getAppearance();
      this.text_bhomeworld = textures.get("bhomeworld").getAppearance();
-     this.textRed_aux = textures.get("redblack").getAppearance();
-     this.textBlue_aux = textures.get("blueblack").getAppearance();
 
      this.boardM =  boardM;
 
@@ -122,4 +120,66 @@ Board.prototype.displayAux = function(isCell) {
     }
     this.scene.popMatrix();
 
+}
+
+Board.prototype.textureSelector = function(type){
+    /*
+     systemType(0,'S',0).		%ZeroPlanet
+     systemType(1,'S',1).		%OnePlanet
+     systemType(2,'S',2).		%TwoPlanet
+     systemType(3,'S',3).		%ThreePlanet
+     systemType(4,'N','R').		%NebulaRed
+     systemType(5,'N','B').		%NebulaBlue
+     systemType(6,'H',' ').		%HomeWorld
+     systemType(7,'B',' ').	    %blackhole
+     */
+    var texture = null;
+    switch(type){
+        case 0:
+        {
+            texture = this.text_0planet;
+            break;
+        }
+        case 1:
+        {
+            texture = this.text_1planet;
+            break;
+        }
+        case 2:
+        {
+            texture = this.text_2planet;
+            break;
+        }
+        case 3:
+        {
+            texture = this.text_3planet;
+            break;
+        }
+        case 4:
+        {
+            texture = this.text_rnebula;
+            break;
+        }
+        case 5:
+        {
+            texture = this.text_bnebula;
+            break;
+        }
+        case 61:
+        {
+            texture = this.text_rhomeworld;
+            break;
+        }
+        case 62:
+        {
+            texture = this.text_bhomeworld;
+            break;
+        }
+        case 7:
+        {
+            texture = this.text_blackhole;
+            break;
+        }
+    }
+    return texture;
 }

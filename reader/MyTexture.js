@@ -35,6 +35,9 @@ function MyTexture(id,file,length_t, length_s) {
  	return this.s;
  }
 
+MyTexture.prototype.getFilePath = function(){
+    return this.file;
+}
  MyTexture.prototype.getAppearance = function(){
  	return this.appearance;
  }

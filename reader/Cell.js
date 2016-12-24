@@ -8,27 +8,10 @@ Class MyCell
      this.board = board;    //apontador para o tabuleiro a que pertence
      this.piece = piece;    //apontador para a peca que ocupa esta celula
      this.selected = 0;
+     this.texture = texture;
 
-     this.appearance = new CGFappearance(scene);
-	 this.appearance.setEmission(0,0,0,0);
- 	 this.appearance.setAmbient(1,1,1,1);
-	 this.appearance.setDiffuse(1,1,1,1);
-	 this.appearance.setSpecular(1,1,1,1);
-	 this.appearance.setShininess(100);
-	 this.appearance.setTexture(texture);
-	 this.appearance.setTextureWrap('REPEAT', 'REPEAT');
-
-     this.defaultAppearance = new CGFappearance(scene);
-     this.defaultAppearance.setEmission(0,0,0,0);
-     this.defaultAppearance.setAmbient(1,1,1,1);
-     this.defaultAppearance.setDiffuse(1,1,1,1);
-     this.defaultAppearance.setSpecular(1,1,1,1);
-     this.defaultAppearance.setShininess(100);
-     this.defaultAppearance.setTextureWrap('REPEAT', 'REPEAT');
-
-	 /*
-        Esta appearance vai ter que ser definida no dsx
-	 */
+     var appearances = this.scene.getMaterials();
+     this.defaultAppearance = appearances.get("shiny").getAppearance();
 
      this.cell = new MyCylinder(scene,new MyCylinderData(id,1,1,0.1,6,5));
  }
@@ -47,7 +30,10 @@ Class MyCell
         this.scene.translate(1,0,1);
         this.scene.rotate(Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/2,1,0,0);
-        this.appearance.apply();
+
+        var appearance = this.defaultAppearance;
+        appearance.setTexture(this.texture);
+        appearance.apply();
         this.cell.display();
         this.defaultAppearance.apply();
     this.scene.popMatrix();
@@ -58,7 +44,11 @@ Cell.prototype.displayPiece = function() {
     {
         this.board.pieceShader.setUniformsValues({selected: this.selected});
         this.board.pieceShader.setUniformsValues({team: this.piece.getTeam()});
+        this.board.pieceShader.setUniformsValues({uSampler: 0});
 
+        var appearance = this.piece.getAppearance();
+        appearance.setTexture(this.piece.getTexture());
+        appearance.apply();
         this.piece.display();
     }
 }

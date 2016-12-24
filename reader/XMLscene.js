@@ -84,6 +84,13 @@ XMLscene.prototype.getTextures = function () {
     return this.graph.texturesList;
 };
 
+/**
+ * Returns the list of materials
+ * Used to pass the material to the board for the cell texture
+ */
+XMLscene.prototype.getMaterials = function () {
+    return this.graph.materialsList;
+};
 
 
 /**
@@ -274,7 +281,7 @@ XMLscene.prototype.onGraphLoaded = function () {
 
 	this.initTextures();	
 	
-	this.initPrimitives();	//new
+	this.initPrimitives();
 };
 
 /**

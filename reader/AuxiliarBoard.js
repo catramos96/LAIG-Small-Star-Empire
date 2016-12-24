@@ -30,29 +30,7 @@ AuxiliarBoard.prototype = Object.create(Board.prototype);
  */
 AuxiliarBoard.prototype.createCell = function(id,type) {
 
-    var texture = null;
-	/*
-	 systemType(0,'S',0).		%ZeroPlanet
-	 systemType(1,'S',1).		%OnePlanet
-	 systemType(2,'S',2).		%TwoPlanet
-	 systemType(3,'S',3).		%ThreePlanet
-	 systemType(4,'N','R').		%NebulaRed
-	 systemType(5,'N','B').		%NebulaBlue
-	 systemType(6,'H',' ').		%HomeWorld
-	 systemType(7,'B',' ').	    %blackhole
-	 */
-    switch(this.team){
-        case 1:
-        {
-            texture = this.textRed_aux;
-            break;
-        }
-        case 2:
-        {
-            texture = this.textBlue_aux;
-            break;
-        }
-    }
+    var texture = this.textureSelector(type);
 
     var piece = null;
     if(id <= 16){

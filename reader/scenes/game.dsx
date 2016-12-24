@@ -33,10 +33,9 @@
     </lights>
 
     <textures>
-        <texture id="skyTexture" file="../resources/sky.png" length_s="0.4" length_t="0.4" />
+            <texture id="skyTexture" file="../resources/sky.png" length_s="0.4" length_t="0.4" />
 
-        <!-- Texturas das Celulas do Board -->
-
+             <!-- Texturas das Celulas do Board -->
 			<texture id="0planet" file="../resources/0planet.png" length_s="1" length_t="1" />
 			<texture id="1planet" file="../resources/1planet.png" length_s="1" length_t="1" />
 			<texture id="2planet" file="../resources/2planet.png" length_s="1" length_t="1" />
@@ -46,8 +45,7 @@
 			<texture id="blackhole" file="../resources/blackhole.png" length_s="1" length_t="1" />
 			<texture id="rhomeworld" file="../resources/rhomeworld.png" length_s="1" length_t="1" />
 			<texture id="bhomeworld" file="../resources/bhomeworld.png" length_s="1" length_t="1" />
-			<texture id="redblack" file="../resources/redblack.jpg" length_s="1" length_t="1" />
-			<texture id="blueblack" file="../resources/blueblack.jpg" length_s="1" length_t="1" />
+			<texture id="marmore" file="../resources/marmore.jpg" length_s="1" length_t="1" />
 
     </textures>
 

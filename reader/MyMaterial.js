@@ -26,6 +26,9 @@ function MyMaterial(id) {
 	this.appearance.loadTexture(file);
  }
 
+MyMaterial.prototype.setTexture = function(texture){
+    this.appearance.setTexture(texture);
+}
  /**
   * GETS
   */
