@@ -140,13 +140,12 @@
 			<texture id="none" />
 
 			<children>
-			    <componentref id="AuxRedBoard"/> 
+			<!--    <componentref id="AuxRedBoard"/>
 			    <componentref id="AuxBlueBoard"/>
 			    <componentref id="Board"/>
 				<componentref id="trade"/>
 			    <componentref id="colony"/>
-			    <componentref id="ship"/>
-				<!-- <componentref id="colony"/> -->
+			    <componentref id="ship"/>   -->
 			</children>
 		</component>
 		

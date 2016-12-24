@@ -33,7 +33,6 @@ XMLscene.prototype.init = function (application) {
 */
 	this.lastTime = -1;		//for update scene
 
-    //this.setPickEnabled(true);
 };
 
 /**
@@ -139,7 +138,7 @@ XMLscene.prototype.initPrimitives = function () {
         else if(value instanceof MyPatchData){			//aditional primitive
             this.primitivesInit.set(id,new MyPatch(this, value));
         }
-		else if(value instanceof AuxiliarBoardData) {		//aditional primitive
+		/*else if(value instanceof AuxiliarBoardData) {		//aditional primitive
             this.primitivesInit.set(id, new AuxiliarBoard(this, value));
         }
 		else if(value instanceof TradeData){
@@ -153,7 +152,7 @@ XMLscene.prototype.initPrimitives = function () {
         }
         else if(value instanceof GameBoardData){		//aditional primitive
 			this.primitivesInit.set(id,new GameBoard(this,value));
-		}
+		}*/
 	}
 }
 
@@ -256,6 +255,7 @@ XMLscene.prototype.logPicking = function ()
 				var obj = this.pickResults[i][0]; // o objeto seleccionado
 				if (obj)
 				{
+					//criar aqui uma funcao para o game
 					var customId = this.pickResults[i][1]; // o ID do objeto seleccionado
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
@@ -282,6 +282,8 @@ XMLscene.prototype.onGraphLoaded = function () {
 	this.initTextures();	
 	
 	this.initPrimitives();
+
+    this.game = new Game(this);
 };
 
 /**
@@ -410,6 +412,8 @@ XMLscene.prototype.display = function () {
 
 		//Processes the components
 		this.displayComponents(this.graph.getRoot(),null,null);
+
+        this.game.display();
 	}
 };
 
