@@ -50,9 +50,6 @@ Cell.prototype.displayPiece = function() {
         this.board.pieceShader.setUniformsValues({team: this.piece.getTeam()});
         this.board.pieceShader.setUniformsValues({uSampler: 0});
 
-        var appearance = this.piece.getAppearance();
-        appearance.setTexture(this.piece.getTexture());
-        appearance.apply();
         this.piece.display();
     }
 }

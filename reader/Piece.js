@@ -34,10 +34,14 @@ Piece.prototype.getTexture = function () {
     return this.texture;
 }
 
-//classe com apontador para um tile
+Piece.prototype.move = function (pointO, pointD) {
+    //calcula a distancia em linha reta de um para o outro
+
+    //calcula o seu ponto central
+
+    //aplica na peca uma eliptical animation de raio = metade da distancia
+    //(id,time,pc,rx,rz,0,Math.PI)
+}
 
 //objetivos:
-// Criar
 // Definir e atualizar o estado da peça
-// Desenhar
-// Deslocar entre tile de origem e tile de destino

@@ -56,9 +56,7 @@ Game.prototype.move = function (piece, origin, dest) {
     var pointO = origin.getCoords();
     var pointD = dest.getCoords();
 
-    //calcula a distancia em linha reta de um para o outro
-
-    //aplica na peca uma eliptical animation de raio = metade da distancia
+    piece.move(pointO,pointD);
 
     //retira a peca da celula de origem
     //retira a selecao

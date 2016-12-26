@@ -38,7 +38,6 @@
  	return this.id;
  }
 
- //NEW
  MyComponent.prototype.getAnimTransformation = function(deltaTime)  //Animation Transformation
  {  
     var tempTime = 0;

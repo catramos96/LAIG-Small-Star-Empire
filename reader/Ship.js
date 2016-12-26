@@ -9,8 +9,12 @@ function Ship(scene,data,cell,team) {
 Ship.prototype = Object.create(Piece.prototype);
 
 Ship.prototype.display = function(){
+    var appearance = this.appearance;
+    appearance.setTexture(this.texture);
+
     this.scene.pushMatrix();
         this.scene.translate(0.5,0.1,0.5);
+        appearance.apply();
         this.piece.display();
     this.scene.popMatrix();
 }
