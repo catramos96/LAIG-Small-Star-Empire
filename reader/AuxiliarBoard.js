@@ -20,7 +20,7 @@ function AuxiliarBoard(scene, data) {
        				[-1,0,0,0,0,0],
         			[-2,0,0,0,0]];
 
-    Board.call(this,scene,boardM);
+    Board.call(this,scene,data.getId(),boardM);
  }
 
 AuxiliarBoard.prototype = Object.create(Board.prototype);
@@ -40,6 +40,9 @@ AuxiliarBoard.prototype.createCell = function(id,type) {
 	}else if(id >= 21 && id <= 24) {
         piece = new Ship(this.scene,new ShipData(id),null,this.team);
     }
+
+    /*if(piece != null)
+        this.scene.registerForPick(id, piece);      //regista as pecas com os id's iniciais das celulas*/
 
     var cell = new Cell(id,this.scene,texture,this,piece);
 	if(piece != null)

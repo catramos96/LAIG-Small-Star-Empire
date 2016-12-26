@@ -8,14 +8,13 @@ function Colony(scene,data,cell,team) {
 
 Colony.prototype = Object.create(Piece.prototype);
 
-Colony.prototype.display = function(){
+//mudar isto
+Colony.prototype.displayAux = function(){
     var appearance = this.appearance;
     appearance.setTexture(this.texture);
 
-    this.scene.pushMatrix();
-        this.scene.translate(1,0.1,1);
-        this.scene.rotate(-Math.PI/2,1,0,0);
-        appearance.apply();
-        this.piece.display();
-    this.scene.popMatrix();
+    this.scene.translate(1,0.1,1);
+    this.scene.rotate(-Math.PI/2,1,0,0);
+    appearance.apply();
+    this.piece.display();
 }

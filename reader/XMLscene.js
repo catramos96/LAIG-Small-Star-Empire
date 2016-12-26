@@ -91,7 +91,6 @@ XMLscene.prototype.getMaterials = function () {
     return this.graph.materialsList;
 };
 
-
 /**
  * Init textures.
  * Search for the default camera ant initializes it
@@ -243,6 +242,10 @@ XMLscene.prototype.update = function(currTime) {
 	this.deltaTime = (currTime - this.lastTime)/1000;
 }
 
+XMLscene.prototype.getCurrTime = function() {
+	return this.deltaTime;
+}
+
 /*
  * Picking Functions
  */
@@ -257,7 +260,10 @@ XMLscene.prototype.logPicking = function ()
 				{
 					//criar aqui uma funcao para o game
 					var customId = this.pickResults[i][1]; // o ID do objeto seleccionado
-					console.log("Picked object: " + obj + ", with pick id " + customId);
+					console.log("Picked object: ", obj  ,", with pick id " + customId);
+
+
+					this.game.picking(obj,customId);
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);

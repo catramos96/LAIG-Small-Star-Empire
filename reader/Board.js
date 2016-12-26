@@ -1,9 +1,11 @@
 /*
 Class Board
 */
- function Board(scene,boardM) {
+
+ function Board(scene,id,boardM) {
 
      this.scene = scene;
+     this.id = id;
 
      this.cellShader = new CGFshader(this.scene.gl, "shaders/cell.vert", "shaders/cell.frag");
      this.pieceShader = new CGFshader(this.scene.gl, "shaders/piece.vert", "shaders/piece.frag");
@@ -105,14 +107,15 @@ Board.prototype.displayAux = function(isCell) {
             this.scene.pushMatrix();
             this.scene.translate(x,y,z);
 
-            this.scene.registerForPick(id, this.boardCells[i][j]);   //Picking (duvida aqui)
             if(isCell)
             {
+                this.scene.registerForPick(this.id + id, this.boardCells[i][j]);   //Picking da celula
                 this.boardCells[i][j].display();    //display de uma celula
             }
             else
             {
-                this.boardCells[i][j].displayPiece();    //display de uma celula
+                this.scene.registerForPick(this.id +id, this.boardCells[i][j]);   //Picking (duvida aqui)//picking da peca
+                this.boardCells[i][j].displayPiece(this.id + id);    //display de uma peca
             }
             this.scene.popMatrix();
             id++;

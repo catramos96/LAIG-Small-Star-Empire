@@ -26,6 +26,17 @@ Cell.prototype.setSelected = function(selected) {
     this.selected = selected;
 }
 
+Cell.prototype.setPiece = function(piece) {
+    this.piece = piece;
+
+    if(piece != null)
+        this.piece.setCell(this);
+}
+
+Cell.prototype.getCoords = function() {
+
+}
+
  Cell.prototype.display = function() {
      this.board.cellShader.setUniformsValues({selected: this.selected});
      this.board.cellShader.setUniformsValues({uSampler: 0});
@@ -43,12 +54,14 @@ Cell.prototype.setSelected = function(selected) {
     this.scene.popMatrix();
  };
 
-Cell.prototype.displayPiece = function() {
+Cell.prototype.displayPiece = function(id) {
     if(this.piece != null)
     {
         this.board.pieceShader.setUniformsValues({selected: this.selected});
         this.board.pieceShader.setUniformsValues({team: this.piece.getTeam()});
         this.board.pieceShader.setUniformsValues({uSampler: 0});
+
+        this.scene.registerForPick(id, this.piece);
 
         this.piece.display();
     }
