@@ -39,8 +39,16 @@ Piece.prototype.getTexture = function () {
 
 Piece.prototype.move = function (pointO, pointD) {
     //calcula a distancia em linha reta de um para o outro
+    var cpoint1 = vec3.fromValues(pointO.getX(),0,pointO.getZ());
+    var cpoint2 = vec3.fromValues(pointD.getX(),0,pointD.getZ());
+
+    //distance between cpoint1 and cpoint2
+    var rx = vec3.distance(cpoint1,cpoint2)/2;
 
     //calcula o seu ponto central
+    var pc = new MyPoint(cpoint1[0]+(cpoint2[0]-cpoint1[0])/2,0,cpoint1[2]+(cpoint2[2]-cpoint1[2])/2);
+
+    console.log(pointO,pc,pointD);
 
     //aplica na peca uma eliptical animation de raio = metade da distancia
     this.animStartTime = this.scene.getCurrTime();
@@ -52,13 +60,14 @@ Piece.prototype.display = function () {
 
     var animTransformation = new MyTransformation(this.id);
 
-    if(this.animation != null)  //se aindar estiver na animacao
+    if(this.animation != null)  //se ainda estiver na animacao
     {
+        console.log('a');
         var endTime = this.animation.getTime() + this.animStartTime;
         //a animacao está a decorrer
-        if(endTime <= currTime)
+        if(currTime <= endTime)
         {
-            var elapTime = currTime-this.startTime;	//time since animation begined
+            var elapTime = currTime-this.animStartTime;	//time since animation begined
             animTransformation = this.animation.getTransformation(elapTime);	//update the animTransformation
         }
         else    //ja acabou
@@ -67,6 +76,7 @@ Piece.prototype.display = function () {
             this.animation = null;
         }
     }
+
 
     this.scene.pushMatrix();
         this.scene.multMatrix(animTransformation.getMatrix());

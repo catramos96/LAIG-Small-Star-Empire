@@ -22,10 +22,6 @@ Class MyCell
     this.selected = selected;
  }
 
-Cell.prototype.setSelected = function(selected) {
-    this.selected = selected;
-}
-
 Cell.prototype.setPiece = function(piece) {
     this.piece = piece;
 
@@ -33,8 +29,12 @@ Cell.prototype.setPiece = function(piece) {
         this.piece.setCell(this);
 }
 
-Cell.prototype.getCoords = function() {
+Cell.prototype.getId = function() {
+    return this.id;
+}
 
+Cell.prototype.getCoords = function() {
+     return this.board.getCoordsById(this.id);
 }
 
  Cell.prototype.display = function() {

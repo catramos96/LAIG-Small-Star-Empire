@@ -83,7 +83,7 @@ Game.prototype.move = function (piece, origin, dest) {
     var pointO = origin.getCoords();
     var pointD = dest.getCoords();
 
-    //piece.move(pointO,pointD);
+    piece.move(pointO,pointD);
 
     //retira a peca da celula de origem e a sua selecao
     origin.setSelected(false);
