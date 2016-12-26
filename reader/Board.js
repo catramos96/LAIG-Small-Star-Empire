@@ -82,6 +82,8 @@ Class Board
     this.boardM = board;
     this.init();
  }
+ 
+  Board.prototype.getCoordsById = function(id) {
 
      var point = null;
 
