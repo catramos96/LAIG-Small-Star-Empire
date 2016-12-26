@@ -63,6 +63,9 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js',
 								'GameBoardData.js',
 								'GameBoard.js',
 								'Cell.js',
+
+								'logic/Player.js',
+								'logic/Prolog.js',
 								
 
 main=function()

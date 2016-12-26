@@ -3,15 +3,37 @@
  */
 function Game(scene) {
     this.scene = scene;
+	
+	this.prolog = new Prolog(this);
 
     //criacao de um board e dois boards auxiliares
-    this.board = new GameBoard(scene,new GameBoardData(100));
+    this.board = new GameBoard(this.scene,new GameBoardData(100,[[]]));
+	
     //os tabuleiros auxiliares ja sao criados com as suas pecas
     this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"blue"));
     this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red"));
 
     //peca selecionada
     this.pieceSelected = null;
+	
+	//Players
+	this.player1 = new Player("Red");
+	this.player1 = new Player("Blue");
+	
+	this.init();
+}
+
+Game.prototype.init = function (){ /*vai receber o id do board (nivel)*/
+	this.prolog.makeRequest("chooseBoard(1)",1);	/*mudar id para mudar de board!!!*/
+
+	/*
+A mesma coisa para os players
+	*/
+}
+
+Game.prototype.setGameBoard = function(board){
+	/*Init Board*/
+	this.board.setBoard(board);
 }
 
 Game.prototype.display = function () {

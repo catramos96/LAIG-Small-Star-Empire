@@ -1,10 +1,10 @@
 /*
 Class Player to keep the player's information
 */ 
-function Player(team,type) {
+function Player(team) {
 
     this.team = team;      /*Blue or Red*/
-    this.type = type;      /*Human or Computer*/
+    this.type = "H";   		/*Human or Computer*/
     this.homeBase;         /*Home Base Position*/
     this.colonies = [];    /*List of colonies positions*/
     this.trades = [];      /*List of trades positions*/

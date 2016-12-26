@@ -29,12 +29,13 @@ Class Board
      this.cellsPos = [];
      this.boardCells = [];
      this.init();
-
-     console.log(this.boardCells);
  }
 
  Board.prototype.init = function(){
     
+    this.cellsPos = [];
+    this.boardCells = [];
+
     var id = 1;
     var row = [];
     var xpos = 0;
@@ -77,6 +78,10 @@ Class Board
         this.scale = 1/(nrows_max*1.6);
  }
 
+ Board.prototype.setBoard = function(board) {
+    this.boardM = board;
+    this.init();
+ }
 
  Board.prototype.display = function() {
      this.scene.logPicking();
