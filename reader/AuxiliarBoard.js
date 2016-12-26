@@ -41,9 +41,6 @@ AuxiliarBoard.prototype.createCell = function(id,type) {
         piece = new Ship(this.scene,new ShipData(id),null,this.team);
     }
 
-    /*if(piece != null)
-        this.scene.registerForPick(id, piece);      //regista as pecas com os id's iniciais das celulas*/
-
     var cell = new Cell(id,this.scene,texture,this,piece);
 	if(piece != null)
 		piece.setCell(cell);

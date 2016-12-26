@@ -77,6 +77,24 @@ Class Board
         this.scale = 1/(nrows_max*1.6);
  }
 
+ Board.prototype.getCoordsById = function(id) {
+
+     var point = null;
+
+     for(var i = 0; i < this.boardM.length;i++)
+         for(var j = 0; j < this.boardM[i].length;j++)
+             if(this.boardCells[i][j] != null)
+                 if(this.boardCells[i][j].getId() == id){
+                     point = this.cellsPos[i][j];
+                     break;
+                 }
+
+     if(point != null)
+     {
+         return new MyPoint(point.getX()*this.scale*10,point.getY()*10*this.scale,point.getZ()*10*this.scale);
+     }
+     return null;
+ }
 
  Board.prototype.display = function() {
      this.scene.logPicking();
