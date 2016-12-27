@@ -20,7 +20,7 @@ function Game(scene,mode,difficulty) {
 	this.player1 = new Player("Blue");
 
     this.pieceSelected = null;
-    this.playerTurn = 1;
+    this.playerTurn = this.player1;
 
     switch (mode) {
         case 0: modeName = 'Player VS Player'; break;
@@ -49,15 +49,7 @@ A mesma coisa para os players
 	*/
 }
 
-Game.prototype.play = function (){
-
-}
-
 Game.prototype.undo = function (){
-
-}
-
-Game.prototype.quit = function (){
 
 }
 

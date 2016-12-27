@@ -288,7 +288,7 @@ XMLscene.prototype.onGraphLoaded = function () {
 	
 	this.initPrimitives();
 
-    this.game = new Game(this,0,0);
+    this.ongoing = false;
 };
 
 /**
@@ -418,7 +418,8 @@ XMLscene.prototype.display = function () {
 		//Processes the components
 		this.displayComponents(this.graph.getRoot(),null,null);
 
-        this.game.display();
+		if(this.ongoing)
+        	this.game.display();
 	}
 };
 
@@ -433,10 +434,17 @@ XMLscene.prototype.changeScene = function() {
 
 }
 
-XMLscene.prototype.automaticCamera = function(i) {
+XMLscene.prototype.automaticCamera = function() {
 
 }
 
 XMLscene.prototype.initGame = function(i) {
+	this.ongoing = true;
+    this.game = new Game(this,0,0);
+    this.interface.addGameInfo();
+}
 
+XMLscene.prototype.quit = function (){
+    this.ongoing = false;
+    this.interface.resetFolders();
 }

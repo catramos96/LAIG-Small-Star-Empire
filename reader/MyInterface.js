@@ -18,7 +18,26 @@ MyInterface.prototype.constructor = MyInterface;
 MyInterface.prototype.init = function(application) {
 	// call CGFinterface init
 	CGFinterface.prototype.init.call(this, application);
-	
+
+    dat.GUI.prototype.removeFolder = function(name) {
+        var folder = this.__folders[name];
+        if (!folder) {
+            return;
+        }
+        folder.close();
+        this.__ul.removeChild(folder.domElement.parentNode);
+        delete this.__folders[name];
+        this.onResize();
+    }
+
+    dat.GUI.prototype.folderExists = function(name) {
+        var folder = this.__folders[name];
+        if (!folder) {
+            return false;
+        }
+        return true;
+    }
+
 	// init GUI
 	this.gui = new dat.GUI();
 
@@ -35,12 +54,7 @@ MyInterface.prototype.init = function(application) {
 	this.gui.add(this.scene, 'updateMaterials').name("Update Materials");
 	this.gui.add(this.scene, 'changeScene').name("Change Scene");
 
-    this.gameMenuGroup = this.gui.addFolder("Game Menu");
-    this.gameMenuGroup.open();
-    this.gameMenuGroup.add(this.scene,'initGame').name("Play Game");
-
-    this.matchMenuGroup = this.gui.addFolder("Match Menu");
-    this.matchMenuGroup.open();
+	this.initFolders();
 
 	return true;
 };
@@ -57,8 +71,8 @@ MyInterface.prototype.addLights = function(id, isSpot) {
 
 MyInterface.prototype.addGameInfo = function () {
     this.gameMenuGroup.add(this.scene.game,'undo').name("Undo");
-    this.gameMenuGroup.add(this.scene.game,'quit').name("Quit");
-    this.gameMenuGroup.add(this.scene.game.playerTurn).name('Turn').listen();
+    this.gameMenuGroup.add(this.scene,'quit').name("Quit");
+    this.gameMenuGroup.add(this.scene.game.playerTurn,'team').name('Turn').listen();
 
     this.matchMenuGroup.add(this.scene.game.initInfo, 0).name('Game Mode').listen();
     this.matchMenuGroup.add(this.scene.game.initInfo, 1).name('Difficulty').listen();
@@ -68,6 +82,22 @@ MyInterface.prototype.addFinalGameInfo = function () {
     this.gameMenuGroup.add(this.scene.game.finalInfo, 0).name('Player 1 Score').listen();
     this.gameMenuGroup.add(this.scene.game.finalInfo, 1).name('Player 2 Score').listen();
     this.gameMenuGroup.add(this.scene.game.finalInfo, 2).name('Winner').listen();
+};
+
+MyInterface.prototype.initFolders = function () {
+    this.gameMenuGroup = this.gui.addFolder("Game Menu");
+    this.gameMenuGroup.open();
+    this.gameMenuGroup.add(this.scene,'initGame').name("Play Game");
+
+    this.matchMenuGroup = this.gui.addFolder("Match Menu");
+    this.matchMenuGroup.open();
+};
+
+MyInterface.prototype.resetFolders = function () {
+	this.matchMenuGroup = this.gui.removeFolder("Match Menu");
+	this.gameMenuGroup = this.gui.removeFolder("Game Menu");
+
+	this.initFolders();
 };
 
 /**
