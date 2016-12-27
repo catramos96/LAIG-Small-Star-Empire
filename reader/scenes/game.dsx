@@ -2,18 +2,30 @@
 
 <dsx>
 
-    <scene root="sceneRoot" axis_length="3" />
+    <scene root="garden" axis_length="3" />
 
     <views default="general" >
-		<perspective id="general" near="0.1" far="500" angle="35">
-            <from x="20" y="15" z="20" />
+		<perspective id="general" near="0.1" far="500" angle="50">
+            <from x="40" y="30" z="40" />
             <to x="0" y="0" z="0" />
+        </perspective>
+        <perspective id="up" near="0.1" far="500" angle="50">
+            <from x="2.5" y="20" z="0" />
+            <to x="1.5" y="0" z="0" />
+        </perspective>
+        <perspective id="player1" near="0.1" far="500" angle="50">
+            <from x="4" y="8" z="13" />
+            <to x="3" y="0" z="2" />
+        </perspective>
+        <perspective id="player2" near="0.1" far="500" angle="50">
+            <from x="13" y="9" z="-2" />
+            <to x="3" y="0" z="2" />
         </perspective>
     </views>
 
     <illumination doublesided="0" local="1" >
         <ambient r="0.1" g="0.1" b="0.1" a="1" />
-        <background r="0" g="0" b="0" a="1" />
+        <background r="0.6" g="0.85" b="0.92" a="1" />
     </illumination>
 
     <lights>
@@ -46,6 +58,11 @@
 			<texture id="rhomeworld" file="../resources/rhomeworld.png" length_s="1" length_t="1" />
 			<texture id="bhomeworld" file="../resources/bhomeworld.png" length_s="1" length_t="1" />
 			<texture id="marmore" file="../resources/marmore.jpg" length_s="1" length_t="1" />
+			<texture id="grass" file="../resources/grass.jpg" length_s="1" length_t="1" />
+			<texture id="pavimento" file="../resources/pavimento.jpg" length_s="11" length_t="11" />
+			<texture id="cimento" file="../resources/cimento.jpg" length_s="11" length_t="11" />
+			<texture id="azulejo" file="../resources/azulejo.jpg" length_s="3" length_t="3" />
+			<texture id="bola" file="../resources/bola.jpg" length_s="1" length_t="1" />
 
     </textures>
 
@@ -57,11 +74,11 @@
             <specular r="1" g="1" b="1" a="1" />
             <shininess value="100" />
         </material>
-        <material id="red" >
+        <material id="orange" >
             <emission r="0" g="0" b="0" a="0" />
-            <ambient r="1" g="0" b="0" a="1" />
-            <diffuse r="1" g="0" b="0" a="1" />
-            <specular r="1" g="0" b="0" a="1" />
+            <ambient r="1" g="0.5" b="0.15" a="1" />
+            <diffuse r="1" g="0.5" b="0.15" a="1" />
+            <specular r="1" g="0.5" b="0.15" a="1" />
             <shininess value="100" />
         </material>
         <material id="blue" >
@@ -74,46 +91,40 @@
     </materials>
 
     <transformations>
-		<transformation id="boardPositionRight">
-			<rotate axis="y" angle="90"/>
-			<translate x="-7.5" y="0" z="-7.5"/>
-			<scale x="7.5" y="7.5" z="7.5"/>
-        </transformation>
-
-		<transformation id="boardPositionLeft">
-			<translate x="0" y="0" z="-7.5"/>
-			<scale x="7.5" y="7.5" z="7.5"/>
+		<transformation id="gardenPos">
+			<translate x="0" y="-20" z="0"/>
+            <rotate axis="x" angle="-90"/>
         </transformation>
     </transformations>
 
     <primitives>
-       <primitive id="auxRedBoard">
-            <auxiliarBoard color="red"/>
+       <primitive id="cyl_floor">
+           <cylinder base="65" top="55" height="5" slices="20" stacks="10" />
        </primitive>
-
-       <primitive id="auxBlueBoard">
-            <auxiliarBoard color="blue"/>
-		</primitive>
-
-	   <primitive id="ship">
-       		<ship> </ship>
+       <primitive id="rec1">
+           <rectangle x1="-15" y1="-10" x2="15" y2="10" />
        </primitive>
-	   
-	   <primitive id="trade">
-       		<trade> </trade>
+       <primitive id="rec2">
+           <rectangle x1="-15" y1="-1" x2="15" y2="1" />
        </primitive>
-	   
-	   <primitive id="colony">
-       		<colony> </colony>
+       <primitive id="rec3">
+           <rectangle x1="-10" y1="-1" x2="10" y2="1" />
        </primitive>
-
-    	<primitive id="gameBoard">
-    		<gameBoard />
-    	</primitive>
-
-	   <primitive id="spaceShip">
-       		<vehicle> </vehicle>
+       <primitive id="cyl_leg_t">
+           <cylinder base="1" top="1" height="12" slices="10" stacks="10" />
        </primitive>
+       <primitive id="cyl_chair_top">
+           <cylinder base="3" top="3" height="1" slices="15" stacks="10" />
+       </primitive>
+       <primitive id="cyl_chair_leg">
+           <cylinder base="1" top="1" height="7" slices="15" stacks="10" />
+       </primitive>
+       <primitive id="ball">
+           <sphere radius="2" slices="30" stacks="30" />
+       </primitive>
+        <primitive id="towel">
+            <plane dimX="16" dimY="19" partsX="10" partsY="10"/>
+        </primitive>
     </primitives>
 
     <animations>
@@ -128,9 +139,9 @@
 	</animations>
 
     <components>
-		<component id="sceneRoot">
-
+		<component id="garden">
 			<transformation>
+			    <transformationref id="gardenPos"/>
 			</transformation>
 
 			<materials>
@@ -140,186 +151,420 @@
 			<texture id="none" />
 
 			<children>
-			<!--    <componentref id="AuxRedBoard"/>
-			    <componentref id="AuxBlueBoard"/>
-			    <componentref id="Board"/>
-				<componentref id="trade"/>
-			    <componentref id="colony"/>
-			    <componentref id="ship"/>   -->
-			</children>
-		</component>
-		
-		<component id="Board">
-        	<transformation>
-        		<scale x="10" y="10" z="10"/>
-        	</transformation>
-
-        	<materials>
-        		<material id="red" />
-        	</materials>
-
-        	<texture id="none" />
-
-        	<children>
-			    <primitiveref id="gameBoard"/>
-        	</children>
-        </component>
-
-		<component id="AuxRedBoard">
-        	<transformation>
-        	   <transformationref id="boardPositionRight"/>
-        	</transformation>
-
-        	<materials>
-        		<material id="red" />
-        	</materials>
-
-        	<texture id="none" />
-
-        	<children>
-                <primitiveref id="auxRedBoard"/>
-        	</children>
-        </component>
-		
-		<component id="AuxBlueBoard">
-        	<transformation>
-        	    <transformationref id="boardPositionLeft"/>
-        	</transformation>
-
-        	<materials>
-        		<material id="red" />
-        	</materials>
-
-        	<texture id="none" />
-
-        	<children>
-                <primitiveref id="auxBlueBoard"/>
-        	</children>
-        </component>
-		
-		<component id="ship">
-			<transformation>
-			</transformation>
-
-			<materials>
-				<material id="inherit" />
-			</materials>
-
-			<texture id="none" />
-
-			<children>
-				<primitiveref id="ship"/>
+			    <componentref id="floor"/>
+			    <componentref id="table"/>
+			    <componentref id="chairs"/>
+			    <componentref id="ball"/>
 			</children>
 		</component>
 
-		<component id="trade">
-			<transformation>
-				<translate x="2" y="0" z="0"/>
-			</transformation>	
-
-			<materials>
-				<material id="inherit" />
-			</materials>
-
-			<texture id="none" />
-
-			<children>
-				<primitiveref id="trade"/>
-			</children>
-		</component>
-		
-		<component id="colony">
-			<transformation>
-				<translate x="4" y="0" z="0"/>
-			</transformation>
-			
-			<animation>
-			    <animationref id="testKey"/>
-			</animation>
-
-			<materials>
-				<material id="inherit" />
-			</materials>
-
-			<texture id="none" />
-
-			<children>
-				<primitiveref id="colony"/>
-			</children>
-		</component>		
-<!--
-        <component id="colonies">
+		<component id="floor">
         	<transformation>
-        		 <scale  x="10" y="10" z="10" />
         	</transformation>
 
         	<materials>
         		<material id="inherit" />
         	</materials>
 
-        	<texture id="none" />
+        	<texture id="grass" />
 
         	<children>
-                <componentref id="colonyR1"/>
-                <componentref id="colonyR2"/>
-                <componentref id="colony3"/>
-                <componentref id="colony4"/>
-                <componentref id="colony5"/>
-                <componentref id="colony6"/>
-                <componentref id="colony7"/>
-                <componentref id="colony8"/>
-                <componentref id="colony9"/>
-                <componentref id="colony10"/>
-                <componentref id="colony11"/>
-                <componentref id="colony12"/>
-                <componentref id="colony13"/>
-                <componentref id="colony14"/>
-                <componentref id="colony15"/>
-                <componentref id="colony16"/>
-                <componentref id="trade1"/>
-                <componentref id="trade2"/>
-                <componentref id="trade3"/>
-                <componentref id="trade4"/>
-                <componentref id="ship1"/>
-                <componentref id="ship2"/>
-                <componentref id="ship3"/>
-                <componentref id="ship4"/>
+			    <primitiveref id="cyl_floor"/>
+			    <componentref id="floor_rec"/>
+        	</children>
+        </component>
+		<component id="floor_rec">
+		    <transformation>
+		        <translate x="0" y="0" z="5.5"/>
+		        <scale x="1.7" y="2" z="2"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="pavimento" />
+
+        	<children>
+			    <primitiveref id="rec1"/>
         	</children>
         </component>
 
-        <component id="colonyR1">
-             <transformation>
-                <translate x="0" y="-1.5" z="1" />
-                <rotate axis="y" angle="-90"/>
-             </transformation>
+        <component id="table">
+        	<transformation>
+        	    <translate x="0" y="0" z="18.8"/>
+        	</transformation>
 
-              <materials>
-                <material id="shiny" />
-              </materials>
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
 
-               <texture id="none" />
+        	<texture id="cimento" />
 
-               <children>
-                    <primitiveref id="colony"/>
-               </children>
+        	<children>
+        	    <componentref id="towel"/>
+			    <componentref id="top"/>
+			    <componentref id="legs"/>
+        	</children>
         </component>
 
-        <component id="colonyR2">
-             <transformation>
-                <translate x="0" y="-2.5" z="1" />
-                <rotate axis="y" angle="-90"/>
-             </transformation>
+        <component id="towel">
+        	<transformation>
+        	    <translate x="1" y="0" z="1.1"/>
+        	    <rotate axis="z" angle="90"/>
+        	</transformation>
 
-              <materials>
-                <material id="shiny" />
-              </materials>
+        	<materials>
+        		<material id="orange" />
+        	</materials>
 
-               <texture id="none" />
+        	<texture id="none" />
 
-               <children>
-                    <primitiveref id="colony"/>
-               </children>
+        	<children>
+        	    <primitiveref id="towel"/>
+        	</children>
         </component>
--->
+
+        <component id="top">
+        	<transformation>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <componentref id="top1"/>
+			    <componentref id="top2"/>
+			    <componentref id="top3"/>
+        	</children>
+        </component>
+        <component id="top1">
+        	<transformation>
+        	    <translate x="0" y="0" z="1"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="azulejo" />
+
+        	<children>
+			    <primitiveref id="rec1"/>
+			    <componentref id="top1down"/>
+        	</children>
+        </component>
+        <component id="top1down">
+        	<transformation>
+        	    <translate x="0" y="0" z="-2"/>
+        	    <rotate axis="x" angle="180"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="cimento" />
+
+        	<children>
+			    <primitiveref id="rec1"/>
+        	</children>
+        </component>
+        <component id="top2">
+        	<transformation>
+        	    <translate x="0" y="10" z="0"/>
+        	    <rotate axis="x" angle="-90"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="rec2"/>
+			    <componentref id="top2down"/>
+        	</children>
+        </component>
+        <component id="top2down">
+        	<transformation>
+        	    <translate x="0" y="0" z="-20"/>
+        	    <rotate axis="x" angle="180"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="rec2"/>
+        	</children>
+        </component>
+        <component id="top3">
+        	<transformation>
+        	    <translate x="15" y="0" z="0"/>
+        	    <rotate axis="y" angle="90"/>
+        	    <rotate axis="z" angle="90"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="rec3"/>
+			    <componentref id="top3down"/>
+        	</children>
+        </component>
+        <component id="top3down">
+        	<transformation>
+        	    <translate x="0" y="0" z="-30"/>
+        	    <rotate axis="y" angle="180"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="rec3"/>
+        	</children>
+        </component>
+
+        <component id="legs">
+        	<transformation>
+        	    <translate x="0" y="0" z="-13"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <componentref id="leg1"/>
+			    <componentref id="leg2"/>
+			    <componentref id="leg3"/>
+			    <componentref id="leg4"/>
+        	</children>
+        </component>
+        <component id="leg1">
+        	<transformation>
+        	    <translate x="-12" y="-7" z="0"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="cyl_leg_t"/>
+        	</children>
+        </component>
+        <component id="leg2">
+        	<transformation>
+        	    <translate x="12" y="-7" z="0"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="cyl_leg_t"/>
+        	</children>
+        </component>
+        <component id="leg3">
+        	<transformation>
+        	    <translate x="12" y="7" z="0"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="cyl_leg_t"/>
+        	</children>
+        </component>
+        <component id="leg4">
+        	<transformation>
+        	    <translate x="-12" y="7" z="0"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="cyl_leg_t"/>
+        	</children>
+        </component>
+
+        <component id="chairs">
+        	<transformation>
+        	     <translate x="0" y="0" z="12"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="azulejo" />
+
+        	<children>
+			    <componentref id="chair1"/>
+			    <componentref id="chair2"/>
+			    <componentref id="chair3"/>
+			    <componentref id="chair4"/>
+			    <componentref id="chair5"/>
+			    <componentref id="chair6"/>
+        	</children>
+        </component>
+        <component id="chair1">
+        	<transformation>
+        	     <translate x="7" y="15" z="0"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="cyl_chair_top"/>
+			    <componentref id="chair_leg"/>
+        	</children>
+        </component>
+        <component id="chair2">
+        	<transformation>
+        	     <translate x="-7" y="15" z="0"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="cyl_chair_top"/>
+			    <componentref id="chair_leg"/>
+        	</children>
+        </component>
+        <component id="chair3">
+        	<transformation>
+        	     <translate x="7" y="-15" z="0"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="cyl_chair_top"/>
+			    <componentref id="chair_leg"/>
+        	</children>
+        </component>
+        <component id="chair4">
+        	<transformation>
+        	     <translate x="-7" y="-15" z="0"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="cyl_chair_top"/>
+			    <componentref id="chair_leg"/>
+        	</children>
+        </component>
+        <component id="chair5">
+        	<transformation>
+        	     <translate x="20" y="0" z="0"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="cyl_chair_top"/>
+			    <componentref id="chair_leg"/>
+        	</children>
+        </component>
+        <component id="chair6">
+        	<transformation>
+        	     <translate x="-20" y="0" z="0"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="inherit" />
+
+        	<children>
+			    <primitiveref id="cyl_chair_top"/>
+			    <componentref id="chair_leg"/>
+        	</children>
+        </component>
+        <component id="chair_leg">
+        	<transformation>
+        	     <translate x="0" y="0" z="-7"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="cimento" />
+
+        	<children>
+			    <primitiveref id="cyl_chair_leg"/>
+        	</children>
+        </component>
+        <component id="ball">
+        	<transformation>
+        	     <translate x="-30" y="-30" z="7"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="bola" />
+
+        	<children>
+			    <primitiveref id="ball"/>
+        	</children>
+        </component>
    </components>
 </dsx>
