@@ -56,23 +56,12 @@ Class Board
           if(this.boardM[i].length > ncolumn_max)
             ncolumn_max = this.boardM[i].length;
 
-          if(this.boardM[i][j] == 0) //espaçamento inicial
+          if(this.boardM[i][j] == -1) //espaçamento inicial
             xpos += 0.9;
-          else if(this.boardM[i][j] == -1) //espaçamento de uma celula
+          else if(this.boardM[i][j] == -2) //espaçamento de uma celula
             xpos += 1.8;
           else{
-			   if(this.boardM[i][j].length == 3){	//Game Board Type
-				   
-					if(this.boardM[i][j][0] == 6 && this.boardM[i][j][1] == 0)
-						board_cells_row.push(this.createCell(id,61));
-					else if(this.boardM[i][j][0] == 6 && this.boardM[i][j][1] == 2)
-						board_cells_row.push(this.createCell(id,62));
-					else
-						board_cells_row.push(this.createCell(id,this.boardM[i][j][0]));
-			   } 
-			   else if(this.boardM[i][j].length == 1){
-				   board_cells_row.push(this.createCell(id,this.boardM[i][j][0]));		
-			   }   
+               board_cells_row.push(this.createCell(id,this.boardM[i][j]));
                pos_cells_row.push(new MyPoint(xpos,0,zpos));
                xpos += 1.8;            //next column
               id++; //cell id
@@ -82,7 +71,7 @@ Class Board
         this.cellsPos.push(pos_cells_row);
         zpos += 1.6;    //next row
     }
-	
+
     if(ncolumn_max*2 > nrows_max*1.7)           //scale para board unitario
         this.scale = 1/(ncolumn_max*1.8);
     else

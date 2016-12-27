@@ -112,17 +112,17 @@ Prolog.prototype.parsePlayer = function (info){
 Prolog.prototype.parseBoard = function (boardInfo){
 	var board = [];
 	var row = [];
-	var elem = [];
 	//var coord = [];
 	var open_1 = 0;		//1st [
 	var open_2 = 0;		//2nd [
+	var first_elem = 0;
 	var i ;
 
 	for(i = 1; i < boardInfo.length-1; i ++){
 
 
 		if(boardInfo[i] == '0' && open_1 == 1 && open_2 == 0){
-			row.push(0);
+			row.push(-1);
 		}
 		else if(boardInfo[i] == '['){						//open
 
@@ -132,7 +132,7 @@ Prolog.prototype.parseBoard = function (boardInfo){
 			} 
 			else if(open_2 == 0){
 				open_2 = 1;
-				elem = [];
+				//coord = [];
 			} 
 
 		}
@@ -140,28 +140,36 @@ Prolog.prototype.parseBoard = function (boardInfo){
 			
 			if(open_2 == 1){
 				open_2 = 0;
-				row.push(elem);
-				elem = [];
+				//row.push(coord);
+				//console.log(coord);
+				first_elem = 0;
+				//coord = [];
 			}
 			else if(open_1 == 1){
 				open_1 = 0;
+				//console.log(row);
 				board.push(row);
 				row = [];
 			}
 
 		}
-		else if(open_2 == 1 && open_1 == 1){			//coord
+		else if(open_2 == 1 && open_1 == 1 && first_elem == 0){			//coord
 			
 			if(boardInfo[i] == ',') continue;
 			else if(boardInfo[i] == '-'){
-				elem.push(parseInt(boardInfo[i] + boardInfo[i+1])); 
+				//coord.push(parseInt(boardInfo[i] + boardInfo[i+1]));
+				row.push(parseInt(boardInfo[i] + boardInfo[i+1])); //para ser como a matriz do board em js
 				i++;
 			}
+			else if(boardInfo[i] == '6' && boardInfo[i+2] == '0') row.push(61);
+			else if(boardInfo[i] == '6' && boardInfo[i+2] == '2') row.push(62);
 			else{
-				elem.push(parseInt(boardInfo[i]));
+				//coord.push(parseInt(boardInfo[i]));
+				row.push(parseInt(boardInfo[i]));
 			}
+			first_elem = 1;
 		}
 	}
-	console.log(board);
+	//console.log(board);
 	return board;
 };
