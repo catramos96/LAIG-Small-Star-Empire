@@ -161,8 +161,8 @@ Prolog.prototype.parseBoard = function (boardInfo){
 				row.push(parseInt(boardInfo[i] + boardInfo[i+1])); //para ser como a matriz do board em js
 				i++;
 			}
-			else if(boardInfo[i] == '6') row.push(61);
-			else if(boardInfo[i] == '7') row.push(62);
+			else if(boardInfo[i] == '6' && boardInfo[i+2] == '0') row.push(61);
+			else if(boardInfo[i] == '6' && boardInfo[i+2] == '2') row.push(62);
 			else{
 				//coord.push(parseInt(boardInfo[i]));
 				row.push(parseInt(boardInfo[i]));
