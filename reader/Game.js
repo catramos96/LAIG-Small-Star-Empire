@@ -17,23 +17,43 @@ function Game(scene) {
     this.pieceSelected = null;
 	
 	//Players
-	this.player1 = new Player("Red");
-	this.player1 = new Player("Blue");
+	this.turn = 1;	//default
 	
-	this.init();
+	//TEMPORARIO
+	this.gameInit(2,2,2);
 }
 
-Game.prototype.init = function (){ /*vai receber o id do board (nivel)*/
-	this.prolog.makeRequest("chooseBoard(1)",1);	/*mudar id para mudar de board!!!*/
+Game.prototype.gameInit = async function(BoardSize,Nivel,Mode){
+	this.prolog.makeRequest("initGame(" + BoardSize + "," + Nivel + "," + Mode + ")",1);
+	await sleep(500);
+	console.log(this.player1);
+	console.log(this.player2);
+	console.log("First Player - " + this.turn);
+}
 
-	/*
-A mesma coisa para os players
-	*/
+Game.prototype.createPlayer = function(team,type,ships){
+	if(team == 1){
+		this.player1 = new Player("Red");
+		this.player1.setType(type);
+		this.player1.setShips(ships);
+		this.player1.setHomeBase(ships[0]);
+	}
+	else if(team == 2){
+		this.player2 = new Player("Blue");
+		this.player2.setType(type);
+		this.player2.setShips(ships);
+		this.player2.setHomeBase(ships[0]);
+	}
+	
 }
 
 Game.prototype.setGameBoard = function(board){
 	/*Init Board*/
 	this.board.setBoard(board);
+}
+
+Game.prototype.setTurn = function(player){
+	this.turn = player;
 }
 
 Game.prototype.display = function() {
@@ -93,4 +113,8 @@ Game.prototype.move = function (piece, origin, dest) {
     //coloca a peca na celula de destino e retira a selecao
     dest.setSelected(false);
     dest.setPiece(piece);
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
