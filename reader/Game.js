@@ -43,7 +43,7 @@ Game.prototype.init = async function(BoardSize,Nivel,Mode){
 	await sleep(500);
 	console.log(this.player1);
 	console.log(this.player2);
-	console.log("First Player - " + this.turn.getTeam());
+	console.log("First Player - " + this.turn);
 }
 
 Game.prototype.undo = function (){
