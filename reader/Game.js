@@ -33,9 +33,8 @@ function Game(scene,mode,difficulty) {
         case 1: difficultyName = 'Hard'; break;
         default: difficultyName = 'Easy'; break;
     }
+	
     this.initInfo = [modeName, difficultyName];
-
-	this.init();
 
     this.finalInfo = [null, 0, 0];
 
@@ -53,6 +52,18 @@ Game.prototype.gameInit = async function(BoardSize,Nivel,Mode){
 	console.log("First Player - " + this.turn);
 }
 
+Game.prototype.undo = function (){
+
+}
+
+Game.prototype.endedGame = function (){
+
+    this.finalInfo = [this.player1.team, 0, 0];  //atualiza esta informacao
+
+    this.scene.interface.addFinalGameInfo();
+    this.scene.interface.removeSomeInfo();
+}
+
 Game.prototype.createPlayer = function(team,type,ships){
 	if(team == 1){
 		this.player1 = new Player("Red");
@@ -67,18 +78,6 @@ Game.prototype.createPlayer = function(team,type,ships){
 		this.player2.setHomeBase(ships[0]);
 	}
 	
-}
-
-Game.prototype.undo = function (){
-
-}
-
-Game.prototype.endedGame = function (){
-
-    this.finalInfo = [this.player1.team, 0, 0];  //atualiza esta informacao
-
-    this.scene.interface.addFinalGameInfo();
-    this.scene.interface.removeSomeInfo();
 }
 
 Game.prototype.setGameBoard = function(board){
