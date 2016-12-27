@@ -32,7 +32,11 @@ XMLscene.prototype.init = function (application) {
 	this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE);
 */
 	this.lastTime = -1;		//for update scene
+    this.sceneNum = 0;
+    this.lastSceneNum = -1;
+    this.numCamera = 0; 	//actual camera
 
+	this.scenes = ["garden.dsx","mySolarSystem.dsx"];
 };
 
 /**
@@ -96,8 +100,7 @@ XMLscene.prototype.getMaterials = function () {
  * Search for the default camera ant initializes it
  */
 XMLscene.prototype.initCamera = function () {
-	this.numCamera = 0; 	//actual camera
-	
+
 	//For each perspective...
 	for (var [id, value] of this.graph.perspectiveList){
 		if(value.isDefault()){
@@ -288,7 +291,7 @@ XMLscene.prototype.onGraphLoaded = function () {
 	
 	this.initPrimitives();
 
-    this.game = new Game(this);
+    this.ongoing = false;
 };
 
 /**
@@ -418,7 +421,13 @@ XMLscene.prototype.display = function () {
 		//Processes the components
 		this.displayComponents(this.graph.getRoot(),null,null);
 
-        this.game.display();
+		if(this.ongoing) {
+            if (this.lastSceneNum != this.sceneNum) {
+				this.lastSceneNum = this.sceneNum;
+				this.graph = new MySceneGraph(this.scenes[this.sceneNum], this.scene);
+			}
+            this.game.display();
+        }
 	}
 };
 
@@ -427,4 +436,25 @@ XMLscene.prototype.display = function () {
  */
 XMLscene.prototype.setInterface = function(i) {
 	this.interface = i;
+}
+
+XMLscene.prototype.changeScene = function() {
+    this.sceneNum++;
+    if(this.sceneNum == 2)
+        this.sceneNum = 0;
+}
+
+XMLscene.prototype.automaticCamera = function() {
+
+}
+
+XMLscene.prototype.initGame = function(i) {
+	this.ongoing = true;
+    this.game = new Game(this,0,0);
+    this.interface.addGameInfo();
+}
+
+XMLscene.prototype.quit = function (){
+    this.ongoing = false;
+    this.interface.resetFolders();
 }

@@ -1,9 +1,11 @@
 /*
  Class Game
  */
-function Game(scene) {
+function Game(scene,mode,difficulty) {
     this.scene = scene;
-	
+    this.mode = mode;
+    this.difficulty = difficulty;
+
 	this.prolog = new Prolog(this);
 
     //criacao de um board e dois boards auxiliares
@@ -12,11 +14,31 @@ function Game(scene) {
     //os tabuleiros auxiliares ja sao criados com as suas pecas
     this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"blue"));
     this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red"));
-
-    //peca selecionada
-    this.pieceSelected = null;
 	
 	//Players
+	this.player1 = new Player("Red");
+	this.player1 = new Player("Blue");
+
+    this.pieceSelected = null;
+    this.playerTurn = this.player1;
+
+    switch (mode) {
+        case 0: modeName = 'Player VS Player'; break;
+        case 1: modeName = 'Player VS AI'; break;
+        case 2: modeName = 'AI VS AI'; break;
+        default: modeName = 'Player VS AI'; break;
+    }
+    switch (difficulty) {
+        case 0: difficultyName = 'Easy'; break;
+        case 1: difficultyName = 'Hard'; break;
+        default: difficultyName = 'Easy'; break;
+    }
+    this.initInfo = [modeName, difficultyName];
+
+	this.init();
+
+    this.finalInfo = [null, 0, 0];
+
 	this.turn = 1;	//default
 	
 	//TEMPORARIO
@@ -45,6 +67,18 @@ Game.prototype.createPlayer = function(team,type,ships){
 		this.player2.setHomeBase(ships[0]);
 	}
 	
+}
+
+Game.prototype.undo = function (){
+
+}
+
+Game.prototype.endedGame = function (){
+
+    this.finalInfo = [this.player1.team, 0, 0];  //atualiza esta informacao
+
+    this.scene.interface.addFinalGameInfo();
+    this.scene.interface.removeSomeInfo();
 }
 
 Game.prototype.setGameBoard = function(board){
