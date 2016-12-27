@@ -14,13 +14,8 @@ function Game(scene,mode,difficulty) {
     //os tabuleiros auxiliares ja sao criados com as suas pecas
     this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"blue"));
     this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red"));
-	
-	//Players
-	this.player1 = new Player("Red");
-	this.player1 = new Player("Blue");
 
     this.pieceSelected = null;
-    this.playerTurn = this.player1;
 
     switch (mode) {
         case 0: modeName = 'Player VS Player'; break;
@@ -41,10 +36,10 @@ function Game(scene,mode,difficulty) {
 	this.turn = 1;	//default
 	
 	//TEMPORARIO
-	this.gameInit(2,2,2);
+	this.init(2,difficulty + 1,mode + 1);
 }
 
-Game.prototype.gameInit = async function(BoardSize,Nivel,Mode){
+Game.prototype.init = async function(BoardSize,Nivel,Mode){
 	this.prolog.makeRequest("initGame(" + BoardSize + "," + Nivel + "," + Mode + ")",1);
 	await sleep(500);
 	console.log(this.player1);
