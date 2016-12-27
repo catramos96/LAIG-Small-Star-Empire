@@ -59,6 +59,15 @@ MyInterface.prototype.init = function(application) {
 	return true;
 };
 
+MyInterface.prototype.initFolders = function () {
+    this.gameMenuGroup = this.gui.addFolder("Game Menu");
+    this.gameMenuGroup.open();
+    this.gameMenuGroup.add(this.scene,'initGame').name("Play Game");
+
+    this.matchMenuGroup = this.gui.addFolder("Match Menu");
+    this.matchMenuGroup.open();
+};
+
 /**
  * Adds a light to the group
  */
@@ -70,27 +79,18 @@ MyInterface.prototype.addLights = function(id, isSpot) {
 }
 
 MyInterface.prototype.addGameInfo = function () {
-    this.gameMenuGroup.add(this.scene.game,'undo').name("Undo");
+    this.undo = this.gameMenuGroup.add(this.scene.game,'undo').name("Undo");
     this.gameMenuGroup.add(this.scene,'quit').name("Quit");
-    this.gameMenuGroup.add(this.scene.game.playerTurn,'team').name('Turn').listen();
+    this.turn = this.gameMenuGroup.add(this.scene.game.playerTurn,'team').name('Turn').listen();
 
     this.matchMenuGroup.add(this.scene.game.initInfo, 0).name('Game Mode').listen();
     this.matchMenuGroup.add(this.scene.game.initInfo, 1).name('Difficulty').listen();
 };
 
 MyInterface.prototype.addFinalGameInfo = function () {
-    this.gameMenuGroup.add(this.scene.game.finalInfo, 0).name('Player 1 Score').listen();
-    this.gameMenuGroup.add(this.scene.game.finalInfo, 1).name('Player 2 Score').listen();
-    this.gameMenuGroup.add(this.scene.game.finalInfo, 2).name('Winner').listen();
-};
-
-MyInterface.prototype.initFolders = function () {
-    this.gameMenuGroup = this.gui.addFolder("Game Menu");
-    this.gameMenuGroup.open();
-    this.gameMenuGroup.add(this.scene,'initGame').name("Play Game");
-
-    this.matchMenuGroup = this.gui.addFolder("Match Menu");
-    this.matchMenuGroup.open();
+    this.gameMenuGroup.add(this.scene.game.finalInfo, 1).name('Player 1 Score').listen();
+    this.gameMenuGroup.add(this.scene.game.finalInfo, 2).name('Player 2 Score').listen();
+    this.gameMenuGroup.add(this.scene.game.finalInfo, 0).name('Winner').listen();
 };
 
 MyInterface.prototype.resetFolders = function () {
@@ -98,6 +98,14 @@ MyInterface.prototype.resetFolders = function () {
 	this.gameMenuGroup = this.gui.removeFolder("Game Menu");
 
 	this.initFolders();
+};
+
+MyInterface.prototype.removeSomeInfo = function () {
+	this.turn.remove();
+	this.turn = null;
+
+    this.undo.remove();
+    this.undo = null;
 };
 
 /**

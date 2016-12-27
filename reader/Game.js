@@ -53,6 +53,14 @@ Game.prototype.undo = function (){
 
 }
 
+Game.prototype.endedGame = function (){
+
+    this.finalInfo = [this.player1.team, 0, 0];  //atualiza esta informacao
+
+    this.scene.interface.addFinalGameInfo();
+    this.scene.interface.removeSomeInfo();
+}
+
 Game.prototype.setGameBoard = function(board){
 	/*Init Board*/
 	this.board.setBoard(board);
