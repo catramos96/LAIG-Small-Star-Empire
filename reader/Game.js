@@ -1,9 +1,11 @@
 /*
  Class Game
  */
-function Game(scene) {
+function Game(scene,mode,difficulty) {
     this.scene = scene;
-	
+    this.mode = mode;
+    this.difficulty = difficulty;
+
 	this.prolog = new Prolog(this);
 
     //criacao de um board e dois boards auxiliares
@@ -12,15 +14,31 @@ function Game(scene) {
     //os tabuleiros auxiliares ja sao criados com as suas pecas
     this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"blue"));
     this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red"));
-
-    //peca selecionada
-    this.pieceSelected = null;
 	
 	//Players
 	this.player1 = new Player("Red");
 	this.player1 = new Player("Blue");
-	
+
+    this.pieceSelected = null;
+    this.playerTurn = 1;
+
+    switch (mode) {
+        case 0: modeName = 'Player VS Player'; break;
+        case 1: modeName = 'Player VS AI'; break;
+        case 2: modeName = 'AI VS AI'; break;
+        default: modeName = 'Player VS AI'; break;
+    }
+    switch (difficulty) {
+        case 0: difficultyName = 'Easy'; break;
+        case 1: difficultyName = 'Hard'; break;
+        default: difficultyName = 'Easy'; break;
+    }
+    this.initInfo = [modeName, difficultyName];
+
 	this.init();
+
+    this.finalInfo = [null, 0, 0];
+
 }
 
 Game.prototype.init = function (){ /*vai receber o id do board (nivel)*/
@@ -29,6 +47,18 @@ Game.prototype.init = function (){ /*vai receber o id do board (nivel)*/
 	/*
 A mesma coisa para os players
 	*/
+}
+
+Game.prototype.play = function (){
+
+}
+
+Game.prototype.undo = function (){
+
+}
+
+Game.prototype.quit = function (){
+
 }
 
 Game.prototype.setGameBoard = function(board){

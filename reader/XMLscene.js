@@ -288,7 +288,7 @@ XMLscene.prototype.onGraphLoaded = function () {
 	
 	this.initPrimitives();
 
-    this.game = new Game(this);
+    this.game = new Game(this,0,0);
 };
 
 /**
@@ -427,4 +427,16 @@ XMLscene.prototype.display = function () {
  */
 XMLscene.prototype.setInterface = function(i) {
 	this.interface = i;
+}
+
+XMLscene.prototype.changeScene = function() {
+
+}
+
+XMLscene.prototype.automaticCamera = function(i) {
+
+}
+
+XMLscene.prototype.initGame = function(i) {
+
 }
