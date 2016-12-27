@@ -52,7 +52,7 @@ Piece.prototype.move = function (pointO, pointD) {
 
     //aplica na peca uma eliptical animation de raio = metade da distancia
     this.animStartTime = this.scene.getCurrTime();
-    this.animation = new EllipticalAnimation(this.id,2,pc,rx,rx*4/3,0,180);
+    this.animation = new EllipticalAnimation(this.id,2,pc,rx,2,0,180);
 }
 
 Piece.prototype.display = function () {
@@ -76,7 +76,6 @@ Piece.prototype.display = function () {
             this.animation = null;
         }
     }
-
 
     this.scene.pushMatrix();
         this.scene.multMatrix(animTransformation.getMatrix());

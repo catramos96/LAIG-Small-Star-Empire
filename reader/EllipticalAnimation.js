@@ -27,8 +27,8 @@ EllipticalAnimation.prototype.getTransformation = function(deltTime)
 
     var angAtual = this.startAng + this.w*deltTime; //angulo da distancia percorrida ate    agora
 
-    transformation.translate(this.pc.getX(),this.pc.getY(),this.pc.getZ());
-    transformation.translate(this.rx*Math.cos(angAtual), this.rz*Math.sin(angAtual),0);
+    transformation.translate(this.pc.getX(),this.pc.getZ(),this.pc.getY());
+    transformation.translate(this.rx*Math.cos(angAtual),this.rz*Math.sin(angAtual),0);
     //transformation.rotate('y',angAtual);
 
     return transformation;

@@ -72,7 +72,7 @@ Class Board
         zpos += 1.6;    //next row
     }
 
-    if(ncolumn_max*2 > nrows_max*1.7)           /*scale para board unitario*/
+    if(ncolumn_max*2 > nrows_max*1.7)           //scale para board unitario
         this.scale = 1/(ncolumn_max*1.8);
     else
         this.scale = 1/(nrows_max*1.6);
@@ -97,7 +97,8 @@ Class Board
 
      if(point != null)
      {
-         return new MyPoint(point.getX()*this.scale*10,point.getY()*10*this.scale,point.getZ()*10*this.scale);
+         //return new MyPoint(point.getX()-1.5,point.getY(),point.getZ());
+         return new MyPoint((point.getX()-0.5)*this.scale*10,(point.getY()-0.5)*10*this.scale,(point.getZ()-0.5)*10*this.scale);
      }
      return null;
  }

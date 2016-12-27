@@ -422,10 +422,10 @@ XMLscene.prototype.display = function () {
 		this.displayComponents(this.graph.getRoot(),null,null);
 
 		if(this.ongoing) {
-            if (this.lastSceneNum != this.sceneNum) {
+           /* if (this.lastSceneNum != this.sceneNum) {
 				this.lastSceneNum = this.sceneNum;
 				this.graph = new MySceneGraph(this.scenes[this.sceneNum], this.scene);
-			}
+			}*/
             this.game.display();
         }
 	}
