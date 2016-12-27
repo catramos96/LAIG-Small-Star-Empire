@@ -56,11 +56,15 @@ MyInterface.prototype.init = function(application) {
 
 	this.initFolders();
 
+	this.turn = null;
+	this.undo = null;
+
 	return true;
 };
 
-MyInterface.prototype.initFolders = function () {
-    this.gameMenuGroup = this.gui.addFolder("Game Menu");
+MyInterface.prototype.initFolders = function (bool) {
+
+	this.gameMenuGroup = this.gui.addFolder("Game Menu");
     this.gameMenuGroup.open();
     this.gameMenuGroup.add(this.scene,'initGame').name("Play Game");
 
@@ -79,12 +83,16 @@ MyInterface.prototype.addLights = function(id, isSpot) {
 }
 
 MyInterface.prototype.addGameInfo = function () {
-    this.undo = this.gameMenuGroup.add(this.scene.game,'undo').name("Undo");
-    this.gameMenuGroup.add(this.scene,'quit').name("Quit");
-    this.turn = this.gameMenuGroup.add(this.scene.game.playerTurn,'team').name('Turn').listen();
 
-    this.matchMenuGroup.add(this.scene.game.initInfo, 0).name('Game Mode').listen();
-    this.matchMenuGroup.add(this.scene.game.initInfo, 1).name('Difficulty').listen();
+	if(this.undo == null || this.turn == null)
+	{
+        this.undo = this.gameMenuGroup.add(this.scene.game,'undo').name("Undo");
+        this.gameMenuGroup.add(this.scene,'quit').name("Quit");
+        this.turn = this.gameMenuGroup.add(this.scene.game.playerTurn,'team').name('Turn').listen();
+
+        this.matchMenuGroup.add(this.scene.game.initInfo, 0).name('Game Mode').listen();
+        this.matchMenuGroup.add(this.scene.game.initInfo, 1).name('Difficulty').listen();
+	}
 };
 
 MyInterface.prototype.addFinalGameInfo = function () {

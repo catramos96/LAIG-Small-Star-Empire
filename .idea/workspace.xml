@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7313c19a-2172-4a32-a380-79efdabd8292" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/Game.js" afterPath="$PROJECT_DIR$/reader/Game.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/MyInterface.js" afterPath="$PROJECT_DIR$/reader/MyInterface.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/XMLscene.js" afterPath="$PROJECT_DIR$/reader/XMLscene.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MyInterface.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MyInterface.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reader/MyInterface.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="82" column="43" lean-forward="false" selection-start-line="82" selection-start-column="43" selection-end-line="82" selection-end-column="43" />
+            <state relative-caret-position="370">
+              <caret line="59" column="21" lean-forward="false" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -44,11 +44,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="XMLscene.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="XMLscene.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
-              <caret line="448" column="21" lean-forward="true" selection-start-line="448" selection-start-column="21" selection-end-line="448" selection-end-column="21" />
+            <state relative-caret-position="302">
+              <caret line="453" column="30" lean-forward="false" selection-start-line="453" selection-start-column="19" selection-end-line="453" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MySceneGraph.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/MySceneGraph.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19958">
+              <caret line="1174" column="115" lean-forward="false" selection-start-line="1174" selection-start-column="115" selection-end-line="1174" selection-end-column="115" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyTexture.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/MyTexture.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="33" column="1" lean-forward="false" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -65,15 +85,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>transforma</find>
-      <find>transformation</find>
-      <find>solarSystemPosition</find>
-      <find>floor</find>
-      <find>chair_leg</find>
-      <find>cimento</find>
-      <find>azulejo</find>
-      <find>sphere</find>
-      <find>gard</find>
       <find>plane</find>
       <find>plan</find>
       <find>bola</find>
@@ -94,7 +105,16 @@
       <find>new G</find>
       <find>addL</find>
       <find>player</find>
+      <find>initCamera</find>
       <find>add</find>
+      <find>numCamera</find>
+      <find>updateM</find>
+      <find>num</find>
+      <find>numCa</find>
+      <find>change</find>
+      <find>sceneNum</find>
+      <find>init</find>
+      <find>interface</find>
     </findStrings>
     <replaceStrings>
       <replace>Cell</replace>
@@ -134,8 +154,8 @@
         <option value="$PROJECT_DIR$/reader/MySceneGraph.js" />
         <option value="$PROJECT_DIR$/reader/scenes/game.dsx" />
         <option value="$PROJECT_DIR$/reader/main.js" />
-        <option value="$PROJECT_DIR$/reader/XMLscene.js" />
         <option value="$PROJECT_DIR$/reader/Game.js" />
+        <option value="$PROJECT_DIR$/reader/XMLscene.js" />
         <option value="$PROJECT_DIR$/reader/MyInterface.js" />
       </list>
     </option>
@@ -326,15 +346,15 @@
       <workItem from="1482791912223" duration="15452000" />
       <workItem from="1482838775883" duration="8596000" />
       <workItem from="1482849243766" duration="6736000" />
-      <workItem from="1482857815801" duration="4956000" />
+      <workItem from="1482857815801" duration="7385000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123267000" />
+    <option name="totallyTimeSpent" value="125696000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1669107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -489,13 +509,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reader/prolog/server.pl" />
-    <entry file="file://$PROJECT_DIR$/reader/MyTexture.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="37" column="31" lean-forward="false" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reader/MyMaterial.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="487">
@@ -646,14 +659,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/MySceneGraph.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1174" column="115" lean-forward="false" selection-start-line="1174" selection-start-column="115" selection-end-line="1174" selection-end-column="115" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reader/Cell.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -696,10 +701,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
+    <entry file="file://$PROJECT_DIR$/reader/MyTexture.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="448" column="21" lean-forward="true" selection-start-line="448" selection-start-column="21" selection-end-line="448" selection-end-column="21" />
+        <state relative-caret-position="324">
+          <caret line="33" column="1" lean-forward="false" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/MySceneGraph.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19958">
+          <caret line="1174" column="115" lean-forward="false" selection-start-line="1174" selection-start-column="115" selection-end-line="1174" selection-end-column="115" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/MyInterface.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="59" column="21" lean-forward="false" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -712,10 +733,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/MyInterface.js">
+    <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="82" column="43" lean-forward="false" selection-start-line="82" selection-start-column="43" selection-end-line="82" selection-end-column="43" />
+        <state relative-caret-position="302">
+          <caret line="453" column="30" lean-forward="false" selection-start-line="453" selection-start-column="19" selection-end-line="453" selection-end-column="30" />
           <folding />
         </state>
       </provider>
