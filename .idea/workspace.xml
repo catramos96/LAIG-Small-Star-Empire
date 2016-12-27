@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7313c19a-2172-4a32-a380-79efdabd8292" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/Board.js" afterPath="$PROJECT_DIR$/reader/Board.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/EllipticalAnimation.js" afterPath="$PROJECT_DIR$/reader/EllipticalAnimation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/Piece.js" afterPath="$PROJECT_DIR$/reader/Piece.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/Game.js" afterPath="$PROJECT_DIR$/reader/Game.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/MyInterface.js" afterPath="$PROJECT_DIR$/reader/MyInterface.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/XMLscene.js" afterPath="$PROJECT_DIR$/reader/XMLscene.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -27,11 +25,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MyInterface.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/reader/MyInterface.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="351">
+              <caret line="93" column="59" lean-forward="false" selection-start-line="93" selection-start-column="59" selection-end-line="93" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Game.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reader/Game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="84" column="8" lean-forward="false" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
+            <state relative-caret-position="217">
+              <caret line="32" column="30" lean-forward="false" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -80,8 +88,8 @@
       <file leaf-file-name="XMLscene.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="427" column="15" lean-forward="false" selection-start-line="427" selection-start-column="15" selection-end-line="427" selection-end-column="15" />
+            <state relative-caret-position="183">
+              <caret line="86" column="10" lean-forward="false" selection-start-line="86" selection-start-column="6" selection-end-line="86" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -98,10 +106,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>table</find>
-      <find>towel</find>
-      <find>red</find>
-      <find>cyl</find>
       <find>marmo</find>
       <find>componen</find>
       <find>trunk</find>
@@ -125,9 +129,13 @@
       <find>init</find>
       <find>interface</find>
       <find>ell</find>
+      <find>displa</find>
+      <find>setTurn</find>
       <find>move</find>
       <find>scale</find>
-      <find>displa</find>
+      <find>game</find>
+      <find>turn</find>
+      <find>initIn</find>
     </findStrings>
     <replaceStrings>
       <replace>Cell</replace>
@@ -164,12 +172,12 @@
         <option value="$PROJECT_DIR$/reader/MySceneGraph.js" />
         <option value="$PROJECT_DIR$/reader/scenes/game.dsx" />
         <option value="$PROJECT_DIR$/reader/main.js" />
-        <option value="$PROJECT_DIR$/reader/MyInterface.js" />
         <option value="$PROJECT_DIR$/reader/EllipticalAnimation.js" />
         <option value="$PROJECT_DIR$/reader/Piece.js" />
         <option value="$PROJECT_DIR$/reader/Board.js" />
         <option value="$PROJECT_DIR$/reader/XMLscene.js" />
         <option value="$PROJECT_DIR$/reader/Game.js" />
+        <option value="$PROJECT_DIR$/reader/MyInterface.js" />
       </list>
     </option>
   </component>
@@ -359,12 +367,12 @@
       <workItem from="1482791912223" duration="15452000" />
       <workItem from="1482838775883" duration="8596000" />
       <workItem from="1482849243766" duration="6736000" />
-      <workItem from="1482857815801" duration="13342000" />
+      <workItem from="1482857815801" duration="14368000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131653000" />
+    <option name="totallyTimeSpent" value="132679000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -623,7 +631,7 @@
         <state relative-caret-position="-594">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -640,14 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19958">
           <caret line="1174" column="115" lean-forward="false" selection-start-line="1174" selection-start-column="115" selection-end-line="1174" selection-end-column="115" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reader/MyInterface.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="59" column="21" lean-forward="false" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -684,14 +684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/Piece.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="39" column="20" lean-forward="false" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reader/MyTriangle.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -724,10 +716,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/index.html">
+    <entry file="file://$PROJECT_DIR$/reader/Piece.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="15" lean-forward="false" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+        <state relative-caret-position="183">
+          <caret line="39" column="20" lean-forward="false" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -750,16 +742,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="427" column="15" lean-forward="false" selection-start-line="427" selection-start-column="15" selection-end-line="427" selection-end-column="15" />
+        <state relative-caret-position="183">
+          <caret line="86" column="10" lean-forward="false" selection-start-line="86" selection-start-column="6" selection-end-line="86" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reader/Game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="84" column="8" lean-forward="false" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
+        <state relative-caret-position="217">
+          <caret line="32" column="30" lean-forward="false" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="15" lean-forward="false" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/MyInterface.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="93" column="59" lean-forward="false" selection-start-line="93" selection-start-column="59" selection-end-line="93" selection-end-column="59" />
           <folding />
         </state>
       </provider>

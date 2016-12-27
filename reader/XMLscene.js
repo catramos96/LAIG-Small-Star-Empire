@@ -290,8 +290,6 @@ XMLscene.prototype.onGraphLoaded = function () {
 	this.initTextures();	
 	
 	this.initPrimitives();
-	
-	this.initGame();
 
     this.ongoing = false;
 };

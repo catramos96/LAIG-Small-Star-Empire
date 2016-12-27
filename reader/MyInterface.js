@@ -88,10 +88,10 @@ MyInterface.prototype.addGameInfo = function () {
 	{
         this.undo = this.gameMenuGroup.add(this.scene.game,'undo').name("Undo");
         this.gameMenuGroup.add(this.scene,'quit').name("Quit");
-       // this.turn = this.gameMenuGroup.add(this.scene.game.turn,'team').name('Turn').listen();
+        this.turn = this.gameMenuGroup.add(this.scene.game.initInfo,0).name('Turn').listen();
 
-        this.matchMenuGroup.add(this.scene.game.initInfo, 0).name('Game Mode').listen();
-        this.matchMenuGroup.add(this.scene.game.initInfo, 1).name('Difficulty').listen();
+        this.matchMenuGroup.add(this.scene.game.initInfo, 1).name('Game Mode').listen();
+        this.matchMenuGroup.add(this.scene.game.initInfo, 2).name('Difficulty').listen();
 	}
 };
 
