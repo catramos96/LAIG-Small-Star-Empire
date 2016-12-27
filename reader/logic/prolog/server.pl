@@ -112,10 +112,10 @@ print_header_line(_).
 parse_input(chooseBoard(Id),Board) :-	board(Id,Board).
 
 /*FirstPlayer = 1 -> Player 1 or FirstPlayer = 2 -> Player 2*/
-parse_input(initGame(Nivel,Mode,Player1,Player2),FirstPlayer) :-	board(2,Board),	game_settings(Board,Nivel,Mode), !,	
-																	/*Temporario->Depois temos um menu que podemos escolhes o tabuleiro*/
-																	loadPlayers(Board,Mode,Player1,Player2), !,
-																	random(1,3,FirstPlayer).
+parse_input(initGame(BoardId,Nivel,Mode),Res) :-	board(BoardId,Board),
+													loadPlayers(Board,Mode,Player1,Player2), !,
+													random(1,3,FirstPlayer),
+													Res = (Board\Player1\Player2\FirstPlayer).
 
 /*Res = (winner\NewPoints1\NewPoints2)*/																
 parse_input(getWinner(Board,Player1,Player2),Res) :-				playerGetPoints(Board,Player1,ListLength1,Points1),	

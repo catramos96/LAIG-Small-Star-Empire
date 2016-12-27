@@ -4,7 +4,7 @@ Class Player to keep the player's information
 function Player(team) {
 
     this.team = team;      /*Blue or Red*/
-    this.type = "H";   		/*Human or Computer*/
+    this.type = "Human";   		/*Human or Computer*/
     this.homeBase;         /*Home Base Position*/
     this.colonies = [];    /*List of colonies positions*/
     this.trades = [];      /*List of trades positions*/
@@ -17,15 +17,29 @@ Player.prototype.constructor=Player;
 
 /* SETS */
 
-Player.prototype.setHomeBase = function(x,y){
+Player.prototype.setHomeBase = function(base){
 
-    this.homeBase = [x,y];    
+    this.homeBase = base;    
+
+}
+
+Player.prototype.setType = function(type){
+	if(type == "H")
+		this.type = "Human";
+	else
+		this.type = "Computer";
 
 }
 
 Player.prototype.setScore = function(score){
 
     this.score = score;    
+
+}
+
+Player.prototype.setShips = function(ships){
+
+    this.validShips = ships;  
 
 }
 
