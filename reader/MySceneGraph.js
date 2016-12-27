@@ -1172,7 +1172,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement) {
 				
 				if(!this.animationsList.has(animationId))	
 				{
-					return "Component '" + id + "' animationref '" + animationId + "' not in the list of primitives";
+					return "Component '" + id + "' animationref '" + animationId + "' not in the list of animations";
 				}
 				animationsComponent.push(this.animationsList.get(animationId));
 		    }

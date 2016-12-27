@@ -4,11 +4,19 @@
 
     <scene root="garden" axis_length="3" />
 
-    <views default="general" >
-		<perspective id="general" near="0.1" far="500" angle="50">
-            <from x="40" y="30" z="40" />
+    <views default="all" >
+		<perspective id="all" near="0.1" far="500" angle="45">
+            <from x="90" y="50" z="90" />
             <to x="0" y="0" z="0" />
         </perspective>
+		<perspective id="front" near="0.1" far="500" angle="50">
+            <from x="50" y="50" z="50" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+ 		<perspective id="back" near="0.1" far="500" angle="50">
+             <from x="-50" y="30" z="-30" />
+             <to x="0" y="0" z="0" />
+         </perspective>
         <perspective id="up" near="0.1" far="500" angle="50">
             <from x="2.5" y="20" z="0" />
             <to x="1.5" y="0" z="0" />
@@ -29,15 +37,33 @@
     </illumination>
 
     <lights>
-        <omni id="omni_general" enabled="1" >
-            <location x="15" y="15" z="15" w="1" />
+        <spot id="spot_tab" enabled="0" angle="60" exponent="3">
+            <target x="0" y="0" z="0" />
+            <location x="1" y="15" z="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.2" g="0.2" b="0.2" a="1" />
+        </spot>
+        <omni id="omni_1" enabled="1" >
+            <location x="50" y="30" z="50" w="1" />
             <ambient r="0" g="0" b="0" a="0" />
             <diffuse r="0.7" g="0.7" b="0.7" a="1" />
             <specular r="0.7" g="0.7" b="0.7" a="1" />
         </omni>
-
-        <omni id="omni_1" enabled="1" >
-            <location x="-5" y="10" z="-5" w="1" />
+        <omni id="omni_2" enabled="1" >
+            <location x="50" y="30" z="-50" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+        <omni id="omni_3" enabled="1" >
+            <location x="-50" y="30" z="50" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+        <omni id="omni_4" enabled="1" >
+            <location x="-50" y="30" z="-50" w="1" />
             <ambient r="0" g="0" b="0" a="0" />
             <diffuse r="0.7" g="0.7" b="0.7" a="1" />
             <specular r="0.7" g="0.7" b="0.7" a="1" />
@@ -58,12 +84,15 @@
 			<texture id="rhomeworld" file="../resources/rhomeworld.png" length_s="1" length_t="1" />
 			<texture id="bhomeworld" file="../resources/bhomeworld.png" length_s="1" length_t="1" />
 			<texture id="marmore" file="../resources/marmore.jpg" length_s="1" length_t="1" />
+
+			<!-- restantes -->
 			<texture id="grass" file="../resources/grass.jpg" length_s="1" length_t="1" />
 			<texture id="pavimento" file="../resources/pavimento.jpg" length_s="11" length_t="11" />
 			<texture id="cimento" file="../resources/cimento.jpg" length_s="11" length_t="11" />
 			<texture id="azulejo" file="../resources/azulejo.jpg" length_s="3" length_t="3" />
 			<texture id="bola" file="../resources/bola.jpg" length_s="1" length_t="1" />
-
+			<texture id="madeira" file="../resources/madeira.jpg" length_s="1" length_t="1" />
+			<texture id="folhas" file="../resources/folhas.jpg" length_s="1" length_t="1" />
     </textures>
 
     <materials>
@@ -81,13 +110,21 @@
             <specular r="1" g="0.5" b="0.15" a="1" />
             <shininess value="100" />
         </material>
-        <material id="blue" >
+        <material id="pink" >
             <emission r="0" g="0" b="0" a="0" />
-            <ambient r="0" g="0" b="1" a="1" />
-            <diffuse r="0" g="0" b="1" a="1" />
-            <specular r="0" g="0" b="1" a="1" />
+            <ambient r="1" g="0" b="0.5" a="1" />
+            <diffuse r="1" g="0" b="0.5" a="1" />
+            <specular r="1" g="0" b="0.5" a="1" />
             <shininess value="100" />
         </material>
+        <material id="purple" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="0.25" g="0" b="0.25" a="1" />
+            <diffuse r="0.25" g="0" b="0.25" a="1"/>
+            <specular r="0.25" g="0" b="0.25" a="1"/>
+            <shininess value="100" />
+        </material>
+
     </materials>
 
     <transformations>
@@ -125,16 +162,30 @@
         <primitive id="towel">
             <plane dimX="16" dimY="19" partsX="10" partsY="10"/>
         </primitive>
+        <primitive id="trunk">
+           <cylinder base="3" top="3" height="14" slices="10" stacks="10" />
+        </primitive>
+        <primitive id="tree_top">
+           <cylinder base="12" top="0" height="30" slices="15" stacks="10" />
+        </primitive>
+
+        <!-- vai ser um patch -->
+        <primitive id="ballon">
+           <sphere radius="2" slices="30" stacks="30" />
+        </primitive>
     </primitives>
 
     <animations>
-        <animation id="teste" span="6" type="elliptical" centerx="0" centery="0" centerz="0" radiusx="2" radiusz="2.5" startang="0" rotang="180" />
-	    <animation id="testKey" type="keyFrame">
+        <animation id="fly" type="keyFrame">
 	        <controlpoint t="0" tx="0" ty="0" tz="0" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
-	        <controlpoint t="3" tx="1" ty="1" tz="1" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
-	        <controlpoint t="6" tx="0" ty="0" tz="0" rx="90" ry="0" rz="0" sx="1" sy="1" sz="1"/>
-	        <controlpoint t="9" tx="0" ty="0" tz="1" rx="0" ry="0" rz="0" sx="0.5" sy="0.5" sz="0.5"/>
-	        <controlpoint t="12" tx="0" ty="0" tz="0" rx="0" ry="90" rz="0" sx="2" sy="2" sz="2"/>
+	        <controlpoint t="3" tx="-3" ty="-3" tz="-3" rx="0" ry="0" rz="45" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="6" tx="0" ty="0" tz="5" rx="0" ry="-25" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="12" tx="0" ty="0" tz="5" rx="0" ry="0" rz="-120" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="16" tx="90" ty="-20" tz="0" rx="0" ry="0" rz="-120" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="21" tx="0" ty="0" tz="0" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="22" tx="0" ty="10" tz="-8" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="23" tx="-7" ty="0" tz="0" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="24" tx="-8" ty="0" tz="-8" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
 	    </animation>
 	</animations>
 
@@ -155,6 +206,8 @@
 			    <componentref id="table"/>
 			    <componentref id="chairs"/>
 			    <componentref id="ball"/>
+			    <componentref id="trees"/>
+			    <componentref id="ballons"/>
 			</children>
 		</component>
 
@@ -216,6 +269,8 @@
 
         	<materials>
         		<material id="orange" />
+        		<material id="pink" />
+        		<material id="purple" />
         	</materials>
 
         	<texture id="none" />
@@ -551,6 +606,7 @@
 			    <primitiveref id="cyl_chair_leg"/>
         	</children>
         </component>
+
         <component id="ball">
         	<transformation>
         	     <translate x="-30" y="-30" z="7"/>
@@ -564,6 +620,154 @@
 
         	<children>
 			    <primitiveref id="ball"/>
+        	</children>
+        </component>
+
+        <component id="trees">
+        	<transformation>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+			    <componentref id="tree1"/>
+			    <componentref id="tree2"/>
+			    <componentref id="tree3"/>
+        	</children>
+        </component>
+        <component id="tree1">
+        	<transformation>
+        	     <translate x="-10" y="40" z="5"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+			    <componentref id="mytree"/>
+        	</children>
+        </component>
+        <component id="tree2">
+        	<transformation>
+        	     <translate x="10" y="40" z="5"/>
+        	     <scale x="0.8" y="0.8" z="0.8"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+			    <componentref id="mytree"/>
+        	</children>
+        </component>
+        <component id="tree3">
+        	<transformation>
+        	     <translate x="0" y="30" z="5"/>
+        	     <scale x="0.5" y="0.5" z="0.5"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+			    <componentref id="mytree"/>
+        	</children>
+        </component>
+        <component id="mytree">
+        	<transformation>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="madeira" />
+
+        	<children>
+			    <primitiveref id="trunk"/>
+			    <componentref id="tree_top"/>
+        	</children>
+        </component>
+        <component id="tree_top">
+        	<transformation>
+        	    <translate x="0" y="0" z="14"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="inherit" />
+        	</materials>
+
+        	<texture id="folhas" />
+
+        	<children>
+			    <primitiveref id="tree_top"/>
+        	</children>
+        </component>
+
+        <component id="ballons">
+        	<transformation>
+        	</transformation>
+
+			<animation>
+				<animationref id="fly"/>
+			</animation>
+
+        	<materials>
+        	    <material id="inherit" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+			    <componentref id="ballon1"/>
+			    <componentref id="ballon2"/>
+        	</children>
+        </component>
+        <component id="ballon1">
+        	<transformation>
+        	    <translate x="30" y="-30" z="20"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="pink" />
+        		<material id="purple" />
+        		<material id="orange" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+			    <primitiveref id="ballon"/>
+        	</children>
+        </component>
+        <component id="ballon2">
+        	<transformation>
+        	    <translate x="40" y="-40" z="15"/>
+        	</transformation>
+
+        	<materials>
+        		<material id="purple" />
+        		<material id="orange" />
+        		<material id="pink" />
+        	</materials>
+
+        	<texture id="none" />
+
+        	<children>
+			    <primitiveref id="ballon"/>
         	</children>
         </component>
    </components>
