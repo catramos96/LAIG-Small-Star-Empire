@@ -38,6 +38,10 @@ Prolog.prototype.makeRequest = function(requestString,type){
 			getResponse = this.requestType2;		/*makeMoveHuman*/
 			break;
 		}
+		case 3:{
+			getResponse = this.requestType2;		/*makeMoveBot -- AINDA NÃO FEITO*/
+			break;
+		}
 		case 4:{
 			getResponse = this.requestType4;		/*allPossibleMoves*/
 			break;
@@ -91,12 +95,7 @@ Prolog.prototype.requestType2 = function (data){
 		this.game.getTurn().setRepresentation(playerParsed);
 		this.game.board.setRepresentation(boardInfo);
 		
-		if(valid == -1)
-			this.game.setState('END');
-		else if(valid == 0)
-			this.game.setState('INIT');
-		/*else if(valid == 1)
-			adicionar //change turn*/
+		this.game.prolog.setServerResponse(valid);
 	}
 }
 
