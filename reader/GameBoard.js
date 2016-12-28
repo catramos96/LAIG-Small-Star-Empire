@@ -36,7 +36,7 @@ GameBoard.prototype.getPrologRepresentation = function() {
  */
 GameBoard.prototype.createCell = function(id,type,coords) {
     var texture = this.textureSelector(type);
-    return new Cell(id,this.scene,coords,texture,this,null);
+    return new Cell(id,this.scene,coords,texture,this,null,null);
 }
 
 GameBoard.prototype.getCell = function(row,column) {

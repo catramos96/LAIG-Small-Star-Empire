@@ -52,17 +52,33 @@ GameMove.prototype.makeShipMove = function(){
 
     //retira a peca da celula de origem e a sua selecao
     this.tileShip.setSelected(false);
-    this.tileShip.setPiece(null);
+    this.tileShip.setShip(null);
 
     //coloca a peca na celula de destino e retira a selecao
     this.tileDest.setSelected(false);
-    this.tileDest.setPiece(this.ship);
+    this.tileDest.setShip(this.ship);
 }
 
 GameMove.prototype.makePieceMove = function(){
     var pointO = this.tilePiece.getCoords();
     var pointD = this.tileDest.getCoords();
 
+    //verifica se as pecas que ja estao nessa celula tem de mudar a sua posicao, e se uma delas mudar, a peca tambem muda
+    var s = this.tileDest.getShip();
+    var p = this.tileDest.getPiece();
+    var hasToChange = false;
+    if(s != null){
+        hasToChange = true;
+        s.updateTransformation();
+    }
+    if(p != null) {
+        hasToChange = true;
+        p.updateTransformation();
+    }
+    if(hasToChange)
+        this.piece.updateTransformation();
+
+    //movimento
     this.piece.move(pointO,pointD);
 
     //retira a peca da celula de origem e a sua selecao

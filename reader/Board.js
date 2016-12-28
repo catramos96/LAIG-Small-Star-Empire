@@ -127,7 +127,7 @@ Board.prototype.displayAux = function(isCell) {
             }
             else
             {
-                this.scene.registerForPick(this.id +id, this.boardCells[i][j]);   //Picking (duvida aqui)//picking da peca
+                this.scene.registerForPick(this.id +id, this.boardCells[i][j]);   //picking da peca
                 this.boardCells[i][j].displayPiece(this.id + id);    //display de uma peca
             }
             this.scene.popMatrix();

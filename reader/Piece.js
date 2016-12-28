@@ -61,7 +61,8 @@ Piece.prototype.move = function (pointO, pointD) {
     this.animation = new KeyFrameAnimation(this.id,2,controlPoints);
 }
 
-Piece.prototype.display = function () {
+Piece.prototype.display = function ()
+{
     var currTime = this.scene.getCurrTime();
 
     var animTransformation = new MyTransformation(this.id);

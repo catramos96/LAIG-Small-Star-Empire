@@ -33,16 +33,20 @@ AuxiliarBoard.prototype.createCell = function(id,type,coords) {
     var texture = this.textureSelector(type);
 
     var piece = null;
+    var ship = null;
     if(id <= 16){
     	piece = new Colony(this.scene,new ColonyData(id),null,this.team);
 	}else if(id >= 17 && id <= 20){
         piece = new Trade(this.scene,new TradeData(id),null,this.team);
 	}else if(id >= 21 && id <= 24) {
-        piece = new Ship(this.scene,new ShipData(id),null,this.team);
+        ship = new Ship(this.scene,new ShipData(id),null,this.team);
     }
 
-    var cell = new Cell(id,this.scene,coords,texture,this,piece);
+    var cell = new Cell(id,this.scene,coords,texture,this,ship,piece);
 	if(piece != null)
 		piece.setCell(cell);
+	if(ship != null)
+        ship.setCell(cell);
+
 	return cell;
 }

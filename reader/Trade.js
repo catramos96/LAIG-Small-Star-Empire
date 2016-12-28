@@ -3,7 +3,10 @@
  */
 function Trade(scene,data,cell,team) {
     this.piece = new MyCylinder(scene,new MyCylinderData("tr",0.4,0.4,0.8,10,5));
-    Piece.call(this,scene,data.getId(),cell,team);
+    this.cell = cell;
+    this.id = data.getId();
+
+    Piece.call(this,scene,this.id,cell,team);
 
     this.transformation = new MyTransformation(data.getId());
     this.transformation.rotate('x',-Math.PI/2);
@@ -11,6 +14,18 @@ function Trade(scene,data,cell,team) {
 }
 
 Trade.prototype = Object.create(Piece.prototype);
+
+Trade.prototype.updateTransformation = function()
+{
+    this.transformation = new MyTransformation(this.id);
+    this.transformation.rotate('x',-Math.PI/2);
+    //se a celula onde estou tem um ship, devo colocar a peca mais a cima
+    if(this.cell.getShip != null) {
+        this.transformation.translate(1, -1.3, 0.1);
+    }
+    else
+        this.transformation.translate(1,-1,0.1);
+}
 
 Trade.prototype.displayAux = function(animTransformation){
     this.scene.pushMatrix();
