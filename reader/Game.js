@@ -69,7 +69,7 @@ Game.prototype.createPlayer = function(team,type,ships,representation){
 		this.player2.setRepresentation(representation);
 	}
 }
-
+/*
 Game.prototype.picking = function (obj,id) {
 
     if(obj instanceof Piece && (this.state == 'SEL_SHIP' || this.state == 'SEL_PIECE'))
@@ -104,6 +104,30 @@ Game.prototype.picking = function (obj,id) {
 
         if(this.state == 'ANIM2')
             this.cellSelected = null;
+    }
+}
+*/
+//ANTIGO SO PARA TESTES
+Game.prototype.picking = function (obj,id) {
+    //aqui vai ter restricoes tipo,é a vez do jogador 1 jogar, tem de escolher avioes, tem de esoclher colonias... etc
+    if(obj instanceof Piece)
+    {
+        var cell = obj.getCell();   //descobrir qual e a sua celula
+        cell.setSelected(true);     //marcar essa celula como selecionada (depois ele marca a peca correspondente)
+
+        if(this.pieceSelected != null && this.pieceSelected != obj)
+            this.pieceSelected.getCell().setSelected(false);
+
+        this.pieceSelected = obj;
+    }
+    else if(obj instanceof Cell)
+    {
+        if(this.pieceSelected != null) //verificar se ja ha uma peca selecionada
+        {
+            obj.setSelected(true);
+            this.move(this.pieceSelected,this.pieceSelected.getCell(),obj);
+            this.pieceSelected = null;
+        }
     }
 }
 

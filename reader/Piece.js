@@ -38,21 +38,27 @@ Piece.prototype.getTexture = function () {
 }
 
 Piece.prototype.move = function (pointO, pointD) {
-    //calcula a distancia em linha reta de um para o outro
-    var cpoint1 = vec3.fromValues(pointO.getX(),0,pointO.getZ());
-    var cpoint2 = vec3.fromValues(pointD.getX(),0,pointD.getZ());
-
-    //distance between cpoint1 and cpoint2
-    var rx = vec3.distance(cpoint1,cpoint2)/2;
-
-    //calcula o seu ponto central
-    var pc = new MyPoint(cpoint1[0]+(cpoint2[0]-cpoint1[0])/2,0,cpoint1[2]+(cpoint2[2]-cpoint1[2])/2);
-
-    console.log(pointO,pc,pointD);
-
     //aplica na peca uma eliptical animation de raio = metade da distancia
     this.animStartTime = this.scene.getCurrTime();
-    this.animation = new EllipticalAnimation(this.id,2,pc,rx,2,0,180);
+
+    var controlPoints = [];
+    var point = [];
+
+    point.push(0,pointO.getX(),0,pointO.getZ(),0,0,0,1,1,1);
+    controlPoints.push(point);
+
+    point = [];
+    var midX = (pointO.getX()+pointD.getX())/2;
+    var midZ = (pointO.getZ()+pointD.getZ())/2;
+    var height = 2;
+    point.push(1,midX,height,midZ,0,0,0,1,1,1);
+    controlPoints.push(point);
+
+    point = [];
+    point.push(2,pointD.getX(),0,pointD.getZ(),0,0,0,1,1,1);
+    controlPoints.push(point);
+
+    this.animation = new KeyFrameAnimation(this.id,2,controlPoints);
 }
 
 Piece.prototype.display = function () {
@@ -68,6 +74,8 @@ Piece.prototype.display = function () {
         {
             var elapTime = currTime-this.animStartTime;	//time since animation begined
             animTransformation = this.animation.getTransformation(elapTime);	//update the animTransformation
+
+            console.log(animTransformation);
         }
         else    //ja acabou
         {
