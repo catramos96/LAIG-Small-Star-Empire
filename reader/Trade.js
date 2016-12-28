@@ -21,7 +21,7 @@ Trade.prototype.updateTransformation = function()
     this.transformation.rotate('x',-Math.PI/2);
     //se a celula onde estou tem um ship, devo colocar a peca mais a cima
     if(this.cell.getShip != null) {
-        this.transformation.translate(1, -1.3, 0.1);
+        this.transformation.translate(1, -1.4, 0.1);
     }
     else
         this.transformation.translate(1,-1,0.1);

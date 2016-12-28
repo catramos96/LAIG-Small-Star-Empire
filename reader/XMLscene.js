@@ -421,11 +421,8 @@ XMLscene.prototype.display = function () {
 		//Processes the components
 		this.displayComponents(this.graph.getRoot(),null,null);
 
-		if(this.ongoing) {
-           /* if (this.lastSceneNum != this.sceneNum) {
-				this.lastSceneNum = this.sceneNum;
-				this.graph = new MySceneGraph(this.scenes[this.sceneNum], this.scene);
-			}*/
+		if(this.ongoing)
+		{
             this.game.display();
         }
 	}
@@ -442,6 +439,8 @@ XMLscene.prototype.changeScene = function() {
     this.sceneNum++;
     if(this.sceneNum == 2)
         this.sceneNum = 0;
+
+    new MySceneGraph(this.scenes[this.sceneNum], this);
 }
 
 XMLscene.prototype.automaticCamera = function() {
