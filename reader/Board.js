@@ -2,10 +2,11 @@
 Class Board
 */
 
- function Board(scene,id,boardM) {
+ function Board(scene,id,boardM,initialCoord) {
 
      this.scene = scene;
      this.id = id;
+     this.initialCoord = initialCoord;
 
      this.cellShader = new CGFshader(this.scene.gl, "shaders/cell.vert", "shaders/cell.frag");
      this.pieceShader = new CGFshader(this.scene.gl, "shaders/piece.vert", "shaders/piece.frag");
@@ -28,6 +29,7 @@ Class Board
 
      this.cellsPos = [];
      this.boardCells = [];
+
      this.init();
  }
 
@@ -38,8 +40,8 @@ Class Board
 
     var id = 1;
     var row = [];
-    var xpos = 0;
-    var zpos = 0;
+    var xpos = this.initialCoord.getX();
+    var zpos = this.initialCoord.getZ();
     var nrows_max = this.boardM.length;
     var ncolumn_max = this.boardM[0].length;
     
@@ -48,7 +50,7 @@ Class Board
     var my_coords;
 
     for(var i = 0; i < this.boardM.length;i++){            //row
-        xpos = 0;
+        xpos = this.initialCoord.getX();
         board_cells_row = [];
         pos_cells_row = [];
 
@@ -74,16 +76,20 @@ Class Board
         zpos += 1.6;    //next row
     }
 
-   /* if(ncolumn_max*2 > nrows_max*1.7)           //scale para board unitario
+    if(ncolumn_max*2 > nrows_max*1.7)           //scale para board unitario
         this.scale = 1/(ncolumn_max*1.8);
     else
-        this.scale = 1/(nrows_max*1.6);*/
+        this.scale = 1/(nrows_max*1.6);
  }
 
  Board.prototype.setBoard = function(board) {
     this.boardM = board;
     this.init();
  }
+
+Board.prototype.getId = function(board) {
+   return this.id;
+}
 
  Board.prototype.display = function() {
      this.scene.logPicking();
@@ -102,7 +108,7 @@ Board.prototype.displayAux = function(isCell) {
 
     var x = 0, y = 0, z = 0, id = 1;
     this.scene.pushMatrix();
-    //this.scene.scale(this.scale,this.scale,this.scale);
+    this.scene.scale(this.scale,this.scale,this.scale);
 
     for(var i = 0; i < this.boardCells.length;i++){
 
@@ -112,10 +118,10 @@ Board.prototype.displayAux = function(isCell) {
             z = this.cellsPos[i][j].getZ();
 
             this.scene.pushMatrix();
-            this.scene.translate(x,y,z);
 
             if(isCell)
             {
+                this.scene.translate(x,y,z);
                 this.scene.registerForPick(this.id + id, this.boardCells[i][j]);   //Picking da celula
                 this.boardCells[i][j].display();    //display de uma celula
             }

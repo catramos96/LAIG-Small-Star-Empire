@@ -13,9 +13,9 @@ Class MyGameBoard
 
 	// Board.call(this,scene,data.getId(),boardM);
 	if(data.getBoard().length == 1)
-  		Board.call(this,scene,data.getId(),boardM);
+  		Board.call(this,scene,data.getId(),boardM,data.getInitCoord());
 	else
-   		Board.call(this,scene,data.getId(),data.getBoard());
+   		Board.call(this,scene,data.getId(),data.getBoard(),data.getInitCoord());
 	
 	this.prologRepresentation = "";
  

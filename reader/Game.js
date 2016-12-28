@@ -21,11 +21,11 @@ function Game(scene,mode,difficulty) {
 	this.prolog = new Prolog(this);
 
     //criacao de um board e dois boards auxiliares
-    this.board = new GameBoard(this.scene,new GameBoardData(100,[[]]));
+    this.board = new GameBoard(this.scene,new GameBoardData(100,[[]],new MyPoint(-7.2,0,0)));
 	
     //os tabuleiros auxiliares ja sao criados com as suas pecas
-    this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"blue"));
-    this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red"));
+    this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"blue", new MyPoint(1.2,0,-9)));
+    this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red",new MyPoint(-12,0,-9)));
 
     //criacao dos jogadores ainda sem informacoes
     this.player1 = new Player("Blue");
@@ -89,31 +89,44 @@ Game.prototype.addMove = function(Team,Ri,Ci,Rf,Cf){
 	*/
 }
 
-/*
+
 Game.prototype.picking = function (obj,id) {
 
     if(obj instanceof Piece && (this.state == 'SEL_SHIP' || this.state == 'SEL_PIECE'))
     {
-        var cell = obj.getCell();   //descobrir qual e a sua celula
-        cell.setSelected(true);     //marcar essa celula como selecionada (depois ele marca a peca correspondente)
+        var team = obj.getTeam();
+        var board = obj.getCell().getBoard().getId();
 
-        if(this.pieceSelected != null && this.pieceSelected != obj)
-            this.pieceSelected.getCell().setSelected(false);
+        //o objeto selecionado tem de ser da equipa correspondente
+        // e se for trade ou colony tem de ser dum board auxiliar
+        if((team == this.turn.getTeam()) && (this.state == 'SEL_PIECE' && board != 100)) {
+            
+            var cell = obj.getCell();   //descobrir qual e a sua celula
+            cell.setSelected(true);     //marcar essa celula como selecionada (depois ele marca a peca correspondente)
 
-        this.pieceSelected = obj;
+            if (this.pieceSelected != null && this.pieceSelected != obj)
+                this.pieceSelected.getCell().setSelected(false);
 
-        this.changeState(); //já escolheu a peca, pode mudar de estado
+            this.pieceSelected = obj;
+
+            this.changeState(); //já escolheu a peca, pode mudar de estado
+        }
     }
-    else if((obj instanceof Cell && this.state == 'SEL_TILE'))
+    else if(obj instanceof Cell && this.state == 'SEL_TILE')
     {
-        var valid = true; //verificar se e uma peca valida em PROLOG
+        var idBoard = obj.getBoard().getId();
 
-        if(valid)
+        if(id == 100)   //so posso selcionar celulas do board principal
         {
-            this.cellSelected = obj;
+            var valid = true; //verificar se e uma peca valida em PROLOG
 
-            this.cellSelected.setSelected(true);
-            this.changeState(); //já escolheu a celula, pode mudar de estado
+            if(valid)
+            {
+                this.cellSelected = obj;
+
+                this.cellSelected.setSelected(true);
+                this.changeState(); //já escolheu a celula, pode mudar de estado
+            }
         }
     }
 
@@ -126,7 +139,7 @@ Game.prototype.picking = function (obj,id) {
             this.cellSelected = null;
     }
 }
-*/
+/*
 //ANTIGO SO PARA TESTES
 Game.prototype.picking = function (obj,id) {
     //aqui vai ter restricoes tipo,é a vez do jogador 1 jogar, tem de escolher avioes, tem de esoclher colonias... etc
@@ -149,7 +162,7 @@ Game.prototype.picking = function (obj,id) {
             this.pieceSelected = null;
         }
     }
-}
+}*/
 
 Game.prototype.move = function (piece, origin, dest) {
     var pointO = origin.getCoords();
@@ -202,7 +215,6 @@ Game.prototype.changeState = function () {
             break;
         case 'SEL_PIECE':
             this.state = 'ANIM2';
-            //executa o movimento aqui (?) para o mesmo tile de ao bocado
             break;
         case 'ANIM2':
             var hasPossibleMoves = true;    //verifica se ainda ha jogadas possiveis
@@ -220,7 +232,6 @@ Game.prototype.changeState = function () {
             break;
         case 'BOT':
             this.state = 'ANIM1';
-            //executa aqui o movimento (?)
             break;
         case 'END':
             this.endedGame();
@@ -248,21 +259,21 @@ Game.prototype.setTurn = function(player){
 Game.prototype.display = function() {
 
     this.scene.pushMatrix();
-    //this.scene.scale(10,10,10);
-    this.board.display();
+        this.scene.scale(10,10,10);
+        this.board.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(0,0,-7.5);
-    //this.scene.scale(7.5,7.5,7.5);
-    this.boardAux1.display();
+        //this.scene.translate(0,0,-7.5);
+        this.scene.scale(7.5,7.5,7.5);
+        this.boardAux1.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.rotate(Math.PI/2,0,1,0);
-    this.scene.translate(-7.5,0,-7.5);
-    //this.scene.scale(7.5,7.5,7.5);
-    this.boardAux2.display();
+        //this.scene.rotate(Math.PI/2,0,1,0);
+        //this.scene.translate(-7.5,0,-7.5);
+        this.scene.scale(7.5,7.5,7.5);
+        this.boardAux2.display();
     this.scene.popMatrix();
 }
 

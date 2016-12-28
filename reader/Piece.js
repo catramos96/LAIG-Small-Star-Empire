@@ -65,6 +65,8 @@ Piece.prototype.display = function () {
     var currTime = this.scene.getCurrTime();
 
     var animTransformation = new MyTransformation(this.id);
+    var position = this.cell.getCoords();
+    animTransformation.translate(position.getX(),position.getY(),position.getZ());
 
     if(this.animation != null)  //se ainda estiver na animacao
     {
@@ -84,11 +86,7 @@ Piece.prototype.display = function () {
         }
     }
 
-    this.scene.pushMatrix();
-        this.scene.multMatrix(animTransformation.getMatrix());
-        //provavelmente vou ter que fazer aqui uma transformacao também para ele ir para cima. dunno
-        this.displayAux();
-    this.scene.popMatrix();
+    this.displayAux(animTransformation);
 }
 
 //objetivos:
