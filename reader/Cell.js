@@ -1,7 +1,7 @@
 /*
 Class MyCell
 */
- function Cell(id,scene,texture,board,piece) {
+ function Cell(id,scene,coords,texture,board,piece) {
      CGFobject.call(this,scene);
      this.scene = scene;
      this.id = id;
@@ -9,6 +9,7 @@ Class MyCell
      this.piece = piece;    //apontador para a peca que ocupa esta celula
      this.selected = 0;
      this.texture = texture;
+     this.coords = coords;
 
      var appearances = this.scene.getMaterials();
      this.defaultAppearance = appearances.get("shiny").getAppearance();
@@ -34,7 +35,7 @@ Cell.prototype.getId = function() {
 }
 
 Cell.prototype.getCoords = function() {
-     return this.board.getCoordsById(this.id);
+     return this.coords;
 }
 
  Cell.prototype.display = function() {

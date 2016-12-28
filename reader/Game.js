@@ -228,20 +228,20 @@ Game.prototype.setTurn = function(player){
 Game.prototype.display = function() {
 
     this.scene.pushMatrix();
-    this.scene.scale(10,10,10);
+    //this.scene.scale(10,10,10);
     this.board.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
     this.scene.translate(0,0,-7.5);
-    this.scene.scale(7.5,7.5,7.5);
+    //this.scene.scale(7.5,7.5,7.5);
     this.boardAux1.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
     this.scene.rotate(Math.PI/2,0,1,0);
     this.scene.translate(-7.5,0,-7.5);
-    this.scene.scale(7.5,7.5,7.5);
+    //this.scene.scale(7.5,7.5,7.5);
     this.boardAux2.display();
     this.scene.popMatrix();
 }

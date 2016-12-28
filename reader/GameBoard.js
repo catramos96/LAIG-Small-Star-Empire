@@ -34,9 +34,9 @@ GameBoard.prototype.getPrologRepresentation = function() {
 /*
  Creates the cell with the correct texture and id and pushes to the boardCells
  */
-GameBoard.prototype.createCell = function(id,type) {
+GameBoard.prototype.createCell = function(id,type,coords) {
     var texture = this.textureSelector(type);
-    return new Cell(id,this.scene,texture,this,null);
+    return new Cell(id,this.scene,coords,texture,this,null);
 }
 
 GameBoard.prototype.getCell = function(row,column) {

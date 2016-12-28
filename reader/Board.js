@@ -45,6 +45,7 @@ Class Board
     
     var board_cells_row = [];
     var pos_cells_row = [];
+    var my_coords;
 
     for(var i = 0; i < this.boardM.length;i++){            //row
         xpos = 0;
@@ -61,8 +62,9 @@ Class Board
           else if(this.boardM[i][j] == -2) //espaçamento de uma celula
             xpos += 1.8;
           else{
-               board_cells_row.push(this.createCell(id,this.boardM[i][j]));
-               pos_cells_row.push(new MyPoint(xpos,0,zpos));
+               my_coords = new MyPoint(xpos,0,zpos);
+               board_cells_row.push(this.createCell(id,this.boardM[i][j],my_coords));
+               pos_cells_row.push(my_coords);
                xpos += 1.8;            //next column
               id++; //cell id
           }
@@ -72,35 +74,15 @@ Class Board
         zpos += 1.6;    //next row
     }
 
-    if(ncolumn_max*2 > nrows_max*1.7)           //scale para board unitario
+   /* if(ncolumn_max*2 > nrows_max*1.7)           //scale para board unitario
         this.scale = 1/(ncolumn_max*1.8);
     else
-        this.scale = 1/(nrows_max*1.6);
+        this.scale = 1/(nrows_max*1.6);*/
  }
 
  Board.prototype.setBoard = function(board) {
     this.boardM = board;
     this.init();
- }
- 
-  Board.prototype.getCoordsById = function(id) {
-
-     var point = null;
-
-     for(var i = 0; i < this.boardM.length;i++)
-         for(var j = 0; j < this.boardM[i].length;j++)
-             if(this.boardCells[i][j] != null)
-                 if(this.boardCells[i][j].getId() == id){
-                     point = this.cellsPos[i][j];
-                     break;
-                 }
-
-     if(point != null)
-     {
-         //return new MyPoint(point.getX()-1.5,point.getY(),point.getZ());
-         return new MyPoint((point.getX()-0.5)*this.scale*10,(point.getY()-0.5)*10*this.scale,(point.getZ()-0.5)*10*this.scale);
-     }
-     return null;
  }
 
  Board.prototype.display = function() {
@@ -120,7 +102,7 @@ Board.prototype.displayAux = function(isCell) {
 
     var x = 0, y = 0, z = 0, id = 1;
     this.scene.pushMatrix();
-    this.scene.scale(this.scale,this.scale,this.scale);
+    //this.scene.scale(this.scale,this.scale,this.scale);
 
     for(var i = 0; i < this.boardCells.length;i++){
 
