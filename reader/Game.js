@@ -1,6 +1,7 @@
 /*
  Class Game
  */
+possibleMoves = [];
 function Game(scene,mode,difficulty) {
     this.scene = scene;
     this.mode = mode;
@@ -32,8 +33,6 @@ function Game(scene,mode,difficulty) {
     this.player2 = new Player("Red");
 	
     this.turn = this.player1;	//default
-	this.repeatTurn = false;
-	this.gameOver = false;
 	this.allMoves = [];
 
     this.pieceSelected = null;
@@ -56,14 +55,40 @@ Game.prototype.init = async function(BoardSize,Nivel,Mode){
     console.log(this.player1.getPrologRepresentation());
     console.log(this.player2.getPrologRepresentation());
 	console.log("First Player - " + this.turn.team);
-	
-	//TESTE DE MOVIMENTO
-	this.prolog.makeRequest("moveHuman(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + ",2,2,2,3," + "'C'" + ")",2);
-	
+}
+
+Game.prototype.turn = async function(){
+	this.prolog.makeRequest("possibleMoves(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + ")",4);
 	await sleep(500);
+	possibleMoves = this.prolog.getServerResponse();
 	
-	console.log(this.player1.getPrologRepresentation());
-    console.log(this.player2.getPrologRepresentation());
+	/*
+	ApplyShader on possible moves
+	*/
+	
+	/*var moveRequest;
+	if(this.turn().getType() == "Human")
+		moveRequest = "moveHuman(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + "," + RowI + "," + ColumnI + "," + "RowF" + "ColumnI" + "," + Structure + ")";
+	//else(this.turn().getType() == "Computer"
+	this.prolog.makeRequest(move,2);*/
+}
+
+Game.prototype.applyShaderOnValidShips = function(){
+	/*
+	Shader em todas as células com os ships
+	usar this.turn().obter a lista dos ships
+	*/
+}
+
+Game.prototype.applyShaderOnShipPossibleMoves = function(){
+	/*
+	Shader em todas as células de movimentos possiveis para o ship selecionado
+	use:
+	this.prolog.makeRequest("possibleMoves(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + ")",4);
+	await sleep(500);
+	possibleMoves = this.prolog.getServerResponse();  -> Lista de movimentos possiveis (igual a prolog)
+	
+	*/
 }
 
 Game.prototype.createPlayer = function(team,type,ships,representation){
@@ -246,14 +271,41 @@ Game.prototype.undo = function (){
 
 }
 
+/*
+SETS
+*/
+
 Game.prototype.setGameBoard = function(board,representation){
     this.board.setBoard(board);
     this.board.setRepresentation(representation);
     console.log(this.board.getPrologRepresentation());
 }
 
-Game.prototype.setTurn = function(player){
-    this.turn = player;
+Game.prototype.setTurn = function(team){
+    if(team == 1)
+		this.turn = this.player1;
+	else if(team == 2)
+		this.turn = this.player2;
+}
+
+Game.prototype.changeTurn = function(){
+    if(this.turn == this.player1)
+		this.turn = this.player2;
+	else
+		this.turn = this.player1;
+}
+
+Game.prototype.setState = function(state){
+    this.state = state;
+	this.changeState();
+}
+
+/*
+GETS
+*/
+
+Game.prototype.getTurn = function(){
+    return this.turn;
 }
 
 Game.prototype.display = function() {

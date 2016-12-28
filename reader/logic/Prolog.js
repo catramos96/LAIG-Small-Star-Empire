@@ -1,8 +1,17 @@
 function Prolog(game) {
 	this.game = game;
+	this.serverResponse = null;
 };
 
 Prolog.prototype.constructor=Prolog;
+
+Prolog.prototype.getServerResponse = function(){
+	return this.serverResponse;
+}
+
+Prolog.prototype.setServerResponse = function(r){
+	this.serverResponse = r;
+}
 
 Prolog.prototype.callRequest = function(requestString, onSuccess, onError, port)
 {
@@ -27,6 +36,10 @@ Prolog.prototype.makeRequest = function(requestString,type){
 		}
 		case 2:{
 			getResponse = this.requestType2;		/*makeMoveHuman*/
+			break;
+		}
+		case 4:{
+			getResponse = this.requestType4;		/*allPossibleMoves*/
 			break;
 		}
 	}
@@ -75,18 +88,22 @@ Prolog.prototype.requestType2 = function (data){
 		
 		var playerParsed = this.game.prolog.parsePlayerProlog(playerInfo);
 		
-		if(playerParsed[1] == "1")		this.game.player1.setRepresentation(playerParsed);
-		else if(playerParsed[1] == "2")	this.game.player2.setRepresentation(playerParsed);
-		
+		this.game.getTurn().setRepresentation(playerParsed);
 		this.game.board.setRepresentation(boardInfo);
 		
 		if(valid == -1)
-			this.game.gameOver = true;
+			this.game.setState('END');
 		else if(valid == 0)
-			this.game.repeatTurn = true;
+			this.game.setState('INIT');
 		/*else if(valid == 1)
 			adicionar //change turn*/
 	}
+}
+
+Prolog.prototype.requestType4 = function (data){
+	console.log("request 4");
+	var info = data.target.response;
+	this.game.prolog.setServerResponse(this.game.prolog.parseMatrix(info));
 }
 
 Prolog.prototype.parsePlayerProlog = function (info){
@@ -159,6 +176,59 @@ Prolog.prototype.parsePlayer = function (info){
 	//console.log(data);
 	return data;
 };
+
+Prolog.prototype.parseMatrix = function (m){
+	var matrix = [];
+	var row = [];
+	var coord = [];
+	var num = "";
+	var open_1 = 0;		//1st [
+	var open_2 = 0;		//2nd [
+	var i ;
+
+	for(i = 1; i < m.length-1; i ++){
+
+		if(m[i] == '['){						//open
+
+			if(open_1 == 0){
+				open_1 = 1;
+				row = [];
+			} 
+			else if(open_2 == 0){
+				open_2 = 1;
+				coord = [];
+			} 
+
+		}
+		else if(m[i] == ']'){ 						//close
+			
+			if(open_2 == 1){
+				open_2 = 0;
+				coord.push(parseInt(num));
+				row.push(coord);
+				coord = [];
+				num = "";
+			}
+			else if(open_1 == 1){
+				open_1 = 0;
+				matrix.push(row);
+				row = [];
+			}
+
+		}
+		else if(open_2 == 1 && open_1 == 1){			//coord
+			
+			if(m[i] == ','){
+				coord.push(parseInt(num));
+				num = "";
+			} 
+			else if(open_1 == 1 && open_2 == 1){
+				num += m[i];
+			}
+		}
+	}
+	return matrix;
+}
 
 Prolog.prototype.parseBoard = function (boardInfo){
 	var board = [];
