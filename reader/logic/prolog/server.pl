@@ -111,18 +111,57 @@ print_header_line(_).
 
 parse_input(chooseBoard(Id),Board) :-	board(Id,Board).
 
-/*FirstPlayer = 1 -> Player 1 or FirstPlayer = 2 -> Player 2*/
-parse_input(initGame(BoardId,Nivel,Mode),Res) :-	board(BoardId,Board),
+parse_input(initGame(BoardId,Nivel,Mode),Res) 	:-	board(BoardId,Board),
 													loadPlayers(Board,Mode,Player1,Player2), !,
 													random(1,3,FirstPlayer),
 													Res = (Board\Player1\Player2\FirstPlayer).
-
-/*Res = (winner\NewPoints1\NewPoints2)*/																
+													
+parse_input(moveHuman(BoardI,PlayerI,Ri,Ci,Rf,Cf,Structure),Res)	:-	updateValidShips(BoardI,PlayerI,PlayerT2), !,
+																		getPossibleMoves(BoardI,PlayerT2,AllMoves), !,
+																		
+																		moveShipValid(AllMoves,PlayerT2,Ri,Ci,Rf,Cf,Valid),	/*valid move*/
+																		
+																		isGameOver(PlayerT2,GameOver),
+																		(
+																			(Valid = 1 ,
+																				playerGetTeam(PlayerT2,Team),
+																				setDominion(BoardI,Team,Rf,Cf,Structure,BoardT2), !,		/*Estrutura no board*/
+																				playerAddControl(PlayerT2,Structure,[Rf|[Cf|[]]],PlayerT3),	/*Estrutura no player*/
+																				setShip(BoardT2,Rf,Cf,1,BoardT3), !,						/*Ship de [Ri,Ci]*/
+																				setShip(BoardT3,Ri,Ci,-1,BoardF), !,						/*Para [Rf,Cf] no board*/
+																				playerSetShip(PlayerT3,[Ri|[Ci|[]]],[Rf|[Cf|[]]],PlayerF),	/*Update do Ship*/
+																				Res = (Valid\BoardF\PlayerF)
+																			) ;
+																			(Valid = 0,
+																				Res = (Valid\BoardI\PlayerI)
+																			) ;
+																			(GameOver = 1,
+																				Res = (-1\BoardI\PlayerI)
+																			)
+																		).
+														
+														
+																
 parse_input(getWinner(Board,Player1,Player2),Res) :-				playerGetPoints(Board,Player1,ListLength1,Points1),	
 																	playerGetPoints(Board,Player2,ListLength2,Points2),
 																	biggestTerritoryPoints(ListLength1, Points1, NewPoints1, ListLength2, Points2, NewPoints2), 
 																	chooseWinner(Board,P1,NewPoints1,P2,NewPoints2,winner),
 																	Res = (winner\NewPoints1\NewPoints2).
+																	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%                                       Adicional PROLOG                                         %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+moveShipValid(AllMoves,Player,Ri,Ci,Rf,Cf,1)	:- 	validMove(AllMoves,Player,Ri,Ci,Rf,Cf),
+													isGameOver(Player,0).
+moveShipValid(_,_,_,_,_,_,0).
 
+isGameOver(Player,1) :-		playerGetShips(Player,Ships),
+							length(Ships,SL),
+							playerGetColonies(Player,Colonies),
+							length(Colonies,CL),
+							playerGetTrades(Player,Trades),
+							length(Trades,TL),
+							(SL = 0; CL > 16; TL > 5).
+isGameOver(Player,0).
 	

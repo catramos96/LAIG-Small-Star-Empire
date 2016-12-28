@@ -45,8 +45,8 @@ KeyFrameAnimation.prototype.getTransformation = function(time){
     //nova frame em funcao do tempo
     var frame = this.getActualFrame(time);
 
-    console.log("FRAME : "+time);
-    console.log(frame);
+   // console.log("FRAME : "+time);
+  //  console.log(frame);
 
     transformation.translate(frame[0],frame[1],frame[2]);
     transformation.rotate('x',frame[3]*Math.PI/180);

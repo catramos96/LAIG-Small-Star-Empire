@@ -30,7 +30,11 @@ function Game(scene,mode,difficulty) {
     //criacao dos jogadores ainda sem informacoes
     this.player1 = new Player("Blue");
     this.player2 = new Player("Red");
+	
     this.turn = this.player1;	//default
+	this.repeatTurn = false;
+	this.gameOver = false;
+	this.allMoves = [];
 
     this.pieceSelected = null;
     this.cellSelected = null;
@@ -39,7 +43,7 @@ function Game(scene,mode,difficulty) {
     this.finalInfo = [null, 0, 0];
 	
 	//TEMPORARIO
-	this.init(2,difficulty + 1,mode + 1);
+	this.init(1,difficulty + 1,mode + 1);
 	
 	
 }
@@ -52,7 +56,14 @@ Game.prototype.init = async function(BoardSize,Nivel,Mode){
     console.log(this.player1.getPrologRepresentation());
     console.log(this.player2.getPrologRepresentation());
 	console.log("First Player - " + this.turn.team);
-
+	
+	//TESTE DE MOVIMENTO
+	this.prolog.makeRequest("moveHuman(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + ",2,2,2,3," + "'C'" + ")",2);
+	
+	await sleep(500);
+	
+	console.log(this.player1.getPrologRepresentation());
+    console.log(this.player2.getPrologRepresentation());
 }
 
 Game.prototype.createPlayer = function(team,type,ships,representation){
@@ -69,6 +80,15 @@ Game.prototype.createPlayer = function(team,type,ships,representation){
 		this.player2.setRepresentation(representation);
 	}
 }
+
+Game.prototype.addMove = function(Team,Ri,Ci,Rf,Cf){
+	this.allMoves.push([Team,Ri,Ci,Rf,Cf]);
+	
+	/*
+		Outras coisas
+	*/
+}
+
 /*
 Game.prototype.picking = function (obj,id) {
 

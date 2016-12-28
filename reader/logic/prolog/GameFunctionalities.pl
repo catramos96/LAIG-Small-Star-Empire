@@ -32,7 +32,6 @@ turn(BoardI,Level,PlayerI,BoardF,PlayerF) :- 	updateValidShips(BoardI,PlayerI,Pt
 												displayTurn(BoardI,Pt1,AllMoves), 
 												make_move(BoardI,Level,AllMoves,Pt1,BoardF,PlayerF).
 		
-		
 /*
 make_move
 Makes a move and adds a control to the moved cell.

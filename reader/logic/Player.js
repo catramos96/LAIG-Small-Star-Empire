@@ -10,7 +10,7 @@ function Player(team) {
     this.trades = [];      /*List of trades positions*/
     this.validShips = [];  /*Valid Ships*/
     this.score = 0;
-	this.prologRepresentation = "[" + team + ",H,[],[],[]]";
+	this.prologRepresentation = "[" + team + ",'H',[],[],[]]";
 }
 
 Player.prototype.constructor=Player;

@@ -22,7 +22,11 @@ Prolog.prototype.makeRequest = function(requestString,type){
 	var getResponse;
 	switch(type){
 		case 1:{
-			getResponse = this.requestType1;		/*getBoard by id*/
+			getResponse = this.requestType1;		/*initGameInfo*/
+			break;
+		}
+		case 2:{
+			getResponse = this.requestType2;		/*makeMoveHuman*/
 			break;
 		}
 	}
@@ -45,12 +49,59 @@ Prolog.prototype.requestType1 = function (data){
 		this.game.setGameBoard(this.game.prolog.parseBoard(boardInfo),boardInfo);
 		var player1data = this.game.prolog.parsePlayer(player1Info);
 		var player2data = this.game.prolog.parsePlayer(player2Info);
-		this.game.createPlayer(player1data[0],player1data[1],player1data[4],player1Info);
-		this.game.createPlayer(player2data[0],player2data[1],player2data[4],player2Info);
+		
+		var playerPrologRep1 = this.game.prolog.parsePlayerProlog(player1Info);
+		var playerPrologRep2 = this.game.prolog.parsePlayerProlog(player2Info);
+		
+		this.game.createPlayer(player1data[0],player1data[1],player1data[4],playerPrologRep1);
+		this.game.createPlayer(player2data[0],player2data[1],player2data[4],playerPrologRep2);
+		
 		this.game.setTurn(turn);
 	}
 	
 };
+
+Prolog.prototype.requestType2 = function (data){	
+	console.log("request 2");
+	
+	var reply = data.target.response;
+	var info =  reply.match(/(.*)\\(.*)\\(.*)/);
+	console.log(info);
+	
+	if(info != null){
+		var valid = info[1];
+		var boardInfo = info[2];
+		var playerInfo = info[3];
+		
+		var playerParsed = this.game.prolog.parsePlayerProlog(playerInfo);
+		
+		if(playerParsed[1] == "1")		this.game.player1.setRepresentation(playerParsed);
+		else if(playerParsed[1] == "2")	this.game.player2.setRepresentation(playerParsed);
+		
+		this.game.board.setRepresentation(boardInfo);
+		
+		if(valid == -1)
+			this.game.gameOver = true;
+		else if(valid == 0)
+			this.game.repeatTurn = true;
+		/*else if(valid == 1)
+			adicionar //change turn*/
+	}
+}
+
+Prolog.prototype.parsePlayerProlog = function (info){
+	var i;
+	var res = "";
+	for(i = 0 ; i < info.length; i++){
+		
+		if(info[i] == "H" || info[i] == "C")
+			res+="'" + info[i] + "'";
+		else
+			res += info[i];
+	}
+	
+	return res;
+}
 
 Prolog.prototype.parsePlayer = function (info){
 	var data = [];
