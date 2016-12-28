@@ -33,6 +33,8 @@ function Game(scene,mode,difficulty) {
     this.turn = this.player1;	//default
 
     this.pieceSelected = null;
+    this.cellSelected = null;
+
     this.initInfo = [modeName, difficultyName];
     this.finalInfo = [null, 0, 0];
 	
@@ -41,13 +43,13 @@ function Game(scene,mode,difficulty) {
 }
 
 Game.prototype.init = async function(BoardSize,Nivel,Mode){
+    this.state = 'INIT';
 	this.prolog.makeRequest("initGame(" + BoardSize + "," + Nivel + "," + Mode + ")",1);
 	await sleep(500);
 	console.log(this.player1);
 	console.log(this.player2);
 	console.log("First Player - " + this.turn.team);
 
-	//this.play();
 }
 
 Game.prototype.createPlayer = function(team,type,ships){
@@ -65,8 +67,8 @@ Game.prototype.createPlayer = function(team,type,ships){
 }
 
 Game.prototype.picking = function (obj,id) {
-    //aqui vai ter restricoes tipo,é a vez do jogador 1 jogar, tem de escolher avioes, tem de esoclher colonias... etc
-    if(obj instanceof Piece)
+
+    if(obj instanceof Piece && (this.state == 'SEL_SHIP' || this.state == 'SEL_PIECE'))
     {
         var cell = obj.getCell();   //descobrir qual e a sua celula
         cell.setSelected(true);     //marcar essa celula como selecionada (depois ele marca a peca correspondente)
@@ -75,15 +77,29 @@ Game.prototype.picking = function (obj,id) {
             this.pieceSelected.getCell().setSelected(false);
 
         this.pieceSelected = obj;
+
+        this.changeState(); //já escolheu a peca, pode mudar de estado
     }
-    else if(obj instanceof Cell)
+    else if((obj instanceof Cell && this.state == 'SEL_TILE'))
     {
-        if(this.pieceSelected != null) //verificar se ja ha uma peca selecionada
+        var valid = true; //verificar se e uma peca valida em PROLOG
+
+        if(valid)
         {
-            obj.setSelected(true);
-            this.move(this.pieceSelected,this.pieceSelected.getCell(),obj);
-            this.pieceSelected = null;
+            this.cellSelected = obj;
+
+            this.cellSelected.setSelected(true);
+            this.changeState(); //já escolheu a celula, pode mudar de estado
         }
+    }
+
+    if(this.state == 'ANIM1' || this.state == 'ANIM2')
+    {
+        this.move(this.pieceSelected,this.pieceSelected.getCell(),this.cellSelected);
+        this.pieceSelected = null;
+
+        if(this.state == 'ANIM2')
+            this.cellSelected = null;
     }
 }
 
@@ -100,6 +116,9 @@ Game.prototype.move = function (piece, origin, dest) {
     //coloca a peca na celula de destino e retira a selecao
     dest.setSelected(false);
     dest.setPiece(piece);
+
+    //Acabou o movimento, mudo de estado
+    this.changeState();
 }
 
 Game.prototype.endedGame = function (){
@@ -125,7 +144,6 @@ Game.prototype.changeState = function () {
             break;
         case 'SEL_TILE':
             this.state = 'ANIM1';
-            //executa o movimento aqui (?)
             break;
         case 'ANIM1':
             if(this.turn.type == "Human"){
