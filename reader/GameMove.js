@@ -60,12 +60,10 @@ GameMove.prototype.makeShipMove = function(){
 }
 
 GameMove.prototype.makePieceMove = function(){
-    this.game.move(this.pieceSelected,this.pieceSelected.getCell(),this.cellSelected);
-
     var pointO = this.tilePiece.getCoords();
     var pointD = this.tileDest.getCoords();
 
-    this.ship.move(pointO,pointD);
+    this.piece.move(pointO,pointD);
 
     //retira a peca da celula de origem e a sua selecao
     this.tilePiece.setSelected(false);

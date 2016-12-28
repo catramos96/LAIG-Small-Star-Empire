@@ -29,8 +29,8 @@ function Game(scene,mode,difficulty) {
     this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red",new MyPoint(-12,0,-9)));
 
     //criacao dos jogadores ainda sem informacoes
-    this.player1 = new Player("Blue");
-    this.player2 = new Player("Red");
+    this.player1 = new Player(1);
+    this.player2 = new Player(2);
 	
     this.turn = this.player1;	//default
 	this.allMoves = [];			//para saber sequencia de jogadas
@@ -41,9 +41,8 @@ function Game(scene,mode,difficulty) {
     this.finalInfo = [null, 0, 0];
 	
 	//TEMPORARIO
-	this.init(1,difficulty + 1,mode + 1);
-	
-	
+    this.init(2,1,1);
+	//this.init(2,difficulty + 1,mode + 1);
 }
 
 Game.prototype.getTurnInformation = async function(){
@@ -51,7 +50,7 @@ Game.prototype.getTurnInformation = async function(){
 	await sleep(500);
 	possibleMoves = this.prolog.getServerResponse();
 	
-	this.changeState();
+	//this.changeState();
 	
 	/*
 	Se for bot é preciso cha
@@ -118,6 +117,7 @@ Game.prototype.changeState = function () {
     switch(this.state){
         case 'INIT':
             if(this.turn.type == "Human"){
+                this.currMove = new GameMove();
                 this.state = 'SEL_SHIP';
             }else{
                 this.state = 'BOT';
@@ -141,21 +141,27 @@ Game.prototype.changeState = function () {
             this.state = 'ANIM2';
             break;
         case 'ANIM2':
+            this.state = 'NEXT_TURN';
+            this.changeState();
+            break;
+        case 'NEXT_TURN':
             var hasPossibleMoves = true;    //verifica se ainda ha jogadas possiveis
 
             if(hasPossibleMoves)
-                this.state = 'NEXT_TURN';
+            {
+                if(this.turn == this.player1)
+                    this.turn = this.player2;
+                else
+                    this.turn = this.player1;
+                this.state = 'INIT';
+                this.changeState();
+            }
             else
                 this.state = 'END';
             break;
-        case 'NEXT_TURN':
-            if(this.turn == this.player1)
-                this.turn = this.player2;
-            else
-                this.turn = this.player1;
-            break;
         case 'BOT':
-            this.state = 'ANIM1';
+            this.state = 'NEXT_TURN';
+            this.changeState();
             break;
         case 'END':
             this.endedGame();
@@ -170,38 +176,42 @@ Game.prototype.changeState = function () {
 GameInterations
 */
 
-Game.prototype.picking = function (obj,id) {
+Game.prototype.picking = async function (obj,id) {
 
     console.log(this.state);
 
-    if(obj instanceof Piece && (this.state == 'SEL_SHIP' || this.state == 'SEL_PIECE'))
+    if(obj instanceof Piece)
     {
         var team = obj.getTeam();
         var board = obj.getCell().getBoard().getId();
 
         //o objeto selecionado tem de ser da equipa correspondente
         // e se for trade ou colony tem de ser dum board auxiliar
-        if((team == this.turn.getTeam()) && (this.state == 'SEL_PIECE' && board != 100)) {
-            
+        //e o seu estado tem de corresponder ao objeto
+        if((team == this.turn.getTeam()) &&
+            ((this.state == 'SEL_SHIP' && obj instanceof Ship) || (this.state == 'SEL_PIECE' && !(obj instanceof Ship) && board != 100)))
+        {
             var cell = obj.getCell();   //descobrir qual e a sua celula
             cell.setSelected(true);     //marcar essa celula como selecionada (depois ele marca a peca correspondente)
 
-            var lastPiece, lastCell;
+           /* var lastPiece, lastCell;
             if(this.state == 'SEL_SHIP')
             {
                 lastPiece = this.currMove.getShip();
-                lastCell = this.currMove.getShipCell();
+                if(lastPiece != null)
+                    lastCell = this.currMove.getShipCell();
             }
-            else if(this.state == 'SEL_SHIP')
+            else if(this.state == 'SEL_PIECE')
             {
                 lastPiece = this.currMove.getPiece();
-                lastCell = this.currMove.getPieceCell();
+                if(lastPiece != null)
+                    lastCell = this.currMove.getPieceCell();
             }
 
             if (lastPiece != null && lastPiece != obj)  //ja foi uma peca selecionada
             {
                 lastCell.setSelected(false);
-            }
+            }*/
 
             //adiciona a peca ao movimento
             if(this.state == 'SEL_SHIP')
@@ -216,7 +226,7 @@ Game.prototype.picking = function (obj,id) {
     {
         var idBoard = obj.getBoard().getId();
 
-        if(id == 100)   //so posso selcionar celulas do board principal
+        if(idBoard == 100)   //so posso selcionar celulas do board principal
         {
             var valid = true; //verificar se e uma peca valida em PROLOG
 
@@ -327,7 +337,10 @@ Game.prototype.init = async function(BoardSize,Nivel,Mode){
 
     console.log(this.player1.getPrologRepresentation());
     console.log(this.player2.getPrologRepresentation());
-	console.log("First Player - " + this.turn.team);
+	console.log("First Player - ", this.turn);
+
+	//TEMPORARIO
+    this.changeState();
 }
 
 /*
@@ -367,6 +380,9 @@ Game.prototype.getTurn = function(){
     return this.turn;
 }
 
+/**
+ * OTHERS
+ */
 Game.prototype.display = function() {
 
     this.scene.pushMatrix();

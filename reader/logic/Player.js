@@ -30,10 +30,10 @@ Player.prototype.setHomeBase = function(base){
 }
 
 Player.prototype.setType = function(type){
-	if(this.type == "H")
+	//if(this.type == "H")
 		this.type = "Human";
-	else
-		this.type = "Computer";
+	//else
+	//	this.type = "Computer";
 }
 
 Player.prototype.setScore = function(score){
