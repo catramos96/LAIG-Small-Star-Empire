@@ -36,8 +36,7 @@ function Game(scene,mode,difficulty) {
 	this.gameOver = false;
 	this.allMoves = [];
 
-    this.pieceSelected = null;
-    this.cellSelected = null;
+    this.currMove = null;
 
     this.initInfo = [modeName, difficultyName];
     this.finalInfo = [null, 0, 0];
@@ -55,7 +54,7 @@ Game.prototype.init = async function(BoardSize,Nivel,Mode){
 
     console.log(this.player1.getPrologRepresentation());
     console.log(this.player2.getPrologRepresentation());
-	console.log("First Player - " + this.turn.team);
+	console.log("First Player - " , this.turn);
 	
 	//TESTE DE MOVIMENTO
 	this.prolog.makeRequest("moveHuman(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + ",2,2,2,3," + "'C'" + ")",2);
@@ -64,6 +63,8 @@ Game.prototype.init = async function(BoardSize,Nivel,Mode){
 	
 	console.log(this.player1.getPrologRepresentation());
     console.log(this.player2.getPrologRepresentation());
+
+    this.changeState();
 }
 
 Game.prototype.createPlayer = function(team,type,ships,representation){
@@ -90,7 +91,9 @@ Game.prototype.addMove = function(Team,Ri,Ci,Rf,Cf){
 }
 
 
-Game.prototype.picking = function (obj,id) {
+Game.prototype.picking = async function (obj,id) {
+
+    console.log(this.state);
 
     if(obj instanceof Piece && (this.state == 'SEL_SHIP' || this.state == 'SEL_PIECE'))
     {
@@ -104,10 +107,28 @@ Game.prototype.picking = function (obj,id) {
             var cell = obj.getCell();   //descobrir qual e a sua celula
             cell.setSelected(true);     //marcar essa celula como selecionada (depois ele marca a peca correspondente)
 
-            if (this.pieceSelected != null && this.pieceSelected != obj)
-                this.pieceSelected.getCell().setSelected(false);
+            var lastPiece, lastCell;
+            if(this.state == 'SEL_SHIP')
+            {
+                lastPiece = this.currMove.getShip();
+                lastCell = this.currMove.getShipCell();
+            }
+            else if(this.state == 'SEL_SHIP')
+            {
+                lastPiece = this.currMove.getPiece();
+                lastCell = this.currMove.getPieceCell();
+            }
 
-            this.pieceSelected = obj;
+            if (lastPiece != null && lastPiece != obj)  //ja foi uma peca selecionada
+            {
+                lastCell.setSelected(false);
+            }
+
+            //adiciona a peca ao movimento
+            if(this.state == 'SEL_SHIP')
+                this.currMove.addShip(obj);
+            else if(this.state == 'SEL_PIECE')
+                this.currMove.addPiece(obj);
 
             this.changeState(); //já escolheu a peca, pode mudar de estado
         }
@@ -122,21 +143,24 @@ Game.prototype.picking = function (obj,id) {
 
             if(valid)
             {
-                this.cellSelected = obj;
+                this.currMove.addTile(obj);
+                obj.setSelected(true);
 
-                this.cellSelected.setSelected(true);
                 this.changeState(); //já escolheu a celula, pode mudar de estado
             }
         }
     }
 
-    if(this.state == 'ANIM1' || this.state == 'ANIM2')
-    {
-        this.move(this.pieceSelected,this.pieceSelected.getCell(),this.cellSelected);
-        this.pieceSelected = null;
+    if(this.state == 'ANIM1'){
+        this.currMove.makeShipMove();
+        await sleep(2000);
+        this.changeState(); //Acabou o movimento, mudo de estado
+    }
 
-        if(this.state == 'ANIM2')
-            this.cellSelected = null;
+    if(this.state == 'ANIM2') {
+        this.currMove.makePieceMove();
+        await sleep(2000);
+        this.changeState(); //Acabou o movimento, mudo de estado
     }
 }
 /*
@@ -164,24 +188,6 @@ Game.prototype.picking = function (obj,id) {
     }
 }*/
 
-Game.prototype.move = function (piece, origin, dest) {
-    var pointO = origin.getCoords();
-    var pointD = dest.getCoords();
-
-    piece.move(pointO,pointD);
-
-    //retira a peca da celula de origem e a sua selecao
-    origin.setSelected(false);
-    origin.setPiece(null);
-
-    //coloca a peca na celula de destino e retira a selecao
-    dest.setSelected(false);
-    dest.setPiece(piece);
-
-    //Acabou o movimento, mudo de estado
-    this.changeState();
-}
-
 Game.prototype.endedGame = function (){
     this.finalInfo = [this.player1.team, 0, 0];  //atualiza esta informacao
 
@@ -193,6 +199,8 @@ Game.prototype.changeState = function () {
 
     switch(this.state){
         case 'INIT':
+            this.currMove = new GameMove(); //nao sei se isto e aqui
+
             if(this.turn.type == "Human"){
                 this.state = 'SEL_SHIP';
             }else{
@@ -207,31 +215,30 @@ Game.prototype.changeState = function () {
             this.state = 'ANIM1';
             break;
         case 'ANIM1':
-            if(this.turn.type == "Human"){
-                this.state = 'SEL_PIECE';
-            }else{
-                this.state = 'ANIM2';
-            }
+            this.state = 'SEL_PIECE';
             break;
         case 'SEL_PIECE':
             this.state = 'ANIM2';
             break;
         case 'ANIM2':
+            this.state = 'NEXT_TURN';
+            break;
+        case 'NEXT_TURN':
             var hasPossibleMoves = true;    //verifica se ainda ha jogadas possiveis
 
             if(hasPossibleMoves)
-                this.state = 'NEXT_TURN';
+            {
+                if(this.turn == this.player1)
+                    this.turn = this.player2;
+                else
+                    this.turn = this.player1;
+                this.state = 'INIT';
+            }
             else
                 this.state = 'END';
             break;
-        case 'NEXT_TURN':
-            if(this.turn == this.player1)
-                this.turn = this.player2;
-            else
-                this.turn = this.player1;
-            break;
         case 'BOT':
-            this.state = 'ANIM1';
+            this.state = 'NEXT_TURN';
             break;
         case 'END':
             this.endedGame();
@@ -264,14 +271,11 @@ Game.prototype.display = function() {
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-        //this.scene.translate(0,0,-7.5);
         this.scene.scale(7.5,7.5,7.5);
         this.boardAux1.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-        //this.scene.rotate(Math.PI/2,0,1,0);
-        //this.scene.translate(-7.5,0,-7.5);
         this.scene.scale(7.5,7.5,7.5);
         this.boardAux2.display();
     this.scene.popMatrix();

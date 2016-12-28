@@ -66,7 +66,8 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js',
 								'GameBoardData.js',
 								'GameBoard.js',
 								'Cell.js',
-
+								'GameMove.js',
+								'GameSequence.js',
 								
 								
 
