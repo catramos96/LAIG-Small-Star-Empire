@@ -42,11 +42,11 @@ Prolog.prototype.requestType1 = function (data){
 		var player2Info = info[3];
 		var turn = parseInt(info[4]);
 
-		this.game.setGameBoard(this.game.prolog.parseBoard(boardInfo));
+		this.game.setGameBoard(this.game.prolog.parseBoard(boardInfo),boardInfo);
 		var player1data = this.game.prolog.parsePlayer(player1Info);
 		var player2data = this.game.prolog.parsePlayer(player2Info);
-		this.game.createPlayer(player1data[0],player1data[1],player1data[4]);
-		this.game.createPlayer(player2data[0],player2data[1],player2data[4]);
+		this.game.createPlayer(player1data[0],player1data[1],player1data[4],player1Info);
+		this.game.createPlayer(player2data[0],player2data[1],player2data[4],player2Info);
 		this.game.setTurn(turn);
 	}
 	
@@ -161,8 +161,8 @@ Prolog.prototype.parseBoard = function (boardInfo){
 				row.push(parseInt(boardInfo[i] + boardInfo[i+1])); //para ser como a matriz do board em js
 				i++;
 			}
-			else if(boardInfo[i] == '6') row.push(61);
-			else if(boardInfo[i] == '7') row.push(62);
+			else if(boardInfo[i] == '6' && boardInfo[i+2] == '0') row.push(61);
+			else if(boardInfo[i] == '6' && boardInfo[i+2] == '2') row.push(62);
 			else{
 				//coord.push(parseInt(boardInfo[i]));
 				row.push(parseInt(boardInfo[i]));

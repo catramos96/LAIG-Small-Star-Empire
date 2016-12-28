@@ -10,12 +10,18 @@ function Player(team) {
     this.trades = [];      /*List of trades positions*/
     this.validShips = [];  /*Valid Ships*/
     this.score = 0;
-
+	this.prologRepresentation = "[" + team + ",H,[],[],[]]";
 }
 
 Player.prototype.constructor=Player;
 
 /* SETS */
+
+Player.prototype.setRepresentation = function(representation){
+	
+	this.prologRepresentation = representation;
+	
+}
 
 Player.prototype.setHomeBase = function(base){
 
@@ -24,11 +30,10 @@ Player.prototype.setHomeBase = function(base){
 }
 
 Player.prototype.setType = function(type){
-	if(type == "H")
+	if(this.type == "H")
 		this.type = "Human";
 	else
 		this.type = "Computer";
-
 }
 
 Player.prototype.setScore = function(score){
@@ -44,6 +49,12 @@ Player.prototype.setShips = function(ships){
 }
 
 /* ADD */
+
+Player.prototype.getPrologRepresentation = function(){
+	
+	return this.prologRepresentation;
+	
+}
 
 Player.prototype.addColony = function(x,y){
 

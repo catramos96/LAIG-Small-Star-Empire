@@ -40,30 +40,34 @@ function Game(scene,mode,difficulty) {
 	
 	//TEMPORARIO
 	this.init(2,difficulty + 1,mode + 1);
+	
+	
 }
 
 Game.prototype.init = async function(BoardSize,Nivel,Mode){
     this.state = 'INIT';
 	this.prolog.makeRequest("initGame(" + BoardSize + "," + Nivel + "," + Mode + ")",1);
 	await sleep(500);
-	console.log(this.player1);
-	console.log(this.player2);
+
+    console.log(this.player1.getPrologRepresentation());
+    console.log(this.player2.getPrologRepresentation());
 	console.log("First Player - " + this.turn.team);
 
 }
 
-Game.prototype.createPlayer = function(team,type,ships){
+Game.prototype.createPlayer = function(team,type,ships,representation){
 	if(team == 1){
 		this.player1.setType(type);
 		this.player1.setShips(ships);
 		this.player1.setHomeBase(ships[0]);
+		this.player1.setRepresentation(representation);
 	}
 	else if(team == 2){
 		this.player2.setType(type);
 		this.player2.setShips(ships);
 		this.player2.setHomeBase(ships[0]);
+		this.player2.setRepresentation(representation);
 	}
-	
 }
 
 Game.prototype.picking = function (obj,id) {
@@ -187,6 +191,16 @@ Game.prototype.undo = function (){
 
 }
 
+Game.prototype.setGameBoard = function(board,representation){
+    this.board.setBoard(board);
+    this.board.setRepresentation(representation);
+    console.log(this.board.getPrologRepresentation());
+}
+
+Game.prototype.setTurn = function(player){
+    this.turn = player;
+}
+
 Game.prototype.display = function() {
 
     this.scene.pushMatrix();
@@ -206,15 +220,6 @@ Game.prototype.display = function() {
     this.scene.scale(7.5,7.5,7.5);
     this.boardAux2.display();
     this.scene.popMatrix();
-}
-
-Game.prototype.setGameBoard = function(board){
-    /*Init Board*/
-    this.board.setBoard(board);
-}
-
-Game.prototype.setTurn = function(player){
-    this.turn = player;
 }
 
 function sleep(ms) {
