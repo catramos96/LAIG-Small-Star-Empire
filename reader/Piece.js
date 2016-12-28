@@ -62,7 +62,6 @@ Piece.prototype.display = function () {
 
     if(this.animation != null)  //se ainda estiver na animacao
     {
-        console.log('a');
         var endTime = this.animation.getTime() + this.animStartTime;
         //a animacao está a decorrer
         if(currTime <= endTime)

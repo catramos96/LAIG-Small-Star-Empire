@@ -6,17 +6,6 @@ function Game(scene,mode,difficulty) {
     this.mode = mode;
     this.difficulty = difficulty;
 
-	this.prolog = new Prolog(this);
-
-    //criacao de um board e dois boards auxiliares
-    this.board = new GameBoard(this.scene,new GameBoardData(100,[[]]));
-	
-    //os tabuleiros auxiliares ja sao criados com as suas pecas
-    this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"blue"));
-    this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red"));
-
-    this.pieceSelected = null;
-
     switch (mode) {
         case 0: modeName = 'Player VS Player'; break;
         case 1: modeName = 'Player VS AI'; break;
@@ -28,10 +17,23 @@ function Game(scene,mode,difficulty) {
         case 1: difficultyName = 'Hard'; break;
         default: difficultyName = 'Easy'; break;
     }
-    this.turn = 1;	//default
 
-    this.initInfo = [this.turn,modeName, difficultyName];
+	this.prolog = new Prolog(this);
 
+    //criacao de um board e dois boards auxiliares
+    this.board = new GameBoard(this.scene,new GameBoardData(100,[[]]));
+	
+    //os tabuleiros auxiliares ja sao criados com as suas pecas
+    this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"blue"));
+    this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red"));
+
+    //criacao dos jogadores ainda sem informacoes
+    this.player1 = new Player("Blue");
+    this.player2 = new Player("Red");
+    this.turn = this.player1;	//default
+
+    this.pieceSelected = null;
+    this.initInfo = [modeName, difficultyName];
     this.finalInfo = [null, 0, 0];
 	
 	//TEMPORARIO
@@ -43,65 +45,23 @@ Game.prototype.init = async function(BoardSize,Nivel,Mode){
 	await sleep(500);
 	console.log(this.player1);
 	console.log(this.player2);
-	console.log("First Player - " + this.turn);
-}
+	console.log("First Player - " + this.turn.team);
 
-Game.prototype.undo = function (){
-
-}
-
-Game.prototype.endedGame = function (){
-
-    this.finalInfo = [this.player1.team, 0, 0];  //atualiza esta informacao
-
-    this.scene.interface.addFinalGameInfo();
-    this.scene.interface.removeSomeInfo();
+	//this.play();
 }
 
 Game.prototype.createPlayer = function(team,type,ships){
 	if(team == 1){
-		this.player1 = new Player("Red");
 		this.player1.setType(type);
 		this.player1.setShips(ships);
 		this.player1.setHomeBase(ships[0]);
 	}
 	else if(team == 2){
-		this.player2 = new Player("Blue");
 		this.player2.setType(type);
 		this.player2.setShips(ships);
 		this.player2.setHomeBase(ships[0]);
 	}
 	
-}
-
-Game.prototype.setGameBoard = function(board){
-	/*Init Board*/
-	this.board.setBoard(board);
-}
-
-Game.prototype.setTurn = function(player){
-	this.turn = player;
-}
-
-Game.prototype.display = function() {
-	
-    this.scene.pushMatrix();
-        this.scene.scale(10,10,10);
-        this.board.display();
-    this.scene.popMatrix();
-
-    this.scene.pushMatrix();
-        this.scene.translate(0,0,-7.5);
-        this.scene.scale(7.5,7.5,7.5);
-        this.boardAux1.display();
-    this.scene.popMatrix();
-
-    this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.scene.translate(-7.5,0,-7.5);
-        this.scene.scale(7.5,7.5,7.5);
-        this.boardAux2.display();
-    this.scene.popMatrix();
 }
 
 Game.prototype.picking = function (obj,id) {
@@ -140,6 +100,103 @@ Game.prototype.move = function (piece, origin, dest) {
     //coloca a peca na celula de destino e retira a selecao
     dest.setSelected(false);
     dest.setPiece(piece);
+}
+
+Game.prototype.endedGame = function (){
+    this.finalInfo = [this.player1.team, 0, 0];  //atualiza esta informacao
+
+    this.scene.interface.addFinalGameInfo();
+    this.scene.interface.removeSomeInfo();
+}
+
+Game.prototype.changeState = function () {
+
+    switch(this.state){
+        case 'INIT':
+            if(this.turn.type == "Human"){
+                this.state = 'SEL_SHIP';
+            }else{
+                this.state = 'BOT';
+                //chama uma funcao qql que escolhe a jogada do bot
+            }
+            break;
+        case 'SEL_SHIP':
+            this.state = 'SEL_TILE';
+            break;
+        case 'SEL_TILE':
+            this.state = 'ANIM1';
+            //executa o movimento aqui (?)
+            break;
+        case 'ANIM1':
+            if(this.turn.type == "Human"){
+                this.state = 'SEL_PIECE';
+            }else{
+                this.state = 'ANIM2';
+            }
+            break;
+        case 'SEL_PIECE':
+            this.state = 'ANIM2';
+            //executa o movimento aqui (?) para o mesmo tile de ao bocado
+            break;
+        case 'ANIM2':
+            var hasPossibleMoves = true;    //verifica se ainda ha jogadas possiveis
+
+            if(hasPossibleMoves)
+                this.state = 'NEXT_TURN';
+            else
+                this.state = 'END';
+            break;
+        case 'NEXT_TURN':
+            if(this.turn == this.player1)
+                this.turn = this.player2;
+            else
+                this.turn = this.player1;
+            break;
+        case 'BOT':
+            this.state = 'ANIM1';
+            //executa aqui o movimento (?)
+            break;
+        case 'END':
+            this.endedGame();
+            break;
+        default:
+            this.state = 'END';
+    }
+
+}
+
+Game.prototype.undo = function (){
+
+}
+
+Game.prototype.display = function() {
+
+    this.scene.pushMatrix();
+    this.scene.scale(10,10,10);
+    this.board.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.translate(0,0,-7.5);
+    this.scene.scale(7.5,7.5,7.5);
+    this.boardAux1.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.rotate(Math.PI/2,0,1,0);
+    this.scene.translate(-7.5,0,-7.5);
+    this.scene.scale(7.5,7.5,7.5);
+    this.boardAux2.display();
+    this.scene.popMatrix();
+}
+
+Game.prototype.setGameBoard = function(board){
+    /*Init Board*/
+    this.board.setBoard(board);
+}
+
+Game.prototype.setTurn = function(player){
+    this.turn = player;
 }
 
 function sleep(ms) {
