@@ -22,12 +22,12 @@
             <to x="1.5" y="0" z="0" />
         </perspective>
         <perspective id="player1" near="0.1" far="500" angle="50">
-            <from x="4" y="8" z="13" />
-            <to x="3" y="0" z="2" />
+            <from x="-6" y="11" z="11" />
+            <to x="-3" y="0" z="3" />
         </perspective>
         <perspective id="player2" near="0.1" far="500" angle="50">
-            <from x="13" y="9" z="-2" />
-            <to x="3" y="0" z="2" />
+            <from x="6" y="11" z="11" />
+            <to x="3" y="0" z="3" />
         </perspective>
     </views>
 
@@ -263,7 +263,7 @@
 
         <component id="towel">
         	<transformation>
-        	    <translate x="1" y="0" z="1.1"/>
+        	    <translate x="0" y="0" z="1.1"/>
         	    <rotate axis="z" angle="90"/>
         	</transformation>
 

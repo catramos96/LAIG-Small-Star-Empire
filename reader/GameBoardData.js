@@ -2,9 +2,10 @@
  * Data Struct of MyGameBoardData
  * Descendent of MyPrimitive
  */
- function GameBoardData(id,board) {
+ function GameBoardData(id,board,initialCoord) {
      this.id = id;
 	 this.board = board;
+	 this.initialCoord = initialCoord;
  }
 
  GameBoardData.prototype = new MyPrimitive(this.id);
@@ -19,4 +20,8 @@ GETS
  
  GameBoardData.prototype.getBoard = function(){
      return this.board;
+ }
+
+ GameBoardData.prototype.getInitCoord = function(){
+     return this.initialCoord;
  }

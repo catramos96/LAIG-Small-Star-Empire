@@ -38,11 +38,16 @@ Cell.prototype.getCoords = function() {
      return this.coords;
 }
 
+Cell.prototype.getBoard = function() {
+    return this.board;
+}
+
  Cell.prototype.display = function() {
      this.board.cellShader.setUniformsValues({selected: this.selected});
      this.board.cellShader.setUniformsValues({uSampler: 0});
 
      this.scene.pushMatrix();
+
         this.scene.translate(1,0,1);
         this.scene.rotate(Math.PI/2,0,1,0);
         this.scene.rotate(-Math.PI/2,1,0,0);
@@ -52,6 +57,7 @@ Cell.prototype.getCoords = function() {
         appearance.apply();
         this.cell.display();
         this.defaultAppearance.apply();
+
     this.scene.popMatrix();
  };
 
