@@ -22,7 +22,6 @@ Colony.prototype.updateTransformation = function()
     //se a celula onde estou tem um ship, devo colocar a peca mais a cima
     if(this.cell.getShip != null) {
         this.transformation.translate(1, -1.3, 0.1);
-        console.log(aqui);
     }
     else
         this.transformation.translate(1,-1,0.1);

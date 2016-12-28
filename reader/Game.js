@@ -28,14 +28,15 @@ function Game(scene,mode,difficulty) {
     this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"blue", new MyPoint(1.2,0,-9)));
     this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red",new MyPoint(-12,0,-9)));
 
+    //inicializacao da sequencia
+    this.gameSequence = new GameSequence();
+
     //criacao dos jogadores ainda sem informacoes
     this.player1 = new Player(1);
     this.player2 = new Player(2);
 	
     this.turn = this.player1;	//default
 	this.allMoves = [];			//para saber sequencia de jogadas
-
-    this.currMove = null;
 
     this.initInfo = [modeName, difficultyName];
     this.finalInfo = [null, 0, 0];
@@ -117,7 +118,7 @@ Game.prototype.changeState = function () {
     switch(this.state){
         case 'INIT':
             if(this.turn.type == "Human"){
-                this.currMove = new GameMove();
+                this.gameSequence.addMove(new GameMove());
                 this.state = 'SEL_SHIP';
             }else{
                 this.state = 'BOT';
@@ -178,7 +179,7 @@ GameInterations
 
 Game.prototype.picking = async function (obj,id) {
 
-    console.log(this.state);
+    var currMove = this.gameSequence.currMove();
 
     if(obj instanceof Piece)
     {
@@ -197,15 +198,15 @@ Game.prototype.picking = async function (obj,id) {
            /* var lastPiece, lastCell;
             if(this.state == 'SEL_SHIP')
             {
-                lastPiece = this.currMove.getShip();
+                lastPiece = currMove.getShip();
                 if(lastPiece != null)
-                    lastCell = this.currMove.getShipCell();
+                    lastCell = currMove.getShipCell();
             }
             else if(this.state == 'SEL_PIECE')
             {
-                lastPiece = this.currMove.getPiece();
+                lastPiece = currMove.getPiece();
                 if(lastPiece != null)
-                    lastCell = this.currMove.getPieceCell();
+                    lastCell = currMove.getPieceCell();
             }
 
             if (lastPiece != null && lastPiece != obj)  //ja foi uma peca selecionada
@@ -215,9 +216,9 @@ Game.prototype.picking = async function (obj,id) {
 
             //adiciona a peca ao movimento
             if(this.state == 'SEL_SHIP')
-                this.currMove.addShip(obj);
+                currMove.addShip(obj);
             else if(this.state == 'SEL_PIECE')
-                this.currMove.addPiece(obj);
+                currMove.addPiece(obj);
 
             this.changeState(); //já escolheu a peca, pode mudar de estado
         }
@@ -232,7 +233,7 @@ Game.prototype.picking = async function (obj,id) {
 
             if(valid)
             {
-                this.currMove.addTile(obj);
+                currMove.addTile(obj);
                 obj.setSelected(true);
 
                 this.changeState(); //já escolheu a celula, pode mudar de estado
@@ -241,13 +242,13 @@ Game.prototype.picking = async function (obj,id) {
     }
 
     if(this.state == 'ANIM1'){
-        this.currMove.makeShipMove();
+        currMove.makeShipMove();
         await sleep(2000);
         this.changeState(); //Acabou o movimento, mudo de estado
     }
 
     if(this.state == 'ANIM2') {
-        this.currMove.makePieceMove();
+        currMove.makePieceMove();
         await sleep(2000);
         this.changeState(); //Acabou o movimento, mudo de estado
     }
