@@ -5,10 +5,10 @@ function Player(team) {
 
     this.team = team;      /*Blue or Red*/
     this.type = "Human";   		/*Human or Computer*/
-    this.homeBase;         /*Home Base Position*/
-    this.colonies = [];    /*List of colonies positions*/
-    this.trades = [];      /*List of trades positions*/
-    this.validShips = [];  /*Valid Ships*/
+    this.homeBase;         	/*Home Base Position*/
+    this.colonies = [];		/*List of pointers to all colonies*/
+    this.trades = [];    	/*List of pointers to all trades*/	
+    this.ships = [];  		/*List of pointers to all ships*/
     this.score = 0;
 	this.prologRepresentation = "[" + team + ",'H',[],[],[]]";
 }

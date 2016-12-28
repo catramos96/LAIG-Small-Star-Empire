@@ -115,6 +115,9 @@ parse_input(initGame(BoardId,Nivel,Mode),Res) 	:-	board(BoardId,Board),
 													loadPlayers(Board,Mode,Player1,Player2), !,
 													random(1,3,FirstPlayer),
 													Res = (Board\Player1\Player2\FirstPlayer).
+
+parse_input(possibleMoves(BoardI,PlayerI),AllMoves)	:- 	updateValidShips(BoardI,PlayerI,PlayerT2), !,
+														getPossibleMoves(BoardI,PlayerT2,AllMoves).
 													
 parse_input(moveHuman(BoardI,PlayerI,Ri,Ci,Rf,Cf,Structure),Res)	:-	updateValidShips(BoardI,PlayerI,PlayerT2), !,
 																		getPossibleMoves(BoardI,PlayerT2,AllMoves), !,
