@@ -93,9 +93,8 @@ Game.prototype.moveShipToHB = function()
     }
 }
 
-Game.prototype.validMovement = function(shipPos,cellPos){
-
-    console.log("recebe : ",shipPos,cellPos);
+Game.prototype.getPossibleMovesByShip = function(shipPos)
+{
     //recebe o array de ships
     var info = this.prolog.parsePlayer(this.turn.getPrologRepresentation());
     var myShips = info[4];
@@ -107,16 +106,22 @@ Game.prototype.validMovement = function(shipPos,cellPos){
     for(var i = 0; i < myShips.length; i++)
     {
         if(myShips[i][0] == shipPos[0] && myShips[i][1] == shipPos[1]){
-            hasShip = true;
-            break;
+            return possibleMoves[i];
         }
     }
 
-    if(hasShip)
+    return [];
+}
+
+Game.prototype.validMovement = function(shipPos,cellPos){
+
+    console.log("recebe : ",shipPos,cellPos);
+
+    var myCells = this.getPossibleMovesByShip(shipPos);
+
+    if(myCells != [])
     {
         //ve se alguma das coordenadas e igual a cellPos
-        var myCells = possibleMoves[i];
-
         console.log("possiveis",myCells);
 
         for(var j = 0; j < myCells.length; j++)
@@ -128,7 +133,6 @@ Game.prototype.validMovement = function(shipPos,cellPos){
                 return true;
         }
     }
-
     return false;
 }
 
@@ -291,8 +295,10 @@ Game.prototype.picking = async function (obj,id) {
             }*/
 
             //adiciona a peca ao movimento
-            if(this.state == 'SEL_SHIP')
+            if(this.state == 'SEL_SHIP'){
                 currMove.addShip(obj);
+                this.shaderOnShipPossibleMoves(currMove.getShipCell(),1);
+            }
             else if(this.state == 'SEL_PIECE')
                 currMove.addPiece(obj);
 
@@ -306,12 +312,12 @@ Game.prototype.picking = async function (obj,id) {
         if(idBoard == 100)   //so posso selcionar celulas do board principal
         {
             //verificar se a posicao encontra-se na lista de posicoes validas para este ship
-            var valid = this.validMovement(this.gameSequence.currMove().getShipCell().getPos(),obj.getPos());
+            var valid = this.validMovement(currMove.getShipCell().getPos(),obj.getPos());
 
             console.log(valid);
             if(valid)
             {
-                console.log('entrou');
+                this.shaderOnShipPossibleMoves(currMove.getShipCell(),0);
                 currMove.addTile(obj);
                 obj.setSelected(true);
 
@@ -347,23 +353,26 @@ Game.prototype.undo = function (){
 /*
 Shaders
 */
-
+/*
 Game.prototype.applyShaderOnValidShips = function() {
-    /*
+
      Shader em todas as células com os ships
      usar this.turn().obter a lista dos ships
-     */
-}
 
-Game.prototype.applyShaderOnShipPossibleMoves = function(){
-	/*
-	Shader em todas as células de movimentos possiveis para o ship selecionado
-	use:
-	this.prolog.makeRequest("possibleMoves(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + ")",4);
-	await sleep(500);
-	possibleMoves = this.prolog.getServerResponse();  -> Lista de movimentos possiveis (igual a prolog)
-	
-	*/
+}
+*/
+
+Game.prototype.shaderOnShipPossibleMoves = function(cellShip,bool){
+
+    var posShip = cellShip.getPos();
+    var cellPos = this.getPossibleMovesByShip(posShip);
+
+    //descobrir as celulas do mainBoard que tem estas posicooes, e marca-las com "canMoveTo"
+    for(var i = 0; i < cellPos.length; i++){
+        var cell = this.board.cellInPos(cellPos[i]);
+        console.log('aqui');
+        cell.setCanMove(bool);
+    }
 }
 
 /*

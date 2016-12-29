@@ -6,17 +6,19 @@ precision highp float;
 varying vec2 vTextureCoord;
 
 //recebe do shader
-uniform sampler2D uSampler;
 uniform float selected;
+uniform float canMove;
+uniform sampler2D uSampler;
 
 void main() {
 
-		vec4 color = texture2D(uSampler,vTextureCoord);
+    vec4 colorText = texture2D(uSampler,vTextureCoord);
+	vec4 color = vec4(1.0,1.0,1.0,1.0);
 
-		if(selected == 1.0)
-		{
-		    color.g = 0.0;
-		}
+	if(selected == 1.0 || canMove == 1.0)
+	{
+	    color.b = 0.0;
+	}
 
-		gl_FragColor = color;
+	gl_FragColor = color * colorText;
 }

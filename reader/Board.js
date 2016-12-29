@@ -88,13 +88,13 @@ Class Board
  }
 
  Board.prototype.cellInPos = function(pos) {
-     console.log("comeca");
+     //console.log("comeca");
      for(var i = 0; i < this.boardCells.length; i++)
      {
          for (var j = 0; j < this.boardCells[i].length; j++)
          {
              var cellPos = this.boardCells[i][j].getPos();
-             console.log(cellPos);
+             //console.log(cellPos);
 
              if (cellPos[0] == pos[0] && cellPos[1] == pos[1]) {
                  return this.boardCells[i][j];
@@ -143,13 +143,13 @@ Board.prototype.displayAux = function(isCell) {
             if(isCell)
             {
                 this.scene.translate(x,y,z);
-                this.scene.registerForPick(this.id + id, this.boardCells[i][j]);   //Picking da celula
+                this.scene.registerForPick(this.id+id, this.boardCells[i][j]);   //Picking da celula
                 this.boardCells[i][j].display();    //display de uma celula
             }
             else
             {
-                this.scene.registerForPick(this.id +id, this.boardCells[i][j]);   //picking da peca
-                this.boardCells[i][j].displayPiece(this.id + id);    //display de uma peca
+                this.scene.registerForPick(this.id+id, this.boardCells[i][j]);   //picking da peca
+                this.boardCells[i][j].displayPiece(this.id+id);    //display de uma peca
             }
             this.scene.popMatrix();
             id++;

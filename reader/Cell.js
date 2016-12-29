@@ -9,6 +9,7 @@ Class MyCell
      this.piece = piece;    //apontador para a peca que ocupa esta celula (trade/colony)
      this.ship = ship;      //apontador para a peca que ocupa esta celula (trade/colony)
      this.selected = 0;
+     this.canMoveTo = 0;
      this.texture = texture;
      this.coords = coords;
      this.pos = pos;
@@ -23,6 +24,11 @@ Class MyCell
 
  Cell.prototype.setSelected = function(selected) {
     this.selected = selected;
+ }
+
+ Cell.prototype.setCanMove = function(canMove) {
+     this.canMoveTo = canMove;
+     console.log("set: "+this.canMoveTo);
  }
 
 Cell.prototype.setPiece = function(piece) {
@@ -65,7 +71,9 @@ Cell.prototype.getShip = function() {
 
  Cell.prototype.display = function() {
      this.board.cellShader.setUniformsValues({selected: this.selected});
+     this.board.cellShader.setUniformsValues({canMove: this.canMoveTo});
      this.board.cellShader.setUniformsValues({uSampler: 0});
+
 
      this.scene.pushMatrix();
 
