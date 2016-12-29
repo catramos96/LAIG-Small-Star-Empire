@@ -41,20 +41,15 @@ MyInterface.prototype.init = function(application) {
 	// init GUI
 	this.gui = new dat.GUI();
 
-	//LightsGroup to switch on/off lights
-	this.omniGroup = this.gui.addFolder("Omni Lights");
-	this.omniGroup.open();
-
-	this.spotGroup = this.gui.addFolder("Spot Lights");
-	this.spotGroup.open();
-
 	//Methods to update camera/materials/scene
     this.gui.add(this.scene, 'automaticCamera').name("Automatic Camera");
 	this.gui.add(this.scene, 'updateCamera').name("Update Camera");
 	this.gui.add(this.scene, 'updateMaterials').name("Update Materials");
 	this.gui.add(this.scene, 'changeScene').name("Change Scene");
 
-	this.initFolders();
+	this.initGameFolders();
+
+    this.initLightFolders();
 
 	this.turn = null;
 	this.undo = null;
@@ -62,7 +57,20 @@ MyInterface.prototype.init = function(application) {
 	return true;
 };
 
-MyInterface.prototype.initFolders = function (bool) {
+/**
+ * Initializations
+ */
+MyInterface.prototype.initLightFolders = function () {
+
+    //LightsGroup to switch on/off lights
+    this.omniGroup = this.gui.addFolder("Omni Lights");
+    this.omniGroup.open();
+
+    this.spotGroup = this.gui.addFolder("Spot Lights");
+    this.spotGroup.open();
+}
+
+MyInterface.prototype.initGameFolders = function () {
 
 	this.gameMenuGroup = this.gui.addFolder("Game Menu");
     this.gameMenuGroup.open();
@@ -73,7 +81,7 @@ MyInterface.prototype.initFolders = function (bool) {
 };
 
 /**
- * Adds a light to the group
+ * Aditions
  */
 MyInterface.prototype.addLights = function(id, isSpot) {
 	if(isSpot)
@@ -88,8 +96,9 @@ MyInterface.prototype.addGameInfo = function () {
 	{
         this.undo = this.gameMenuGroup.add(this.scene.game,'undo').name("Undo");
         this.gameMenuGroup.add(this.scene,'quit').name("Quit");
-        this.turn = this.gameMenuGroup.add(this.scene.game.turn,'team').name('Turn').listen();
 
+        this.turn = this.matchMenuGroup.add(this.scene.game.turn,'team').name('Turn').listen();
+        //this.nextSelection = this.matchMenuGroup.add(this.scene.game.state,'team').name('State').listen();
         this.matchMenuGroup.add(this.scene.game.initInfo, 0).name('Game Mode').listen();
         this.matchMenuGroup.add(this.scene.game.initInfo, 1).name('Difficulty').listen();
 	}
@@ -101,13 +110,23 @@ MyInterface.prototype.addFinalGameInfo = function () {
     this.gameMenuGroup.add(this.scene.game.finalInfo, 0).name('Winner').listen();
 };
 
-MyInterface.prototype.resetFolders = function () {
+/**
+ * removes and resets
+ */
+MyInterface.prototype.resetGameFolders = function () {
 	this.matchMenuGroup = this.gui.removeFolder("Match Menu");
 	this.gameMenuGroup = this.gui.removeFolder("Game Menu");
 
-	this.initFolders();
+	this.initGameFolders();
     this.turn = null;
     this.undo = null;
+};
+
+MyInterface.prototype.resetLightFolders = function () {
+    this.omniGroup = this.gui.removeFolder("Omni Lights");
+    this.spotGroup = this.gui.removeFolder("Spot Lights");
+
+    this.initLightFolders();
 };
 
 MyInterface.prototype.removeSomeInfo = function () {

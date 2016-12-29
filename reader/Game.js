@@ -11,14 +11,14 @@ function Game(scene,mode,difficulty) {
     this.difficulty = difficulty;
 
     switch (mode) {
-        case 0: modeName = 'Player VS Player'; break;
-        case 1: modeName = 'Player VS AI'; break;
-        case 2: modeName = 'AI VS AI'; break;
+        case 1: modeName = 'Player VS Player'; break;
+        case 2: modeName = 'Player VS AI'; break;
+        case 3: modeName = 'AI VS AI'; break;
         default: modeName = 'Player VS AI'; break;
     }
     switch (difficulty) {
-        case 0: difficultyName = 'Easy'; break;
-        case 1: difficultyName = 'Hard'; break;
+        case 1: difficultyName = 'Easy'; break;
+        case 2: difficultyName = 'Hard'; break;
         default: difficultyName = 'Easy'; break;
     }
 
