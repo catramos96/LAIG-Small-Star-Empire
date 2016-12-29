@@ -448,10 +448,14 @@ XMLscene.prototype.automaticCamera = function() {
 
 }
 
-XMLscene.prototype.initGame = function(i) {
+XMLscene.prototype.initGame = function() {
 	this.ongoing = true;
     this.game = new Game(this,1,1);
     this.interface.addGameInfo();
+}
+
+XMLscene.prototype.undo = function() {
+    this.game.undo();
 }
 
 XMLscene.prototype.quit = function (){

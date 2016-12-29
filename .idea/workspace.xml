@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7313c19a-2172-4a32-a380-79efdabd8292" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/Game.js" afterPath="$PROJECT_DIR$/reader/Game.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/GameMove.js" afterPath="$PROJECT_DIR$/reader/GameMove.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/GameSequence.js" afterPath="$PROJECT_DIR$/reader/GameSequence.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/MyInterface.js" afterPath="$PROJECT_DIR$/reader/MyInterface.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/XMLscene.js" afterPath="$PROJECT_DIR$/reader/XMLscene.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader/scenes/garden.dsx" afterPath="$PROJECT_DIR$/reader/scenes/garden.dsx" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,40 +31,38 @@
       <file leaf-file-name="Game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reader/Game.js">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="404">
+              <caret line="120" column="17" lean-forward="false" selection-start-line="120" selection-start-column="17" selection-end-line="120" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="garden.dsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/scenes/garden.dsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameSequence.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/GameSequence.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="34" column="20" lean-forward="true" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameMove.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/GameMove.js">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="183">
-              <caret line="448" column="13" lean-forward="false" selection-start-line="448" selection-start-column="4" selection-end-line="448" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Prolog.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reader/logic/Prolog.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="82" column="4" lean-forward="true" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reader/logic/Player.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="4" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="room.dsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reader/scenes/room.dsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+              <caret line="52" column="49" lean-forward="false" selection-start-line="52" selection-start-column="45" selection-end-line="52" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -69,8 +71,8 @@
       <file leaf-file-name="XMLscene.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="31" />
+            <state relative-caret-position="319">
+              <caret line="457" column="21" lean-forward="false" selection-start-line="457" selection-start-column="21" selection-end-line="457" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -79,8 +81,18 @@
       <file leaf-file-name="MyInterface.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reader/MyInterface.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+            <state relative-caret-position="174">
+              <caret line="83" column="5" lean-forward="false" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reader/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="15" lean-forward="false" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -97,23 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>this.turn</find>
-      <find>ENDE</find>
-      <find>pic</find>
-      <find>exec</find>
-      <find>pick</find>
-      <find>this.state = 'ANIM1';</find>
-      <find>console.log</find>
-      <find>sleep</find>
-      <find>moveship</find>
-      <find>picking</find>
-      <find>ANIM2</find>
-      <find>CHANGE</find>
-      <find>getTurnInformation</find>
-      <find>this.gett</find>
-      <find>gett</find>
-      <find>changeState</find>
-      <find>this.gameSequen</find>
       <find>init(</find>
       <find>init</find>
       <find>game</find>
@@ -127,6 +122,23 @@
       <find>makeM</find>
       <find>request 2</find>
       <find>console.l</find>
+      <find>UNDO</find>
+      <find>Init</find>
+      <find>makeSh</find>
+      <find>makePiece</find>
+      <find>gameM</find>
+      <find>MAKE</find>
+      <find>sleep</find>
+      <find>this.undo</find>
+      <find>this.turn</find>
+      <find>this.</find>
+      <find>slee</find>
+      <find>end</find>
+      <find>SEL_SHIP</find>
+      <find>SEL_TILE</find>
+      <find>('S</find>
+      <find>undo</find>
+      <find>getTu</find>
     </findStrings>
     <replaceStrings>
       <replace>Cell</replace>
@@ -156,13 +168,10 @@
         <option value="$PROJECT_DIR$/reader/KeyFrameAnimation.js" />
         <option value="$PROJECT_DIR$/reader/GameBoardData.js" />
         <option value="$PROJECT_DIR$/reader/AuxiliarBoardData.js" />
-        <option value="$PROJECT_DIR$/reader/scenes/garden.dsx" />
         <option value="$PROJECT_DIR$/reader/scenes/GameSequence.js" />
         <option value="$PROJECT_DIR$/reader/main.js" />
         <option value="$PROJECT_DIR$/reader/Piece.js" />
         <option value="$PROJECT_DIR$/reader/Ship.js" />
-        <option value="$PROJECT_DIR$/reader/GameMove.js" />
-        <option value="$PROJECT_DIR$/reader/GameSequence.js" />
         <option value="$PROJECT_DIR$/reader/Trade.js" />
         <option value="$PROJECT_DIR$/reader/Colony.js" />
         <option value="$PROJECT_DIR$/reader/AuxiliarBoard.js" />
@@ -174,8 +183,11 @@
         <option value="$PROJECT_DIR$/reader/shaders/cell.frag" />
         <option value="$PROJECT_DIR$/reader/Board.js" />
         <option value="$PROJECT_DIR$/reader/scenes/room.dsx" />
-        <option value="$PROJECT_DIR$/reader/MyInterface.js" />
         <option value="$PROJECT_DIR$/reader/XMLscene.js" />
+        <option value="$PROJECT_DIR$/reader/MyInterface.js" />
+        <option value="$PROJECT_DIR$/reader/GameMove.js" />
+        <option value="$PROJECT_DIR$/reader/scenes/garden.dsx" />
+        <option value="$PROJECT_DIR$/reader/GameSequence.js" />
         <option value="$PROJECT_DIR$/reader/Game.js" />
       </list>
     </option>
@@ -232,6 +244,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="reader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trabalho3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trabalho3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scenes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -370,12 +400,12 @@
       <workItem from="1482974480387" duration="4266000" />
       <workItem from="1483016643930" duration="3608000" />
       <workItem from="1483021628558" duration="1667000" />
-      <workItem from="1483023398237" duration="16291000" />
+      <workItem from="1483023398237" duration="25842000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211901000" />
+    <option name="totallyTimeSpent" value="221452000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -598,14 +628,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/GameSequence.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reader/Ship.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -668,14 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="15" lean-forward="false" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reader/shaders/cell.vert">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -688,22 +702,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reader/scenes/garden.dsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reader/GameMove.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -724,26 +722,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/MyInterface.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reader/scenes/room.dsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -766,10 +748,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reader/Game.js">
+    <entry file="file://$PROJECT_DIR$/reader/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="15" lean-forward="false" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/XMLscene.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="457" column="21" lean-forward="false" selection-start-line="457" selection-start-column="21" selection-end-line="457" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/MyInterface.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="83" column="5" lean-forward="false" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/GameMove.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
-          <caret line="448" column="13" lean-forward="false" selection-start-line="448" selection-start-column="4" selection-end-line="448" selection-end-column="13" />
+          <caret line="52" column="49" lean-forward="false" selection-start-line="52" selection-start-column="45" selection-end-line="52" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/scenes/garden.dsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/GameSequence.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="34" column="20" lean-forward="true" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="120" column="17" lean-forward="false" selection-start-line="120" selection-start-column="17" selection-end-line="120" selection-end-column="17" />
           <folding />
         </state>
       </provider>
