@@ -30,19 +30,33 @@ function Game(scene,mode,difficulty) {
 
     //para a interface
     switch (mode) {
-        case 1: modeName = 'Player VS Player'; break;
-        case 2: modeName = 'Player VS AI'; break;
-        case 3: modeName = 'AI VS AI'; break;
-        default: modeName = 'Player VS AI'; break;
+        case 1:
+            modeName = 'Player VS Player';
+            break;
+        case 2:
+            modeName = 'Player VS AI';
+            break;
+        case 3:
+            modeName = 'AI VS AI';
+            break;
+        default:
+            modeName = 'Player VS AI';
+            break;
     }
     switch (difficulty) {
-        case 1: difficultyName = 'Easy'; break;
-        case 2: difficultyName = 'Hard'; break;
-        default: difficultyName = 'Easy'; break;
+        case 1:
+            difficultyName = 'Easy';
+            break;
+        case 2:
+            difficultyName = 'Hard';
+            break;
+        default:
+            difficultyName = 'Easy';
+            break;
     }
 
     this.initInfo = [modeName, difficultyName];
-    this.changingInfo = ["Red","Init"]
+    this.changingInfo = ["Red","Init"];
     this.finalInfo = [null, 0, 0];
 	
 	//TEMPORARIO
@@ -63,12 +77,17 @@ Game.prototype.getTurnInformation = async function()
 
     //verifica se existe algum ship no tabuleiro auxiliar. Se tiver, coloca-o na homebase
     this.moveShipToHB();
+
     this.gameSequence.addMove(new GameMove());  //nova jogada
 
     //verificacao das jogadas possiveis
 	this.prolog.makeRequest("possibleMoves(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + ")",4);
-	await sleep(500);
+    await sleep(1000);
 	possibleMoves = this.prolog.getServerResponse();
+
+    await sleep(1000);  //tempo de mover o ship + fazer o request
+
+    this.changeState();
 }
 
 Game.prototype.moveShipToHB = function()
@@ -94,7 +113,7 @@ Game.prototype.moveShipToHB = function()
                 move.addShip(ship); //ship a mover
                 move.addTile(homeBase); //destino
                 move.makeShipMove();
-                break;
+                return;
             }
         }
     }
@@ -116,7 +135,6 @@ Game.prototype.getPossibleMovesByShip = function(shipPos)
             return possibleMoves[i];
         }
     }
-
     return [];
 }
 
@@ -143,17 +161,24 @@ Game.prototype.validMovement = function(shipPos,cellPos){
     return false;
 }
 
-Game.prototype.makeMove = async function(cellI,cellF,structure){
-	var moveRequest = "";
-	
-	/*
-	IR BUSCAR ESTAS INFORMAÇÕES A CELLI E CELLF !!!!!!!
-	Structure = "'C'" ou "'T'"
-	*/
-	var rowI = cellI[0];
-	var columnI = cellI[1];
-	var rowF = cellF[0];
-	var columnF = cellF[1];
+Game.prototype.makeMove = async function(){
+
+    var moveRequest = "";
+
+    var posI = this.gameSequence.currMove().getShipCell().getPos();
+    var posF = this.gameSequence.currMove().getTile().getPos();
+    var piece = this.gameSequence.currMove().getPiece();
+
+    var structure;
+    if(piece instanceof Colony)
+        structure = "C";
+    else
+        structure = "T";
+
+	var rowI = posI[0];
+	var columnI = posI[1];
+	var rowF = posF[0];
+	var columnF = posF[1];
 
 	if(this.turn.getType() == "Human")
 		moveRequest = "moveHuman(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() +
@@ -162,12 +187,22 @@ Game.prototype.makeMove = async function(cellI,cellF,structure){
 	//else(this.turn().getType() == "Computer") ...
 	
 	this.prolog.makeRequest(moveRequest,2);
-	
-	await sleep(500);
+
+	await sleep(1000);
+
 	var validMove = this.prolog.getServerResponse();
 
-    return validMove;
-	
+    if(validMove)
+    {
+        this.changeTurn();  //muda o turno e recomeca
+        this.getTurnInformation();  //enquanto está no init recebe as informacoes do turn
+    }
+    else
+    {
+        this.changingInfo[1] = "Game Over";
+        this.setState("END")
+    }
+
 	/*
 	Também se pode retornar este valor caso não seja para meter aqui a atualização dos estados de jogo
 
@@ -178,6 +213,7 @@ Game.prototype.makeMove = async function(cellI,cellF,structure){
 }
 
 Game.prototype.executeAnimation = async function(){
+
     if(this.state == 'ANIM1'){
         this.gameSequence.currMove().makeShipMove();
     }
@@ -200,12 +236,10 @@ Game.prototype.addMove = function(Team,CellI,CellF){
 States
 */
 
-Game.prototype.changeState = async function () {
+Game.prototype.changeState = function () {
 
     switch(this.state){
         case 'INIT':
-            this.getTurnInformation();
-
             if(this.turn.type == "Human")
             {
                 this.changingInfo[1] = "Select Ship";
@@ -251,31 +285,13 @@ Game.prototype.changeState = async function () {
             this.changeState();
             break;
         case 'NEXT_TURN':
-            //faz o movimento, se sucedido continua, se -1 termina o jogo
-            var posI = this.gameSequence.currMove().getShipCell().getPos();
-            var posF = this.gameSequence.currMove().getTile().getPos();
-            var piece = this.gameSequence.currMove().getPiece();
-            var structure;
-            if(piece instanceof Colony)
-                structure = "C";
-            else
-                structure = "T";
 
-            var hasPossibleMoves = this.makeMove(posI,posF,structure);
+            this.makeMove(); //faz o movimento, se sucedido continua, se -1 termina o jogo
 
-			await sleep(1000);
-			
-            if(hasPossibleMoves)
+            if(this.state != 'END')
             {
-                this.changeTurn();  //muda o turno e recomeca
                 this.changingInfo[1] = "Init";
                 this.state = 'INIT';
-                this.changeState();
-            }
-            else
-            {
-                this.changingInfo[1] = "Game Over";
-                this.state = 'END';
             }
             break;
         case 'BOT':
@@ -300,10 +316,11 @@ Game.prototype.picking = function (obj,id) {
 
     var currMove = this.gameSequence.currMove();
 
-    if(this.state == 'SEL_TILE' && obj instanceof Ship )   //escolher outra ship
+    if(this.state == 'SEL_TILE' && obj instanceof Ship && this.gameSequence.currMove().getShip() != null)   //escolher outra ship
     {
         this.setState("SEL_SHIP");
         this.shaderOnShipPossibleMoves(currMove.getShipCell(),0);
+        currMove.getShipCell().setSelected(false);
     }
 
     if(obj instanceof Piece)
@@ -319,6 +336,7 @@ Game.prototype.picking = function (obj,id) {
             ((this.state == 'SEL_SHIP' && obj instanceof Ship && board == 100) ||
              (this.state == 'SEL_PIECE' && !(obj instanceof Ship) && board != 100)))
         {
+
             var cell = obj.getCell();   //descobrir qual e a sua celula
             cell.setSelected(true);     //marcar essa celula como selecionada (depois ele marca a peca correspondente)
 
@@ -403,7 +421,7 @@ Game.prototype.init = async function(BoardSize,Nivel,Mode){
     console.log("First Player - ", this.turn);
 
     //TEMPORARIO
-    this.changeState();
+    this.getTurnInformation();  //enquanto está no init recebe as informacoes do turn
 }
 
 Game.prototype.createPlayer = function(team,type,ships,representation){
