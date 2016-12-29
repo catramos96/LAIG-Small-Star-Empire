@@ -441,6 +441,7 @@ XMLscene.prototype.changeScene = function() {
         this.sceneNum = 0;
 
     new MySceneGraph(this.scenes[this.sceneNum], this);
+    this.interface.resetLightFolders();
 }
 
 XMLscene.prototype.automaticCamera = function() {
@@ -449,11 +450,11 @@ XMLscene.prototype.automaticCamera = function() {
 
 XMLscene.prototype.initGame = function(i) {
 	this.ongoing = true;
-    this.game = new Game(this,0,0);
+    this.game = new Game(this,1,1);
     this.interface.addGameInfo();
 }
 
 XMLscene.prototype.quit = function (){
     this.ongoing = false;
-    this.interface.resetFolders();
+    this.interface.resetGameFolders();
 }

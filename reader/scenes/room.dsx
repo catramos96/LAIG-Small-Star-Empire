@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+
+<dsx>
+
+    <scene root="room" axis_length="3" />
+
+    <views default="all" >
+		<perspective id="all" near="0.1" far="500" angle="45">
+            <from x="90" y="50" z="90" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+		<perspective id="front" near="0.1" far="500" angle="50">
+            <from x="50" y="50" z="50" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+ 		<perspective id="back" near="0.1" far="500" angle="50">
+             <from x="-50" y="30" z="-30" />
+             <to x="0" y="0" z="0" />
+         </perspective>
+        <perspective id="up" near="0.1" far="500" angle="50">
+            <from x="2.5" y="20" z="0" />
+            <to x="1.5" y="0" z="0" />
+        </perspective>
+        <perspective id="player1" near="0.1" far="500" angle="50">
+            <from x="-6" y="11" z="11" />
+            <to x="-3" y="0" z="3" />
+        </perspective>
+        <perspective id="player2" near="0.1" far="500" angle="50">
+            <from x="6" y="11" z="11" />
+            <to x="3" y="0" z="3" />
+        </perspective>
+    </views>
+
+    <illumination doublesided="0" local="1" >
+        <ambient r="0.1" g="0.1" b="0.1" a="1" />
+        <background r="0.6" g="0.85" b="0.92" a="1" />
+    </illumination>
+
+    <lights>
+        <spot id="spot_tab" enabled="0" angle="60" exponent="3">
+            <target x="0" y="0" z="0" />
+            <location x="1" y="15" z="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.2" g="0.2" b="0.2" a="1" />
+        </spot>
+        <omni id="omni_1" enabled="1" >
+            <location x="50" y="30" z="50" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+        <omni id="omni_2" enabled="1" >
+            <location x="50" y="30" z="-50" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+        <omni id="omni_3" enabled="1" >
+            <location x="-50" y="30" z="50" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+        <omni id="omni_4" enabled="1" >
+            <location x="-50" y="30" z="-50" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+    </lights>
+
+    <textures>
+            <texture id="skyTexture" file="../resources/sky.png" length_s="0.4" length_t="0.4" />
+
+             <!-- Texturas das Celulas do Board -->
+			<texture id="0planet" file="../resources/0planet.png" length_s="1" length_t="1" />
+			<texture id="1planet" file="../resources/1planet.png" length_s="1" length_t="1" />
+			<texture id="2planet" file="../resources/2planet.png" length_s="1" length_t="1" />
+			<texture id="3planet" file="../resources/3planet.png" length_s="1" length_t="1" />
+			<texture id="rnebula" file="../resources/rnebula.png" length_s="1" length_t="1" />
+			<texture id="bnebula" file="../resources/bnebula.png" length_s="1" length_t="1" />
+			<texture id="blackhole" file="../resources/blackhole.png" length_s="1" length_t="1" />
+			<texture id="rhomeworld" file="../resources/rhomeworld.png" length_s="1" length_t="1" />
+			<texture id="bhomeworld" file="../resources/bhomeworld.png" length_s="1" length_t="1" />
+			<texture id="marmore" file="../resources/marmore.jpg" length_s="1" length_t="1" />
+
+    </textures>
+
+    <materials>
+		<material id="shiny" >
+			<emission r="0" g="0" b="0" a="0" />
+            <ambient r="1" g="1" b="1" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="100" />
+        </material>
+        <material id="orange" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="1" g="0.5" b="0.15" a="1" />
+            <diffuse r="1" g="0.5" b="0.15" a="1" />
+            <specular r="1" g="0.5" b="0.15" a="1" />
+            <shininess value="100" />
+        </material>
+        <material id="pink" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="1" g="0" b="0.5" a="1" />
+            <diffuse r="1" g="0" b="0.5" a="1" />
+            <specular r="1" g="0" b="0.5" a="1" />
+            <shininess value="100" />
+        </material>
+        <material id="purple" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="0.25" g="0" b="0.25" a="1" />
+            <diffuse r="0.25" g="0" b="0.25" a="1"/>
+            <specular r="0.25" g="0" b="0.25" a="1"/>
+            <shininess value="100" />
+        </material>
+
+    </materials>
+
+    <transformations>
+		<transformation id="roomPos">
+			<translate x="0" y="-20" z="0"/>
+            <rotate axis="x" angle="-90"/>
+        </transformation>
+    </transformations>
+
+    <primitives>
+
+    </primitives>
+
+    <animations>
+
+	</animations>
+
+    <components>
+		<component id="room">
+			<transformation>
+			    <transformationref id="roomPos"/>
+			</transformation>
+
+			<materials>
+				<material id="shiny" />
+			</materials>
+
+			<texture id="none" />
+
+			<children>
+			</children>
+		</component>
+
+</dsx>
