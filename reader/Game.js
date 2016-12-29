@@ -175,7 +175,17 @@ Game.prototype.makeMove = async function(cellI,cellF,structure){
 		this.addMove(this.turn().CellI,CellF);
 	}*/
 	
-	
+}
+
+Game.prototype.executeAnimation = async function(){
+    if(this.state == 'ANIM1'){
+        this.gameSequence.currMove().makeShipMove();
+    }
+    if(this.state == 'ANIM2') {
+        this.gameSequence.currMove().makePieceMove();
+    }
+    await sleep(2000);
+    this.changeState(); //Acabou o movimento, mudo de estado
 }
 
 /*
@@ -215,6 +225,7 @@ Game.prototype.changeState = async function () {
         case 'SEL_TILE':
             this.changingInfo[1] = "Animation";
             this.state = 'ANIM1';
+            this.executeAnimation();
             break;
         case 'ANIM1':
             if(this.turn.type == "Human")
@@ -226,11 +237,13 @@ Game.prototype.changeState = async function () {
             {
                 this.changingInfo[1] = "Animation";
                 this.state = 'ANIM2';
+                this.executeAnimation();
             }
             break;
         case 'SEL_PIECE':
             this.changingInfo[1] = "Animation";
             this.state = 'ANIM2';
+            this.executeAnimation();
             break;
         case 'ANIM2':
             this.changingInfo[1] = "Next Turn";
@@ -283,16 +296,20 @@ Game.prototype.changeState = async function () {
 GameInterations
 */
 
-Game.prototype.picking = async function (obj,id) {
+Game.prototype.picking = function (obj,id) {
 
     var currMove = this.gameSequence.currMove();
+
+    if(this.state == 'SEL_TILE' && obj instanceof Ship )   //escolher outra ship
+    {
+        this.setState("SEL_SHIP");
+        this.shaderOnShipPossibleMoves(currMove.getShipCell(),0);
+    }
 
     if(obj instanceof Piece)
     {
         var team = obj.getTeam();
         var board = obj.getCell().getBoard().getId();
-
-       // console.log(board,this.state,team,this.turn.getTeam());
 
         //o objeto selecionado tem de ser da equipa correspondente
         //e se for trade ou colony tem de ser dum board auxiliar
@@ -305,25 +322,6 @@ Game.prototype.picking = async function (obj,id) {
             var cell = obj.getCell();   //descobrir qual e a sua celula
             cell.setSelected(true);     //marcar essa celula como selecionada (depois ele marca a peca correspondente)
 
-           /* var lastPiece, lastCell;
-            if(this.state == 'SEL_SHIP')
-            {
-                lastPiece = currMove.getShip();
-                if(lastPiece != null)
-                    lastCell = currMove.getShipCell();
-            }
-            else if(this.state == 'SEL_PIECE')
-            {
-                lastPiece = currMove.getPiece();
-                if(lastPiece != null)
-                    lastCell = currMove.getPieceCell();
-            }
-
-            if (lastPiece != null && lastPiece != obj)  //ja foi uma peca selecionada
-            {
-                lastCell.setSelected(false);
-            }*/
-
             //adiciona a peca ao movimento
             if(this.state == 'SEL_SHIP'){
                 currMove.addShip(obj);
@@ -332,7 +330,7 @@ Game.prototype.picking = async function (obj,id) {
             else if(this.state == 'SEL_PIECE')
                 currMove.addPiece(obj);
 
-            this.changeState(); //já escolheu a peca, pode mudar de estado
+            this.changeState(); //já escolheu a peca, pode mudar de estado (fazer a animacao 1)
         }
     }
     else if(obj instanceof Cell && this.state == 'SEL_TILE')
@@ -344,28 +342,15 @@ Game.prototype.picking = async function (obj,id) {
             //verificar se a posicao encontra-se na lista de posicoes validas para este ship
             var valid = this.validMovement(currMove.getShipCell().getPos(),obj.getPos());
 
-            console.log(valid);
             if(valid)
             {
                 this.shaderOnShipPossibleMoves(currMove.getShipCell(),0);
                 currMove.addTile(obj);
                 obj.setSelected(true);
 
-                this.changeState(); //já escolheu a celula, pode mudar de estado
+                this.changeState(); //já escolheu a celula, pode mudar de estado (fazer a animacao 2)
             }
         }
-    }
-
-    if(this.state == 'ANIM1'){
-        currMove.makeShipMove();
-        await sleep(2000);
-        this.changeState(); //Acabou o movimento, mudo de estado
-    }
-
-    if(this.state == 'ANIM2') {
-        currMove.makePieceMove();
-        await sleep(2000);
-        this.changeState(); //Acabou o movimento, mudo de estado
     }
 }
 
@@ -400,7 +385,6 @@ Game.prototype.shaderOnShipPossibleMoves = function(cellShip,bool){
     //descobrir as celulas do mainBoard que tem estas posicooes, e marca-las com "canMoveTo"
     for(var i = 0; i < cellPos.length; i++){
         var cell = this.board.cellInPos(cellPos[i]);
-       // console.log('aqui');
         cell.setCanMove(bool);
     }
 }
@@ -456,7 +440,6 @@ Game.prototype.setTurn = function(team){
 
 Game.prototype.setState = function(state){
     this.state = state;
-	this.changeState();
 }
 
 /*
