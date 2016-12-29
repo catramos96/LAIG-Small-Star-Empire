@@ -1,5 +1,8 @@
 /*
  Class Game
+
+ 1- vermelho
+ 2 - azul
  */
 possibleMoves = [];
 function Game(scene,mode,difficulty) {
@@ -25,8 +28,8 @@ function Game(scene,mode,difficulty) {
     this.board = new GameBoard(this.scene,new GameBoardData(100,[[]],new MyPoint(-7.2,0,0)));
 	
     //os tabuleiros auxiliares ja sao criados com as suas pecas
-    this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"blue", new MyPoint(1.2,0,-9)));
-    this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"red",new MyPoint(-12,0,-9)));
+    this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"red", new MyPoint(1.2,0,-9)));
+    this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"blue",new MyPoint(-12,0,-9)));
 
     //inicializacao da sequencia
     this.gameSequence = new GameSequence();
@@ -36,7 +39,6 @@ function Game(scene,mode,difficulty) {
     this.player2 = new Player(2);
 	
     this.turn = this.player1;	//default
-	this.allMoves = [];			//para saber sequencia de jogadas
 
     this.initInfo = [modeName, difficultyName];
     this.finalInfo = [null, 0, 0];
@@ -51,6 +53,8 @@ function Game(scene,mode,difficulty) {
  */
 Game.prototype.getTurnInformation = async function()
 {
+    //verifica se existe algum ship no tabuleiro auxiliar. Se tiver, coloca-o na homebase
+    this.moveShipToHB();
     this.gameSequence.addMove(new GameMove());  //nova jogada
 
     //verificacao das jogadas possiveis
@@ -60,10 +64,38 @@ Game.prototype.getTurnInformation = async function()
 
 }
 
+Game.prototype.moveShipToHB = function()
+{
+    var homeBase = this.board.cellInPos(this.turn.homeBase);
+    var ship = homeBase.getShip();
+
+    if(ship == null)
+    {
+        var auxBoard;
+        if(this.turn == this.player1)
+            auxBoard = this.boardAux1;
+        else
+            auxBoard = this.boardAux2;
+
+        for(var i = 1; i < 5;i++){
+            var cell = auxBoard.cellInPos([5,i]);
+            ship = cell.getShip();
+
+            if(ship != null){
+                //faz o movimento entre a coordenada auxiliar e a hb
+                var move = new GameMove();
+                move.addShip(ship); //ship a mover
+                move.addTile(homeBase); //destino
+                move.makeShipMove();
+                break;
+            }
+        }
+    }
+}
+
 Game.prototype.validMovement = function(shipPos,cellPos){
 
     console.log("recebe : ",shipPos,cellPos);
-    console.log("prolog : ",this.turn.getPrologRepresentation());
     //recebe o array de ships
     var info = this.prolog.parsePlayer(this.turn.getPrologRepresentation());
     var myShips = info[4];
@@ -74,9 +106,6 @@ Game.prototype.validMovement = function(shipPos,cellPos){
     //ve qual e o que tem as mesmas coordenadas
     for(var i = 0; i < myShips.length; i++)
     {
-        console.log();
-        console.log("pos "+i+" : "+myShips[i][0]+ ", "+myShips[i][1]);
-
         if(myShips[i][0] == shipPos[0] && myShips[i][1] == shipPos[1]){
             hasShip = true;
             break;
@@ -90,12 +119,12 @@ Game.prototype.validMovement = function(shipPos,cellPos){
 
         console.log("possiveis",myCells);
 
-        for(var j = 0; j < myShips.length; j++)
+        for(var j = 0; j < myCells.length; j++)
         {
             var shipI = myCells[j][0];
             var shipJ = myCells[j][1];
 
-            if(myCells[j][0] == cellPos[0] && myCells[j][0] == cellPos[1])
+            if(myCells[j][0] == cellPos[0] && myCells[j][1] == cellPos[1])
                 return true;
         }
     }
@@ -103,28 +132,30 @@ Game.prototype.validMovement = function(shipPos,cellPos){
     return false;
 }
 
-Game.prototype.makeMove = async function(CellI,CellF,Structure){
+Game.prototype.makeMove = async function(cellI,cellF,structure){
 	var moveRequest;
 	
 	/*
 	IR BUSCAR ESTAS INFORMAÇÕES A CELLI E CELLF !!!!!!!
 	Structure = "'C'" ou "'T'"
 	*/
-	var RowI;
-	var ColumnI;
-	var RowF;
-	var ColumnF;
+	var rowI = cellI[0];
+	var columnI = cellI[1];
+	var rowF = cellF[0];
+	var columnF = cellF[1];
 
 	if(this.turn.getType() == "Human")
-		moveRequest = "moveHuman(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + "," + RowI + "," + ColumnI + "," + "RowF" + "ColumnI" + "," + Structure + ")";
+		moveRequest = "moveHuman(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() +
+            "," + rowI + "," + colI + "," + rowf + "," + colf + "," + structure + ")";
+
 	//else(this.turn().getType() == "Computer") ...
 	
-	this.prolog.makeRequest(move,2);
+	this.prolog.makeRequest(moveRequest,2);
 	
 	await sleep(500);
 	var validMove = this.prolog.getServerResponse();
 
-    return validMove
+    return validMove;
 	
 	/*
 	Também se pode retornar este valor caso não seja para meter aqui a atualização dos estados de jogo
@@ -181,7 +212,16 @@ Game.prototype.changeState = function () {
             break;
         case 'NEXT_TURN':
             //faz o movimento, se sucedido continua, se -1 termina o jogo
-            var hasPossibleMoves = this.makeMove();
+            var posI = this.gameSequence.currMove().getPieceCell().getPos();
+            var posF = this.gameSequence.currMove().getTile().getPos();
+            var piece = this.gameSequence.currMove().getPiece();
+            var structure;
+            if(piece instanceof Colony)
+                structure = "C";
+            else
+                structure = "T";
+
+            var hasPossibleMoves = this.makeMove(posI,posF,structure);
 
             if(hasPossibleMoves)
             {
@@ -218,11 +258,15 @@ Game.prototype.picking = async function (obj,id) {
         var team = obj.getTeam();
         var board = obj.getCell().getBoard().getId();
 
+        console.log(board,this.state,team,this.turn.getTeam());
+
         //o objeto selecionado tem de ser da equipa correspondente
-        // e se for trade ou colony tem de ser dum board auxiliar
-        //e o seu estado tem de corresponder ao objeto
+        //e se for trade ou colony tem de ser dum board auxiliar
+        //se for ship tem de ser no board principal
+        //o seu estado tem de corresponder ao objeto
         if((team == this.turn.getTeam()) &&
-            ((this.state == 'SEL_SHIP' && obj instanceof Ship) || (this.state == 'SEL_PIECE' && !(obj instanceof Ship) && board != 100)))
+            ((this.state == 'SEL_SHIP' && obj instanceof Ship && board == 100) ||
+             (this.state == 'SEL_PIECE' && !(obj instanceof Ship) && board != 100)))
         {
             var cell = obj.getCell();   //descobrir qual e a sua celula
             cell.setSelected(true);     //marcar essa celula como selecionada (depois ele marca a peca correspondente)
@@ -262,8 +306,7 @@ Game.prototype.picking = async function (obj,id) {
         if(idBoard == 100)   //so posso selcionar celulas do board principal
         {
             //verificar se a posicao encontra-se na lista de posicoes validas para este ship
-            //var valid = this.validMovement(this.currMove().getShipCell().getPos(),obj.getPos());
-            var valid = this.validMovement([0,2],obj.getPos());
+            var valid = this.validMovement(this.gameSequence.currMove().getShipCell().getPos(),obj.getPos());
 
             console.log(valid);
             if(valid)

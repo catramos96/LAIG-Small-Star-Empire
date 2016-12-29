@@ -57,15 +57,17 @@ Class Board
 
         for(var j = 0; j < this.boardM[i].length;j++){     //column
 
-          if(this.boardM[i].length > ncolumn_max)
-            ncolumn_max = this.boardM[i].length;
-
+          if(this.boardM[i].length > ncolumn_max){
+              ncolumn_max = this.boardM[i].length;
+          }
           if(this.boardM[i][j] == -1){ //espaçamento inicial
               xpos += 0.9;
-              aux = 0;
+              aux--;
           }
-          else if(this.boardM[i][j] == -2) //espaçamento de uma celula
-            xpos += 1.8;
+          else if(this.boardM[i][j] == -2){//espaçamento de uma celula
+              xpos += 1.8;
+              aux--;
+          }
           else{
                my_coords = new MyPoint(xpos,0,zpos);
                board_cells_row.push(this.createCell(id,this.boardM[i][j],my_coords,[i+1,j+aux]));
@@ -83,6 +85,22 @@ Class Board
         this.scale = 1/(ncolumn_max*1.8);
     else
         this.scale = 1/(nrows_max*1.6);
+ }
+
+ Board.prototype.cellInPos = function(pos) {
+     console.log("comeca");
+     for(var i = 0; i < this.boardCells.length; i++)
+     {
+         for (var j = 0; j < this.boardCells[i].length; j++)
+         {
+             var cellPos = this.boardCells[i][j].getPos();
+             console.log(cellPos);
+
+             if (cellPos[0] == pos[0] && cellPos[1] == pos[1]) {
+                 return this.boardCells[i][j];
+             }
+         }
+     }
  }
 
  Board.prototype.setBoard = function(board) {

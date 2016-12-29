@@ -1,5 +1,8 @@
 /*
 Class Player to keep the player's information
+
+1 - vermelho
+2 - azul
 */ 
 function Player(team) {
 

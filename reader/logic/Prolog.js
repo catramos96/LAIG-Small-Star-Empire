@@ -132,6 +132,7 @@ Prolog.prototype.parsePlayer = function (info){
 	var i;
 	var data_index = 2;
 	var x = '0', y = '0';
+
 	
 	for(i = 5; i < info.length-1; i++){
 		
@@ -163,14 +164,14 @@ Prolog.prototype.parsePlayer = function (info){
 			}
 			
 		}
-		else{									//coords
-			if(info[i] == ',' && open_2 == 1){
-				coord.push(parseInt(x));
-				x = '0';
-			}
-			else if(coord.length == 0)	x += info[i];
-			else if(coord.length == 1)	y += info[i];
-		}
+        else if(open_2 == 1){									//coords
+            if(info[i] == ','){
+                coord.push(parseInt(x));
+                x = '0';
+            }
+            else if(coord.length == 0)	x += info[i];
+            else if(coord.length == 1)	y += info[i];
+        }
 	}
 	//console.log(data);
 	return data;
