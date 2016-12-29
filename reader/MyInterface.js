@@ -52,6 +52,7 @@ MyInterface.prototype.init = function(application) {
     this.initLightFolders();
 
 	this.turn = null;
+    this.nextSelection = null;
 	this.undo = null;
 
 	return true;
@@ -92,13 +93,13 @@ MyInterface.prototype.addLights = function(id, isSpot) {
 
 MyInterface.prototype.addGameInfo = function () {
 
-	if(this.undo == null || this.turn == null)
+	if(this.undo == null || this.turn == null ||  this.nextSelection == null)
 	{
         this.undo = this.gameMenuGroup.add(this.scene.game,'undo').name("Undo");
         this.gameMenuGroup.add(this.scene,'quit').name("Quit");
 
-        this.turn = this.matchMenuGroup.add(this.scene.game.turn,'team').name('Turn').listen();
-        //this.nextSelection = this.matchMenuGroup.add(this.scene.game.state,'team').name('State').listen();
+        this.turn = this.matchMenuGroup.add(this.scene.game.changingInfo,0).name('Turn').listen();
+        this.nextSelection = this.matchMenuGroup.add(this.scene.game.changingInfo,1).name('State').listen();
         this.matchMenuGroup.add(this.scene.game.initInfo, 0).name('Game Mode').listen();
         this.matchMenuGroup.add(this.scene.game.initInfo, 1).name('Difficulty').listen();
 	}
@@ -119,6 +120,7 @@ MyInterface.prototype.resetGameFolders = function () {
 
 	this.initGameFolders();
     this.turn = null;
+    this.nextSelection = null;
     this.undo = null;
 };
 
@@ -135,7 +137,21 @@ MyInterface.prototype.removeSomeInfo = function () {
 
     this.undo.remove();
     this.undo = null;
+
+    this.nextSelection.remove();
+    this.nextSelection = null;
 };
+
+/**
+ * Updates
+ */
+MyInterface.prototype.updateMatchInfo = function () {
+	this.removeSomeInfo();
+
+    this.undo = this.gameMenuGroup.add(this.scene.game,'undo').name("Undo");
+    this.turn = this.matchMenuGroup.add(this.scene.game.changingInfo,0).name('Turn').listen();
+    this.nextSelection = this.matchMenuGroup.add(this.scene.game.changingInfo,1).name('State').listen();
+}
 
 /**
  * ProcessKeyboard

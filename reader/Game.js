@@ -10,18 +10,6 @@ function Game(scene,mode,difficulty) {
     this.mode = mode;
     this.difficulty = difficulty;
 
-    switch (mode) {
-        case 1: modeName = 'Player VS Player'; break;
-        case 2: modeName = 'Player VS AI'; break;
-        case 3: modeName = 'AI VS AI'; break;
-        default: modeName = 'Player VS AI'; break;
-    }
-    switch (difficulty) {
-        case 1: difficultyName = 'Easy'; break;
-        case 2: difficultyName = 'Hard'; break;
-        default: difficultyName = 'Easy'; break;
-    }
-
 	this.prolog = new Prolog(this);
 
     //criacao de um board e dois boards auxiliares
@@ -40,7 +28,21 @@ function Game(scene,mode,difficulty) {
 	
     this.turn = this.player1;	//default
 
+    //para a interface
+    switch (mode) {
+        case 1: modeName = 'Player VS Player'; break;
+        case 2: modeName = 'Player VS AI'; break;
+        case 3: modeName = 'AI VS AI'; break;
+        default: modeName = 'Player VS AI'; break;
+    }
+    switch (difficulty) {
+        case 1: difficultyName = 'Easy'; break;
+        case 2: difficultyName = 'Hard'; break;
+        default: difficultyName = 'Easy'; break;
+    }
+
     this.initInfo = [modeName, difficultyName];
+    this.changingInfo = ["Red","Init"]
     this.finalInfo = [null, 0, 0];
 	
 	//TEMPORARIO
@@ -53,6 +55,12 @@ function Game(scene,mode,difficulty) {
  */
 Game.prototype.getTurnInformation = async function()
 {
+    //muda a turn na interface
+    if(this.turn.getTeam() == 1)
+        this.changingInfo[0] = "Red";
+    else
+        this.changingInfo[0] = "Blue";
+
     //verifica se existe algum ship no tabuleiro auxiliar. Se tiver, coloca-o na homebase
     this.moveShipToHB();
     this.gameSequence.addMove(new GameMove());  //nova jogada
@@ -61,7 +69,6 @@ Game.prototype.getTurnInformation = async function()
 	this.prolog.makeRequest("possibleMoves(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + ")",4);
 	await sleep(500);
 	possibleMoves = this.prolog.getServerResponse();
-
 }
 
 Game.prototype.moveShipToHB = function()
@@ -187,30 +194,44 @@ Game.prototype.changeState = function () {
         case 'INIT':
             this.getTurnInformation();
 
-            if(this.turn.type == "Human"){
+            if(this.turn.type == "Human")
+            {
+                this.changingInfo[1] = "Select Ship";
                 this.state = 'SEL_SHIP';
-            }else{
+            }
+            else
+            {
+                this.changingInfo[1] = "AI turn";
                 this.state = 'BOT';
                 //chama uma funcao qql que escolhe a jogada do bot
             }
             break;
         case 'SEL_SHIP':
+            this.changingInfo[1] = "Select cell";
             this.state = 'SEL_TILE';
             break;
         case 'SEL_TILE':
+            this.changingInfo[1] = "Animation";
             this.state = 'ANIM1';
             break;
         case 'ANIM1':
-            if(this.turn.type == "Human"){
+            if(this.turn.type == "Human")
+            {
+                this.changingInfo[1] = "Select Piece";
                 this.state = 'SEL_PIECE';
-            }else{
+            }
+            else
+            {
+                this.changingInfo[1] = "Animation";
                 this.state = 'ANIM2';
             }
             break;
         case 'SEL_PIECE':
+            this.changingInfo[1] = "Animation";
             this.state = 'ANIM2';
             break;
         case 'ANIM2':
+            this.changingInfo[1] = "Next Turn";
             this.state = 'NEXT_TURN';
             this.changeState();
             break;
@@ -230,18 +251,23 @@ Game.prototype.changeState = function () {
             if(hasPossibleMoves)
             {
                 this.changeTurn();  //muda o turno e recomeca
+                this.changingInfo[1] = "Init";
                 this.state = 'INIT';
                 this.changeState();
             }
             else
+            {
+                this.changingInfo[1] = "Game Over";
                 this.state = 'END';
+            }
             break;
         case 'BOT':
+            this.changingInfo[1] = "AI TURN";
             this.state = 'NEXT_TURN';
             this.changeState();
             break;
         case 'END':
-            this.endedGame();
+            this.gameOver();
             break;
         default:
             this.state = 'END';
@@ -339,7 +365,7 @@ Game.prototype.picking = async function (obj,id) {
     }
 }
 
-Game.prototype.endedGame = function (){
+Game.prototype.gameOver = function (){
     this.finalInfo = [this.player1.team, 0, 0];  //atualiza esta informacao
 
     this.scene.interface.addFinalGameInfo();
@@ -448,6 +474,8 @@ Game.prototype.changeTurn = function(){
 }
 
 Game.prototype.display = function() {
+
+    this.scene.interface.updateMatchInfo();
 
     this.scene.pushMatrix();
         this.scene.scale(10,10,10);
