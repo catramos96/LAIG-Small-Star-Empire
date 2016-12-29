@@ -53,19 +53,22 @@ Class Board
         xpos = this.initialCoord.getX();
         board_cells_row = [];
         pos_cells_row = [];
+        var aux = 1;
 
         for(var j = 0; j < this.boardM[i].length;j++){     //column
 
           if(this.boardM[i].length > ncolumn_max)
             ncolumn_max = this.boardM[i].length;
 
-          if(this.boardM[i][j] == -1) //espaçamento inicial
-            xpos += 0.9;
+          if(this.boardM[i][j] == -1){ //espaçamento inicial
+              xpos += 0.9;
+              aux = 0;
+          }
           else if(this.boardM[i][j] == -2) //espaçamento de uma celula
             xpos += 1.8;
           else{
                my_coords = new MyPoint(xpos,0,zpos);
-               board_cells_row.push(this.createCell(id,this.boardM[i][j],my_coords));
+               board_cells_row.push(this.createCell(id,this.boardM[i][j],my_coords,[i+1,j+aux]));
                pos_cells_row.push(my_coords);
                xpos += 1.8;            //next column
               id++; //cell id

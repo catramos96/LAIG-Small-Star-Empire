@@ -28,7 +28,7 @@ AuxiliarBoard.prototype = Object.create(Board.prototype);
 /*
  Creates the cell with the correct texture and id and pushes to the boardCells
  */
-AuxiliarBoard.prototype.createCell = function(id,type,coords) {
+AuxiliarBoard.prototype.createCell = function(id,type,coords,pos) {
 
     var texture = this.textureSelector(type);
 
@@ -42,7 +42,7 @@ AuxiliarBoard.prototype.createCell = function(id,type,coords) {
         ship = new Ship(this.scene,new ShipData(id),null,this.team);
     }
 
-    var cell = new Cell(id,this.scene,coords,texture,this,ship,piece);
+    var cell = new Cell(id,this.scene,coords,pos,texture,this,ship,piece);
 	if(piece != null)
 		piece.setCell(cell);
 	if(ship != null)

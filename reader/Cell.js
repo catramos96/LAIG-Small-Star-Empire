@@ -1,7 +1,7 @@
 /*
 Class MyCell
 */
- function Cell(id,scene,coords,texture,board,ship,piece) {
+ function Cell(id,scene,coords,pos,texture,board,ship,piece) {
      CGFobject.call(this,scene);
      this.scene = scene;
      this.id = id;
@@ -11,6 +11,7 @@ Class MyCell
      this.selected = 0;
      this.texture = texture;
      this.coords = coords;
+     this.pos = pos;
 
      var appearances = this.scene.getMaterials();
      this.defaultAppearance = appearances.get("shiny").getAppearance();
@@ -44,6 +45,10 @@ Cell.prototype.getId = function() {
 
 Cell.prototype.getCoords = function() {
      return this.coords;
+}
+
+Cell.prototype.getPos = function() {
+    return this.pos;
 }
 
 Cell.prototype.getBoard = function() {
