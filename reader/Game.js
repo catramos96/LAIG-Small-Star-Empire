@@ -153,18 +153,11 @@ Game.prototype.makeMove = async function(cellI,cellF,structure){
             "," + rowI + "," + columnI + "," + rowF + "," + columnF + ",'" + structure + "')";
 
 	//else(this.turn().getType() == "Computer") ...
-	console.log(this.turn);
-	console.log("Move" + moveRequest);
-	console.log("Type" + this.player1.getType());
 	
 	this.prolog.makeRequest(moveRequest,2);
 	
 	await sleep(500);
 	var validMove = this.prolog.getServerResponse();
-	
-	console.log(this.player1.getPrologRepresentation());
-	console.log(this.player2.getPrologRepresentation());
-	console.log(this.board.getPrologRepresentation());
 
     return validMove;
 	
@@ -190,7 +183,7 @@ Game.prototype.addMove = function(Team,CellI,CellF){
 States
 */
 
-Game.prototype.changeState = function () {
+Game.prototype.changeState = async function () {
 
     switch(this.state){
         case 'INIT':
@@ -236,6 +229,8 @@ Game.prototype.changeState = function () {
 
             var hasPossibleMoves = this.makeMove(posI,posF,structure);
 
+			await sleep(1000);
+			
             if(hasPossibleMoves)
             {
                 this.changeTurn();  //muda o turno e recomeca
