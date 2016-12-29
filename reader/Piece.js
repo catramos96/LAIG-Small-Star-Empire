@@ -78,7 +78,7 @@ Piece.prototype.display = function ()
             var elapTime = currTime-this.animStartTime;	//time since animation begined
             animTransformation = this.animation.getTransformation(elapTime);	//update the animTransformation
 
-            console.log(animTransformation);
+            //console.log(animTransformation);
         }
         else    //ja acabou
         {

@@ -81,12 +81,12 @@ Player.prototype.getTeam = function(){
 
 Player.prototype.getType = function(){
 
-    this.type;
+    return this.type;
     
 }
 
 Player.prototype.getScore = function(){
 
-    this.score;
+    return this.score;
     
 }

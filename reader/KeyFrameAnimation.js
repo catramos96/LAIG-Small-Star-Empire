@@ -4,8 +4,8 @@
 function KeyFrameAnimation(id,time,controlPoints) {
     Animation.call(this,id,time);
     this.controlPoints = controlPoints;
-    console.log("AQUI <<<< "+id);
-    console.log(controlPoints);
+    //console.log("AQUI <<<< "+id);
+   // console.log(controlPoints);
 }
 
 KeyFrameAnimation.prototype = Object.create(Animation.prototype);

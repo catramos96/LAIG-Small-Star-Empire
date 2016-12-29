@@ -28,7 +28,7 @@ Class MyCell
 
  Cell.prototype.setCanMove = function(canMove) {
      this.canMoveTo = canMove;
-     console.log("set: "+this.canMoveTo);
+    // console.log("set: "+this.canMoveTo);
  }
 
 Cell.prototype.setPiece = function(piece) {

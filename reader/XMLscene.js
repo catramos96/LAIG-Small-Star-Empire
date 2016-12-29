@@ -263,7 +263,7 @@ XMLscene.prototype.logPicking = function ()
 				{
 					//criar aqui uma funcao para o game
 					var customId = this.pickResults[i][1]; // o ID do objeto seleccionado
-					console.log("Picked object: ", obj  ,", with pick id " + customId);
+					//console.log("Picked object: ", obj  ,", with pick id " + customId);
 
 					this.game.picking(obj,customId);
 				}

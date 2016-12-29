@@ -54,6 +54,7 @@ Class Board
         board_cells_row = [];
         pos_cells_row = [];
         var aux = 1;
+		
 
         for(var j = 0; j < this.boardM[i].length;j++){     //column
 
@@ -62,18 +63,18 @@ Class Board
           }
           if(this.boardM[i][j] == -1){ //espaçamento inicial
               xpos += 0.9;
-              aux--;
           }
           else if(this.boardM[i][j] == -2){//espaçamento de uma celula
               xpos += 1.8;
-              aux--;
           }
           else{
                my_coords = new MyPoint(xpos,0,zpos);
-               board_cells_row.push(this.createCell(id,this.boardM[i][j],my_coords,[i+1,j+aux]));
+               board_cells_row.push(this.createCell(id,this.boardM[i][j],my_coords,[i+1,aux]));
+			   console.log(i+1 + "-" + aux);
                pos_cells_row.push(my_coords);
                xpos += 1.8;            //next column
               id++; //cell id
+			  aux++;
           }
         }
         this.boardCells.push(board_cells_row);
