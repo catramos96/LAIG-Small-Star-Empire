@@ -126,7 +126,7 @@ parse_input(moveHuman(BoardI,PlayerI,Ri,Ci,Rf,Cf,Structure),Res)	:-	updateValidS
 																		
 																		isGameOver(PlayerT2,GameOver),
 																		(
-																			(Valid = 1 ,
+																			(Valid = 1 , GameOver = 0,
 																				playerGetTeam(PlayerT2,Team),
 																				setDominion(BoardI,Team,Rf,Cf,Structure,BoardT2), !,		/*Estrutura no board*/
 																				playerAddControl(PlayerT2,Structure,[Rf|[Cf|[]]],PlayerT3),	/*Estrutura no player*/
@@ -135,7 +135,7 @@ parse_input(moveHuman(BoardI,PlayerI,Ri,Ci,Rf,Cf,Structure),Res)	:-	updateValidS
 																				playerSetShip(PlayerT3,[Ri|[Ci|[]]],[Rf|[Cf|[]]],PlayerF),	/*Update do Ship*/
 																				Res = (Valid\BoardF\PlayerF)
 																			) ;
-																			(Valid = 0,
+																			(Valid = 0, GameOver = 0,
 																				Res = (Valid\BoardI\PlayerI)
 																			) ;
 																			(GameOver = 1,
@@ -146,9 +146,21 @@ parse_input(moveHuman(BoardI,PlayerI,Ri,Ci,Rf,Cf,Structure),Res)	:-	updateValidS
 parse_input(moveComputer(BoardI,PlayerI,Nivel),Res) :-	updateValidShips(BoardI,PlayerI,PlayerT2), !,
 														getPossibleMoves(BoardI,PlayerT2,AllMoves), !,
 														
-														makeMoveComputer(BoardI,PlayerT2,Nivel,Type,RowI,ColumnI,RowF,ColumnF,AllMoves,BoardF,PlayerF),
+														isGameOver(PlayerT2,GameOver),
+														(
+															(Valid = 1,
+																makeMoveComputer(BoardI,PlayerT2,Nivel,Type,RowI,ColumnI,RowF,ColumnF,AllMoves,BoardF,PlayerF),
+																Res = (Valid\RowI\ColumnI\RowF\ColumnF\Type\BoardF\PlayerF)
+															) ;
+															(Valid = 0,
+																Res = (Valid\'-1'\'-1'\'-1'\'-1'\'-1'\BoardI\PlayerI)
+															) ;
+															(GameOver = 1,
+																Res = (-1\'-1'\'-1'\'-1'\'-1'\'-1'\BoardI\PlayerI)
+															)
+														).
 														
-														Res =(RowI\ColumnI\RowF\ColumnF\Type\BoardF\PlayerF).
+														
 														
 														
 																

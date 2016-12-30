@@ -54,8 +54,8 @@ Prolog.prototype.requestType1 = function (data){
 
 	console.log("request 1");
 	
-	var reply = data.target.response;
-	var info =  reply.match(/(.*)\\(.*)\\(.*)\\(.*)/);
+	var info = data.target.response;
+	var info =  info.match(/(.*)\\(.*)\\(.*)\\(.*)/);
 	
 	if(info != null){
 		var boardInfo = info[1];
@@ -81,8 +81,8 @@ Prolog.prototype.requestType1 = function (data){
 Prolog.prototype.requestType2 = function (data){	
 	console.log("request 2");
 	
-	var reply = data.target.response;
-	var info =  reply.match(/(.*)\\(.*)\\(.*)/);
+	var info = data.target.response;
+	var info =  info.match(/(.*)\\(.*)\\(.*)/);
 	
 	if(info != null){
 		var valid = info[1];
@@ -94,7 +94,7 @@ Prolog.prototype.requestType2 = function (data){
 		this.game.getTurn().setRepresentation(playerParsed);
 		this.game.board.setRepresentation(boardInfo);
 		
-		this.game.prolog.setServerResponse(valid);
+		this.game.prolog.setServerResponse([valid]);
 	}
 }
 
@@ -102,23 +102,26 @@ Prolog.prototype.requestType3 = function (data){
 	console.log("request 3");
 	
 	var reply = data.target.response;
-	//var info =  reply.match(/(.*)\\(.*)\\(.*)\\(.*)\\(.*)\\(.*)\\(.*)/);
-	console.log("Info " + reply);
+	var info =  reply.match(/(.*)\\(.*)\\(.*)\\(.*)\\(.*)\\(.*)\\(.*)\\(.*)/);
 	
-	//if(info != null){
+	if(info != null){
 		
-		/*var valid = info[1];
-		var boardInfo = info[2];
-		var playerInfo = info[3];
+		var valid = parseInt(info[1]);
+		var rowI = parseInt(info[2]);
+		var columnI = parseInt(info[3]);
+		var rowF = parseInt(info[4]);
+		var columnF = parseInt(info[5]);
+		var structure = info[6];
+		var boardInfo = info[7];
+		var playerInfo = info[8];
 		
 		var playerParsed = this.game.prolog.parsePlayerProlog(playerInfo);
 		
 		this.game.getTurn().setRepresentation(playerParsed);
-		this.game.board.setRepresentation(boardInfo);
+		this.game.board.setRepresentation(boardInfo);		
 		
-		this.game.prolog.setServerResponse(valid);*/
-		//this.game.prolog.setServerResponse(1);
-	//}
+		this.game.prolog.setServerResponse([valid,[rowI,columnI],[rowF,columnF]]);
+	}
 }
 
 Prolog.prototype.requestType4 = function (data){

@@ -171,10 +171,22 @@ Game.prototype.makeMove = async function(){
 	while(this.prolog.getServerResponse() == null)
 		await sleep(500);
 
-	var validMove = this.prolog.getServerResponse();
+	var info = this.prolog.getServerResponse();
+	var validMove = info[0];
+	console.log(validMove);
 
     if(validMove)
     {
+		if(this.turn.getType() = "Computer"){
+			var cellI = info[1];
+			var cellF = info[2];
+			var structure = info[3];
+			
+			/*
+			Animações ....
+			
+			*/
+		}
         this.changeTurn();  //muda o turno e recomeca
         this.getTurnInformation();  //enquanto está no init recebe as informacoes do turn
     }
@@ -465,9 +477,6 @@ Game.prototype.init = async function(BoardSize,Nivel,Mode){
 
     //TEMPORARIO
     this.getTurnInformation();  //enquanto está no init recebe as informacoes do turn
-	
-	var moveRequest = "moveComputer(" + this.board.getPrologRepresentation() + ",[1,'C',[],[],[[2,2],[2,2],[2,2],[2,2]]]," + this.difficulty + ")";
-	this.prolog.makeRequest(moveRequest,3);
 }
 
 Game.prototype.createPlayer = function(team,type,ships,representation){
