@@ -70,7 +70,6 @@ Class Board
           else{
                my_coords = new MyPoint(xpos,0,zpos);
                board_cells_row.push(this.createCell(id,this.boardM[i][j],my_coords,[i+1,aux]));
-			   console.log(i+1 + "-" + aux);
                pos_cells_row.push(my_coords);
                xpos += 1.8;            //next column
               id++; //cell id

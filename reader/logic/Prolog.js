@@ -39,7 +39,7 @@ Prolog.prototype.makeRequest = function(requestString,type){
 			break;
 		}
 		case 3:{
-			getResponse = this.requestType2;		/*makeMoveBot -- AINDA NÃO FEITO*/
+			getResponse = this.requestType3;		/*makeMoveBot*/
 			break;
 		}
 		case 4:{
@@ -83,7 +83,6 @@ Prolog.prototype.requestType2 = function (data){
 	
 	var reply = data.target.response;
 	var info =  reply.match(/(.*)\\(.*)\\(.*)/);
-	console.log(info);
 	
 	if(info != null){
 		var valid = info[1];
@@ -97,6 +96,29 @@ Prolog.prototype.requestType2 = function (data){
 		
 		this.game.prolog.setServerResponse(valid);
 	}
+}
+
+Prolog.prototype.requestType3 = function (data){	
+	console.log("request 3");
+	
+	var reply = data.target.response;
+	//var info =  reply.match(/(.*)\\(.*)\\(.*)\\(.*)\\(.*)\\(.*)\\(.*)/);
+	console.log("Info " + reply);
+	
+	//if(info != null){
+		
+		/*var valid = info[1];
+		var boardInfo = info[2];
+		var playerInfo = info[3];
+		
+		var playerParsed = this.game.prolog.parsePlayerProlog(playerInfo);
+		
+		this.game.getTurn().setRepresentation(playerParsed);
+		this.game.board.setRepresentation(boardInfo);
+		
+		this.game.prolog.setServerResponse(valid);*/
+		//this.game.prolog.setServerResponse(1);
+	//}
 }
 
 Prolog.prototype.requestType4 = function (data){

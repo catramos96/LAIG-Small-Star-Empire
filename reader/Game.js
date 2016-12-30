@@ -52,10 +52,14 @@ Game.prototype.getTurnInformation = async function()
 
     //verificacao das jogadas possiveis
 	this.prolog.makeRequest("possibleMoves(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + ")",4);
-    await sleep(500);
+    
+	while(this.prolog.getServerResponse() == null)
+		await sleep(500);
+	
 	possibleMoves = this.prolog.getServerResponse();
 
-
+	this.prolog.setServerResponse(null);
+	
     this.changeState();
 }
 
@@ -151,15 +155,21 @@ Game.prototype.makeMove = async function(){
 	var rowF = posF[0];
 	var columnF = posF[1];
 
-	if(this.turn.getType() == "Human")
+	if(this.turn.getType() == "Human"){
 		moveRequest = "moveHuman(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() +
             "," + rowI + "," + columnI + "," + rowF + "," + columnF + ",'" + structure + "')";
-
-	//else(this.turn().getType() == "Computer") ...
+		this.prolog.makeRequest(moveRequest,2);
+	}
+	else if(this.turn().getType() == "Computer"){
+		moveRequest = "moveComputer(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + "," + this.difficulty + ")";
+		this.prolog.makeRequest(moveRequest,3);
+	}
+	else
+		console.log("ERROR on move request - the turn player is not a Computer or Human");
 	
-	this.prolog.makeRequest(moveRequest,2);
-
-	await sleep(500);
+	
+	while(this.prolog.getServerResponse() == null)
+		await sleep(500);
 
 	var validMove = this.prolog.getServerResponse();
 
@@ -173,6 +183,8 @@ Game.prototype.makeMove = async function(){
         this.changingInfo[1] = "Game Over";
         this.setState("END")
     }
+	
+	this.prolog.setServerResponse(null);
 
 	/*
 	Também se pode retornar este valor caso não seja para meter aqui a atualização dos estados de jogo
@@ -453,6 +465,9 @@ Game.prototype.init = async function(BoardSize,Nivel,Mode){
 
     //TEMPORARIO
     this.getTurnInformation();  //enquanto está no init recebe as informacoes do turn
+	
+	var moveRequest = "moveComputer(" + this.board.getPrologRepresentation() + ",[1,'C',[],[],[[2,2],[2,2],[2,2],[2,2]]]," + this.difficulty + ")";
+	this.prolog.makeRequest(moveRequest,3);
 }
 
 Game.prototype.createPlayer = function(team,type,ships,representation){
