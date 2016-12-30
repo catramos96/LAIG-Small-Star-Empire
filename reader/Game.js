@@ -177,7 +177,7 @@ Game.prototype.makeMove = async function(){
 
     if(validMove)
     {
-		if(this.turn.getType() = "Computer"){
+		if(this.turn.getType() == "Computer"){
 			var cellI = info[1];
 			var cellF = info[2];
 			var structure = info[3];
