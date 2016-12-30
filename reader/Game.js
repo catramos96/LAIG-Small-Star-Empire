@@ -28,40 +28,12 @@ function Game(scene,mode,difficulty) {
 	
     this.turn = this.player1;	//default
 
-    //para a interface
-    switch (mode) {
-        case 1:
-            modeName = 'Player VS Player';
-            break;
-        case 2:
-            modeName = 'Player VS AI';
-            break;
-        case 3:
-            modeName = 'AI VS AI';
-            break;
-        default:
-            modeName = 'Player VS AI';
-            break;
-    }
-    switch (difficulty) {
-        case 1:
-            difficultyName = 'Easy';
-            break;
-        case 2:
-            difficultyName = 'Hard';
-            break;
-        default:
-            difficultyName = 'Easy';
-            break;
-    }
-
-    this.initInfo = [modeName, difficultyName];
     this.changingInfo = ["Red","Init"];
     this.finalInfo = [null, 0, 0];
 	
 	//TEMPORARIO
     this.init(2,1,1);
-	//this.init(2,difficulty + 1,mode + 1);
+	//this.init(2,difficulty,mode);
 }
 
 /**
@@ -70,10 +42,7 @@ function Game(scene,mode,difficulty) {
 Game.prototype.getTurnInformation = async function()
 {
     //muda a turn na interface
-    if(this.turn.getTeam() == 1)
-        this.changingInfo[0] = "Red";
-    else
-        this.changingInfo[0] = "Blue";
+    this.changingInfo[0] = this.turn.getTeamName();
 
     //verifica se existe algum ship no tabuleiro auxiliar. Se tiver, coloca-o na homebase
     if(this.moveShipToHB())
@@ -381,10 +350,9 @@ Game.prototype.picking = function (obj,id) {
 }
 
 Game.prototype.gameOver = function (){
-    this.finalInfo = [this.player1.team, 0, 0];  //atualiza esta informacao
+    this.finalInfo = [this.player1.getTeamName(), 0, 0];  //atualiza esta informacao
 
     this.scene.interface.addFinalGameInfo();
-    this.scene.interface.removeSomeInfo();
 }
 
 Game.prototype.undo = async function ()

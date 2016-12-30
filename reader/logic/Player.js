@@ -6,7 +6,12 @@ Class Player to keep the player's information
 */ 
 function Player(team) {
 
-    this.team = team;      /*Blue or Red*/
+    this.team = team;      /*1 or 2*/
+
+    if(this.team == 1)
+        this.teamName = "Red";      /*Blue or Red*/
+    else
+        this.teamName = "Blue";
     this.type = "Human";   		/*Human or Computer*/
     this.homeBase;         	/*Home Base Position*/
     this.colonies = [];		/*List of pointers to all colonies*/
@@ -74,9 +79,11 @@ Player.prototype.addTrade = function(x,y){
 /* GETS */
 
 Player.prototype.getTeam = function(){
-
     return this.team;
-    
+}
+
+Player.prototype.getTeamName = function(){
+    return this.teamName;
 }
 
 Player.prototype.getType = function(){

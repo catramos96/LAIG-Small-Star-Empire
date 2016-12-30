@@ -33,10 +33,14 @@ XMLscene.prototype.init = function (application) {
 */
 	this.lastTime = -1;		//for update scene
     this.sceneNum = 0;
-    this.lastSceneNum = -1;
     this.numCamera = 0; 	//actual camera
 
-	this.scenes = ["garden.dsx","mySolarSystem.dsx"];
+    this.gameModes =  ["Human vs Human", "Human vs Machine", "Machine vs Machine"];
+    this.gameMode = 1;
+    this.difficulties =  ["Easy", "Hard"];
+    this.difficulty = 0;	//default values for game
+
+	this.scenes = ["garden.dsx","room.dsx"];
 };
 
 /**
@@ -261,10 +265,7 @@ XMLscene.prototype.logPicking = function ()
 				var obj = this.pickResults[i][0]; // o objeto seleccionado
 				if (obj)
 				{
-					//criar aqui uma funcao para o game
 					var customId = this.pickResults[i][1]; // o ID do objeto seleccionado
-					//console.log("Picked object: ", obj  ,", with pick id " + customId);
-
 					this.game.picking(obj,customId);
 				}
 			}
@@ -437,7 +438,7 @@ XMLscene.prototype.setInterface = function(i) {
 
 XMLscene.prototype.changeScene = function() {
     this.sceneNum++;
-    if(this.sceneNum == 2)
+    if(this.sceneNum == this.scenes.length)
         this.sceneNum = 0;
 
     new MySceneGraph(this.scenes[this.sceneNum], this);
@@ -448,9 +449,14 @@ XMLscene.prototype.automaticCamera = function() {
 
 }
 
+XMLscene.prototype.movie = function() {
+
+}
+
 XMLscene.prototype.initGame = function() {
 	this.ongoing = true;
-    this.game = new Game(this,1,1);
+
+    this.game = new Game(this,this.gameMode+1,this.difficulty+1);
     this.interface.addGameInfo();
 }
 
