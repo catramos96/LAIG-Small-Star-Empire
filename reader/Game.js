@@ -380,10 +380,10 @@ Game.prototype.gameOver = async function (){
 
 	this.prolog.makeRequest("getWinner(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + "," + this.player2.getPrologRepresentation() + ")",5);
 	
-	while(prolog.getServerResponse() == null)
+	while(this.prolog.getServerResponse() == null)
 		await sleep(500);
 	
-	this.winner = prolog.getServerResponse();
+	this.winner = this.prolog.getServerResponse();
 	
 	var msg = "";
 	
