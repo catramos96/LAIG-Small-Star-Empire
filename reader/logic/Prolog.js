@@ -46,6 +46,10 @@ Prolog.prototype.makeRequest = function(requestString,type){
 			getResponse = this.requestType4;		/*allPossibleMoves*/
 			break;
 		}
+		case 5:{
+			getResponse = this.requestType5;		/*update Scores*/
+			break;
+		}
 	}
 	this.callRequest(requestString,getResponse);
 };
@@ -128,6 +132,32 @@ Prolog.prototype.requestType4 = function (data){
 	console.log("request 4");
 	var info = data.target.response;
 	this.game.prolog.setServerResponse(this.game.prolog.parseMatrix(info));
+}
+
+Prolog.prototype.requestType5 = function (data){
+	console.log("request 5");
+	var reply = data.target.response;
+	
+	var info =  reply.match(/(.*)\\(.*)/);
+	
+	if(info != null){
+		console.log(info);
+		var points1 = info[1];
+		var points2 = info[2];
+		var winner = 0;
+		
+		this.game.getPlayer(1).setScore(points1);
+		this.game.getPlayer(2).setScore(points2);
+		
+		if(points1 > points2)
+			winner = 1;
+		else if(points1 < points2)
+			winner = 2;
+		else if(points1 == points2)
+			winner = 0;
+		
+		this.prolog.setPrologResponse(winner);
+	}
 }
 
 Prolog.prototype.parsePlayerProlog = function (info){
