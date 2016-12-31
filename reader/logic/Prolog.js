@@ -118,9 +118,9 @@ Prolog.prototype.requestType3 = function (data){
 		var playerParsed = this.game.prolog.parsePlayerProlog(playerInfo);
 		
 		this.game.getTurn().setRepresentation(playerParsed);
-		this.game.board.setRepresentation(boardInfo);		
+		this.game.board.setRepresentation(boardInfo);
 		
-		this.game.prolog.setServerResponse([valid,[rowI,columnI],[rowF,columnF]]);
+		this.game.prolog.setServerResponse([valid,[rowI,columnI],[rowF,columnF],structure]);
 	}
 }
 

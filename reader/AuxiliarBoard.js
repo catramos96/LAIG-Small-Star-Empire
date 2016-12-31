@@ -25,6 +25,20 @@ function AuxiliarBoard(scene, data) {
 
 AuxiliarBoard.prototype = Object.create(Board.prototype);
 
+AuxiliarBoard.prototype.getFirstPiece = function(structure) {
+
+    for(var i = 0; i < this.boardCells.length; i++)
+    {
+        for (var j = 0; j < this.boardCells[i].length; j++)
+        {
+            var piece = this.boardCells[i][j].getPiece();
+
+            if(piece instanceof structure)
+                return this.boardCells[i][j];
+        }
+    }
+    return null;
+}
 /*
  Creates the cell with the correct texture and id and pushes to the boardCells
  */

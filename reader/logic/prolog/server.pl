@@ -198,11 +198,10 @@ isGameOver(Player,1) :-		playerGetShips(Player,Ships),
 							(SL = 0; CL > 16; TL > 5).
 isGameOver(Player,0).
 
-addControlComputer(Nivel,BoardI,PlayerI,Row,Column,Type,BoardF,PlayerF) :- 	addControlAux(Level,PlayerI,BoardI,Row,Column,Type), !,								
-																			playerGetTeam(PlayerI,Team),	
+addControlComputer(Nivel,BoardI,PlayerI,Row,Column,Type,BoardF,PlayerF) :- 	addControlAux(Nivel,PlayerI,BoardI,Row,Column,Type), !,
+																			playerGetTeam(PlayerI,Team),
 																			\+ (Type == 'T', playerGetTrades(PlayerI,Trades),length(Trades,L), L >= 4,error(6)),
 																			setDominion(BoardI,Team,Row,Column,Type,BoardF), !,
-																			playerAddControl(PlayerI,Type,[Row|[Column|[]]],PlayerF).		
-										
-addControlComputer(Nivel,BoardI,PlayerI,Row,Column,Type,BoardF,PlayerF) :- error(2), addControl(Level,BoardI,PlayerI,Row,Column,BoardF,PlayerF).	
-	
+																			playerAddControl(PlayerI,Type,[Row|[Column|[]]],PlayerF).
+
+addControlComputer(Nivel,BoardI,PlayerI,Row,Column,Type,BoardF,PlayerF) :- error(2), addControl(Nivel,BoardI,PlayerI,Row,Column,BoardF,PlayerF).

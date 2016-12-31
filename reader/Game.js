@@ -30,10 +30,9 @@ function Game(scene,mode,difficulty) {
 
     this.changingInfo = ["Red","Init"];
     this.finalInfo = [null, 0, 0];
-	
-	//TEMPORARIO
-    this.init(2,1,1);
-	//this.init(2,difficulty,mode);
+
+    console.log("mode "+mode+" difficulty "+difficulty);
+	this.init(2,mode,difficulty);
 }
 
 /**
@@ -48,17 +47,18 @@ Game.prototype.getTurnInformation = async function()
     if(this.moveShipToHB())
         await sleep(1500);  //tempo de mover o ship
 
-    this.gameSequence.addMove(new GameMove('normal'));  //nova jogada
+    //verificacao das jogadas possiveis (apenas jogador humano)
 
-    //verificacao das jogadas possiveis
-	this.prolog.makeRequest("possibleMoves(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + ")",4);
-    
-	while(this.prolog.getServerResponse() == null)
-		await sleep(500);
-	
-	possibleMoves = this.prolog.getServerResponse();
+    if(this.turn.getType() == "Human"){
+        this.prolog.makeRequest("possibleMoves(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + ")",4);
 
-	this.prolog.setServerResponse(null);
+        while(this.prolog.getServerResponse() == null)
+            await sleep(500);
+
+        possibleMoves = this.prolog.getServerResponse();
+
+        this.prolog.setServerResponse(null);
+    }
 	
     this.changeState();
 }
@@ -70,11 +70,7 @@ Game.prototype.moveShipToHB = function()
 
     if(ship == null)
     {
-        var auxBoard;
-        if(this.turn == this.player1)
-            auxBoard = this.boardAux1;
-        else
-            auxBoard = this.boardAux2;
+        var auxBoard = this.turn.getAuxBoard();
 
         for(var i = 1; i < 5;i++){
             var cell = auxBoard.cellInPos([5,i]);
@@ -140,71 +136,92 @@ Game.prototype.makeMove = async function(){
 
     var moveRequest = "";
 
-    var posI = this.gameSequence.currMove().getShipCell().getPos();
-    var posF = this.gameSequence.currMove().getTile().getPos();
-    var piece = this.gameSequence.currMove().getPiece();
+    if(this.turn.getType() == "Human")
+    {
+        var posI = this.gameSequence.currMove().getShipCell().getPos();
+        var posF = this.gameSequence.currMove().getTile().getPos();
+        var piece = this.gameSequence.currMove().getPiece();
 
-    var structure;
-    if(piece instanceof Colony)
-        structure = "C";
-    else
-        structure = "T";
+        var structure;
+        if(piece instanceof Colony)
+            structure = "C";
+        else
+            structure = "T";
 
-	var rowI = posI[0];
-	var columnI = posI[1];
-	var rowF = posF[0];
-	var columnF = posF[1];
+        var rowI = posI[0];
+        var columnI = posI[1];
+        var rowF = posF[0];
+        var columnF = posF[1];
 
-	if(this.turn.getType() == "Human"){
-		moveRequest = "moveHuman(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() +
+        moveRequest = "moveHuman(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() +
             "," + rowI + "," + columnI + "," + rowF + "," + columnF + ",'" + structure + "')";
-		this.prolog.makeRequest(moveRequest,2);
-	}
-	else if(this.turn().getType() == "Computer"){
+        this.prolog.makeRequest(moveRequest,2);
+    }
+	else if(this.turn.getType() == "Computer")
+	{
 		moveRequest = "moveComputer(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + "," + this.difficulty + ")";
 		this.prolog.makeRequest(moveRequest,3);
 	}
 	else
-		console.log("ERROR on move request - the turn player is not a Computer or Human");
-	
-	
+		console.log("ERROR on move request - the turn player is not a Computer or Human :o");
+
 	while(this.prolog.getServerResponse() == null)
 		await sleep(500);
 
 	var info = this.prolog.getServerResponse();
+    this.prolog.setServerResponse(null);    //reset
+
 	var validMove = info[0];
-	console.log(validMove);
 
     if(validMove)
     {
-		if(this.turn.getType() == "Computer"){
+		if(this.turn.getType() == "Computer")
+		{
 			var cellI = info[1];
 			var cellF = info[2];
 			var structure = info[3];
-			
-			/*
-			Animações ....
-			
-			*/
+            var currMove = this.gameSequence.currMove();
+
+            console.log(info,"vai de "+cellI+" para "+cellF+" com a structure "+structure);
+
+            //ship que se vai mover
+            var shipCell = this.board.cellInPos(cellI);
+            currMove.addShip(shipCell.getShip());
+
+            //destino
+            var destCell = this.board.cellInPos(cellF);
+            currMove.addTile(destCell);
+
+            //movimento
+            currMove.makeShipMove(false);
+            await sleep(2000);
+
+            //escolhe uma peca das do board auxiliar que corresponda a structure
+            var auxBoard = this.turn.getAuxBoard();
+            var type;
+            if(structure == "T")
+                type = Trade;
+            else
+                type = Colony;
+            var pieceCell = auxBoard.getFirstPiece(type);
+            currMove.addPiece(pieceCell.getPiece());
+
+            currMove.makePieceMove(false);
+            await sleep(2000);
+
+            console.log("done!");
+			this.changeState(); //muda para NEXT_TURN
 		}
         this.changeTurn();  //muda o turno e recomeca
+
+        this.changingInfo[1] = "Init";
+        this.setState('INIT');
         this.getTurnInformation();  //enquanto está no init recebe as informacoes do turn
     }
-    else
-    {
+    else {
         this.changingInfo[1] = "Game Over";
         this.setState("END")
     }
-	
-	this.prolog.setServerResponse(null);
-
-	/*
-	Também se pode retornar este valor caso não seja para meter aqui a atualização dos estados de jogo
-
-	if(validMove == 1){
-		this.addMove(this.turn().CellI,CellF);
-	}*/
-	
 }
 
 Game.prototype.executeAnimation = async function(){
@@ -220,14 +237,6 @@ Game.prototype.executeAnimation = async function(){
 }
 
 /*
-Game.prototype.addMove = function(Team,CellI,CellF){
-	var move = new GameMove(this.turn(),CellI,CellF,this.player1.getPrologRepresentation(),this.player2.getPrologRepresentation(),this.board.getPrologRepresentation());
-	this.allMoves.push(move);
-	
-
-}
-*/
-/*
 States
 */
 
@@ -235,16 +244,18 @@ Game.prototype.changeState = function () {
 
     switch(this.state){
         case 'INIT':
-            if(this.turn.type == "Human")
+            if(this.turn.getType() == "Human")
             {
                 this.changingInfo[1] = "Select Ship";
                 this.state = 'SEL_SHIP';
+                this.gameSequence.addMove(new GameMove('normal'));  //nova jogada
             }
             else
             {
                 this.changingInfo[1] = "AI turn";
                 this.state = 'BOT';
-                //chama uma funcao qql que escolhe a jogada do bot
+                this.gameSequence.addMove(new GameMove('bot'));  //nova jogada
+                this.makeMove();    //executo a sua jogada
             }
             break;
         case 'SEL_SHIP':
@@ -280,13 +291,8 @@ Game.prototype.changeState = function () {
             this.changeState();
             break;
         case 'NEXT_TURN':
-            this.makeMove(); //faz o movimento, se sucedido continua, se -1 termina o jogo
-
-            if(this.state != 'END')
-            {
-                this.changingInfo[1] = "Init";
-                this.state = 'INIT';
-            }
+            if(this.turn.getType() == "Human")
+                this.makeMove(); //faz o movimento, se sucedido continua, se -1 termina o jogo
             break;
         case 'BOT':
             this.changingInfo[1] = "AI TURN";
@@ -296,7 +302,6 @@ Game.prototype.changeState = function () {
         case 'UNDO':
             this.changingInfo[1] = "Init";
             this.state = 'INIT';
-
             this.getTurnInformation();  //recomeca as jogadas
             break;
         case 'END':
@@ -466,16 +471,15 @@ Game.prototype.shaderOnShipPossibleMoves = function(cellShip,bool){
 INITS
 */
 
-Game.prototype.init = async function(BoardSize,Nivel,Mode){
+Game.prototype.init = async function(boardSize,mode,difficulty){
     this.state = 'INIT';
-    this.prolog.makeRequest("initGame(" + BoardSize + "," + Nivel + "," + Mode + ")",1);
+    this.prolog.makeRequest("initGame(" + boardSize + "," + difficulty + "," + mode + ")",1);
     await sleep(500);
 
     console.log(this.player1.getPrologRepresentation());
     console.log(this.player2.getPrologRepresentation());
     console.log("First Player - ", this.turn);
 
-    //TEMPORARIO
     this.getTurnInformation();  //enquanto está no init recebe as informacoes do turn
 }
 
@@ -485,12 +489,14 @@ Game.prototype.createPlayer = function(team,type,ships,representation){
 		this.player1.setShips(ships);
 		this.player1.setHomeBase(ships[0]);
 		this.player1.setRepresentation(representation);
+		this.player1.setAuxBoard(this.boardAux1);
 	}
 	else if(team == 2){
 		this.player2.setType(type);
 		this.player2.setShips(ships);
 		this.player2.setHomeBase(ships[0]);
 		this.player2.setRepresentation(representation);
+        this.player2.setAuxBoard(this.boardAux2);
 	}
 }
 

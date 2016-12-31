@@ -12,7 +12,9 @@ function Player(team) {
         this.teamName = "Red";      /*Blue or Red*/
     else
         this.teamName = "Blue";
+
     this.type = "Human";   		/*Human or Computer*/
+    this.auxBoard = null;
     this.homeBase;         	/*Home Base Position*/
     this.colonies = [];		/*List of pointers to all colonies*/
     this.trades = [];    	/*List of pointers to all trades*/	
@@ -26,54 +28,49 @@ Player.prototype.constructor=Player;
 /* SETS */
 
 Player.prototype.setRepresentation = function(representation){
-	
 	this.prologRepresentation = representation;
-	
 }
 
 Player.prototype.setHomeBase = function(base){
-
-    this.homeBase = base;    
-
+    this.homeBase = base;
 }
 
 Player.prototype.setType = function(type){
-	//if(this.type == "H")
+
+	if(type == 'H')
 		this.type = "Human";
-	//else
-	//	this.type = "Computer";
+	else
+		this.type = "Computer";
 }
 
 Player.prototype.setScore = function(score){
-
-    this.score = score;    
-
+    this.score = score;
 }
 
 Player.prototype.setShips = function(ships){
+    this.validShips = ships;
+}
 
-    this.validShips = ships;  
-
+Player.prototype.setAuxBoard = function(auxBoard){
+    this.auxBoard = auxBoard;
 }
 
 /* ADD */
 
 Player.prototype.getPrologRepresentation = function(){
-	
 	return this.prologRepresentation;
-	
 }
 
 Player.prototype.addColony = function(x,y){
-
     this.colonies.push([x,y]);
-
 }
 
 Player.prototype.addTrade = function(x,y){
-
     this.trades.push([x,y]);
-    
+}
+
+Player.prototype.getAuxBoard = function(){
+    return this.auxBoard;
 }
 
 /* GETS */
@@ -87,13 +84,9 @@ Player.prototype.getTeamName = function(){
 }
 
 Player.prototype.getType = function(){
-
     return this.type;
-    
 }
 
 Player.prototype.getScore = function(){
-
     return this.score;
-    
 }

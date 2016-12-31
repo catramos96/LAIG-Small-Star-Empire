@@ -76,8 +76,8 @@ MyInterface.prototype.initMenuFolder = function () {
 	this.mainMenuGroup = this.gui.addFolder("Main Menu");
     this.mainMenuGroup.open();
 
-    gameModes =  {"Human vs Human": 0, "Human vs Machine": 1, "Machine vs Machine": 2};
-    difficulties =  {"Easy": 0, "Hard": 1};
+    gameModes =  {"Human vs Human": 1, "Human vs Machine": 2, "Machine vs Machine": 3};
+    difficulties =  {"Easy": 1, "Hard": 2};
 
     this.mainMenuGroup.add(this.scene,'gameMode',gameModes).name("Game Mode");
     this.mainMenuGroup.add(this.scene,'difficulty',difficulties).name("Difficulty");

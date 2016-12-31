@@ -35,10 +35,10 @@ XMLscene.prototype.init = function (application) {
     this.sceneNum = 0;
     this.numCamera = 0; 	//actual camera
 
-    this.gameModes =  ["Human vs Human", "Human vs Machine", "Machine vs Machine"];
-    this.gameMode = 1;
-    this.difficulties =  ["Easy", "Hard"];
-    this.difficulty = 0;	//default values for game
+    this.gameModes =  ["","Human vs Human", "Human vs Machine", "Machine vs Machine"];
+    this.gameMode = 2;
+    this.difficulties =  ["","Easy", "Hard"];
+    this.difficulty = 1;	//default values for game
 
 	this.scenes = ["garden.dsx","room.dsx"];
 };
@@ -456,7 +456,7 @@ XMLscene.prototype.movie = function() {
 XMLscene.prototype.initGame = function() {
 	this.ongoing = true;
 
-    this.game = new Game(this,this.gameMode+1,this.difficulty+1);
+    this.game = new Game(this,this.gameMode,this.difficulty);
     this.interface.addGameInfo();
 }
 
