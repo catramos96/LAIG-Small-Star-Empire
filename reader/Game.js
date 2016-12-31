@@ -166,15 +166,17 @@ Game.prototype.makeMove = async function(){
 	else
 		console.log("ERROR on move request - the turn player is not a Computer or Human :o");
 
-	while(this.prolog.getServerResponse() == null)
+	var info;
+	
+	while((info = this.prolog.getServerResponse()) == null)
 		await sleep(500);
 
-	var info = this.prolog.getServerResponse();
     this.prolog.setServerResponse(null);    //reset
 
 	var validMove = info[0];
+	console.log(validMove);
 
-    if(validMove)
+    if(validMove == 1)
     {
 		if(this.turn.getType() == "Computer")
 		{
@@ -218,7 +220,7 @@ Game.prototype.makeMove = async function(){
         this.setState('INIT');
         this.getTurnInformation();  //enquanto está no init recebe as informacoes do turn
     }
-    else
+    else if(validMove == -1)
     {
         this.changingInfo[1] = "Game Over";
         this.setState("END");
