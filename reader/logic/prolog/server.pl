@@ -148,9 +148,26 @@ parse_input(moveComputer(BoardI,PlayerI,Nivel),Res) :-	updateValidShips(BoardI,P
 														
 														isGameOver(PlayerT2,GameOver),
 														(
-															(Valid = 1,
+															(Valid = 1, 
+																playerGetColonies(PlayerT2,Colonies),
+																length(Colonies,CL),
+																playerGetTrades(PlayerT2,Trades),
+																length(Trades,TL),
 																makeMoveComputer(BoardI,PlayerT2,Nivel,Type,RowI,ColumnI,RowF,ColumnF,AllMoves,BoardF,PlayerF),
-																Res = (Valid\RowI\ColumnI\RowF\ColumnF\Type\BoardF\PlayerF)
+																(
+																	(
+																	CL >= 16, TL < 4,
+																	Res = (Valid\RowI\ColumnI\RowF\ColumnF\'T'\BoardF\PlayerF)
+																	) ;
+																	(
+																	CL < 16, TL >= 4,
+																	Res = (Valid\RowI\ColumnI\RowF\ColumnF\'C'\BoardF\PlayerF)
+																	) ;
+																	(
+																	CL < 16, TL < 4,
+																	Res = (Valid\RowI\ColumnI\RowF\ColumnF\Type\BoardF\PlayerF)
+																	)
+																)
 															) ;
 															(Valid = 0,
 																Res = (Valid\'-1'\'-1'\'-1'\'-1'\'-1'\BoardI\PlayerI)
@@ -194,7 +211,7 @@ isGameOver(Player,1) :-		playerGetShips(Player,Ships),
 							length(Colonies,CL),
 							playerGetTrades(Player,Trades),
 							length(Trades,TL),
-							(SL = 0; CL > 16; TL > 5).
+							(SL = 0; (CL = 16; TL = 4)).
 isGameOver(Player,0).
 
 addControlComputer(Nivel,BoardI,PlayerI,Row,Column,Type,BoardF,PlayerF) :- 	addControlAux(Nivel,PlayerI,BoardI,Row,Column,Type), !,
