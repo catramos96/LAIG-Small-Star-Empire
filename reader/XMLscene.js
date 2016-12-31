@@ -249,6 +249,9 @@ XMLscene.prototype.update = function(currTime) {
 		return;
 	}
 	this.deltaTime = (currTime - this.lastTime)/1000;
+
+	if(this.ongoing)
+		this.game.update(this.deltaTime);
 }
 
 XMLscene.prototype.getCurrTime = function() {

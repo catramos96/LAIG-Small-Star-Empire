@@ -33,6 +33,9 @@ function Game(scene,mode,difficulty) {
     this.timePlayers = [10, 10];
 
     this.initTime = 0;
+    this.initPlayerTime = 0;
+
+    this.startCounting = false;
 
 	this.init(2,mode,difficulty);
 }
@@ -254,6 +257,7 @@ Game.prototype.changeState = function () {
                 this.changingInfo[1] = "Select Ship";
                 this.state = 'SEL_SHIP';
                 this.gameSequence.addMove(new GameMove('normal'));  //nova jogada
+                this.initPlayTime();
             }
             else
             {
@@ -268,6 +272,7 @@ Game.prototype.changeState = function () {
             this.state = 'SEL_TILE';
             break;
         case 'SEL_TILE':
+            this.startCounting = false;     //ja pode parar o contador de limite de tempo da jogada
             this.changingInfo[1] = "Animation";
             this.state = 'ANIM1';
             this.executeAnimation();
@@ -277,6 +282,7 @@ Game.prototype.changeState = function () {
             {
                 this.changingInfo[1] = "Select Piece";
                 this.state = 'SEL_PIECE';
+                this.initPlayTime();  //recomeca a contagem para o segundo movimento
             }
             else
             {
@@ -286,6 +292,7 @@ Game.prototype.changeState = function () {
             }
             break;
         case 'SEL_PIECE':
+            this.startCounting = false;     //ja pode parar o contador de limite de tempo da jogada
             this.changingInfo[1] = "Animation";
             this.state = 'ANIM2';
             this.executeAnimation();
@@ -311,6 +318,9 @@ Game.prototype.changeState = function () {
             break;
         case 'END':
             this.gameOver();
+            break;
+        case 'LOSE':
+            this.playerLose();
             break;
         default:
             console.log('CHANGE STATE DEFAULT');
@@ -383,26 +393,36 @@ Game.prototype.picking = function (obj,id) {
     }
 }
 
+Game.prototype.playerLose = function (){
+
+    this.scene.wins[this.finalInfo[0]-1]++;
+
+    this.scene.interface.addFinalGameInfo();
+}
+
 Game.prototype.gameOver = async function (){
 
-	this.prolog.makeRequest("getWinner(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + "," + this.player2.getPrologRepresentation() + ")",5);
-	
-	while(this.prolog.getServerResponse() == null)
-		await sleep(500);
-	
-	var winner = this.prolog.getServerResponse();
-	
-	var msg = "";
-	
-	if(winner[0] == 0)
-		msg = "DRAW";
-	else if(winner[0] == 1)
-		msg = this.player1.getTeamName() + " WON!";
-	else if(winner[0] == 2)
-		msg = this.player2.getTeamName() + " WON!";
+    this.prolog.makeRequest("getWinner(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + "," + this.player2.getPrologRepresentation() + ")",5);
+
+    while(this.prolog.getServerResponse() == null)
+        await sleep(500);
+
+    var winner = this.prolog.getServerResponse();
+
+    var msg = "";
+
+    if(winner[0] == 0)
+        msg = "DRAW";
+    else if(winner[0] == 1)
+        msg = this.player1.getTeamName() + " WON!";
+    else if(winner[0] == 2)
+        msg = this.player2.getTeamName() + " WON!";
 
     this.finalInfo = [msg,winner[1],winner[2]];  //atualiza esta informacao
-	
+
+    if(winner[0] != 0)
+        this.scene.wins[winner[0]]++;   //atualiza o numero de vitoria da equipa
+
     this.scene.interface.addFinalGameInfo();
 }
 
@@ -577,24 +597,47 @@ Game.prototype.movie = function() {
     this.gameSequence.movie();
 }
 
-Game.prototype.display = function() {
+Game.prototype.initPlayTime = function() {
+    this.initPlayerTime = this.scene.getCurrTime();
+    this.startCounting = true;
+}
 
+Game.prototype.update = function(currTime) {
     if(this.state != 'END')
     {
         //contagem do tempo
-        var time = this.scene.getCurrTime()-this.initTime;
+        var time = currTime-this.initTime;
         var sec = parseInt(time % 60);
         var min = parseInt(time/60);
         this.changingInfo[2] = min+" : "+sec;
     }
-    else
+
+    if(this.startCounting)
     {
-        this.scene.endGame = true;
-        this.scene.wins[this.turn.getTeam()-1]++;
+        var time = 10 - (currTime - this.initPlayerTime);
+        this.timePlayers[this.turn.getTeam()-1] = parseInt(time);
+
+        if(this.timePlayers[this.turn.getTeam()-1] < 0)
+        {
+            this.startCounting = false;
+            if(this.turn === this.player1)
+                this.finalInfo[0] = this.player2.getTeam();
+            else
+                this.finalInfo[0] = this.player1.getTeam();
+            this.changingInfo[1] = "Game Over";
+            this.setState("LOSE");
+            this.changeState();
+        }
+    }
+    if(!this.startCounting)
+    {
+        this.timePlayers = [10,10];
     }
 
     this.scene.interface.updateMatchInfo();
-    this.scene.endGame = false;
+}
+
+Game.prototype.display = function() {
 
     this.scene.pushMatrix();
         this.scene.scale(10,10,10);

@@ -111,8 +111,6 @@ MyInterface.prototype.addGameInfo = function () {
         if(this.scene.gameMode != 3)    //nao adiciona se for o gamemode m vs m
         {
             this.undo = this.gameMenuGroup.add(this.scene,'undo').name("Undo");
-            this.timeP1 = this.matchMenuGroup.add(this.scene.game.timePlayers,0).name('Time for player 1 : ').listen();
-            this.timeP2 = this.matchMenuGroup.add(this.scene.game.timePlayers,1).name('Time for player 2 : ').listen();
         }
         this.gameMenuGroup.add(this.scene,'quit').name("Quit");
         this.wins1 = this.gameMenuGroup.add(this.scene.wins,0).name('Red Team Wins : ').listen();
@@ -121,6 +119,11 @@ MyInterface.prototype.addGameInfo = function () {
         this.matchMenuGroup = this.gui.addFolder("Match Board");
         this.matchMenuGroup.open();
         this.time = this.matchMenuGroup.add(this.scene.game.changingInfo,2).name('Time').listen();
+        if(this.scene.gameMode != 3)    //nao adiciona se for o gamemode m vs m
+        {
+            this.timeP1 = this.matchMenuGroup.add(this.scene.game.timePlayers,0).name('Time for player 1 : ').listen();
+            this.timeP2 = this.matchMenuGroup.add(this.scene.game.timePlayers,1).name('Time for player 2 : ').listen();
+        }
         this.turn = this.matchMenuGroup.add(this.scene.game.changingInfo,0).name('Turn').listen();
         this.nextSelection = this.matchMenuGroup.add(this.scene.game.changingInfo,1).name('State').listen();
         this.matchMenuGroup.add(this.scene.gameModes, this.scene.gameMode).name('Game Mode').listen();
@@ -135,6 +138,14 @@ MyInterface.prototype.addFinalGameInfo = function () {
         this.undo.remove();
         this.undo = null;
     }
+
+    this.wins1.remove();
+    this.wins1 = null;
+    this.wins2.remove();
+    this.wins2 = null;
+
+    this.wins1 = this.gameMenuGroup.add(this.scene.wins,0).name('Red Team Wins : ').listen();
+    this.wins2 = this.gameMenuGroup.add(this.scene.wins,1).name('Blue Team Wins : ').listen();
 
     this.scoreGroup = this.scoreGroup = this.gui.addFolder("Score Board");
     this.scoreGroup.add(this.scene.game.finalInfo, 1).name('Player 1 Score').listen();
@@ -158,6 +169,8 @@ MyInterface.prototype.resetGameFolders = function () {
     this.undo = null;
     this.wins1 = null;
     this.wins2 = null;
+    this.timeP1 = null;
+    this.timeP2 = null;
 };
 
 MyInterface.prototype.resetLightFolders = function () {
@@ -179,17 +192,6 @@ MyInterface.prototype.updateMatchInfo = function () {
 
     this.time.remove();
     this.time = null;
-
-    if(this.scene.endGame)
-    {
-        this.wins1.remove();
-        this.wins1 = null;
-        this.wins2.remove();
-        this.wins2 = null;
-
-        this.wins1 = this.gameMenuGroup.add(this.scene.wins,0).name('Red Team Wins : ').listen();
-        this.wins2 = this.gameMenuGroup.add(this.scene.wins,1).name('Blue Team Wins : ').listen();
-    }
 
     this.time = this.matchMenuGroup.add(this.scene.game.changingInfo,2).name('Time').listen();
     if(this.scene.gameMode != 3)    //nao adiciona se for m vs m
