@@ -146,41 +146,10 @@ parse_input(moveHuman(BoardI,PlayerI,Ri,Ci,Rf,Cf,Structure),Res)	:-	updateValidS
 parse_input(moveComputer(BoardI,PlayerI,Nivel),Res) :-	updateValidShips(BoardI,PlayerI,PlayerT2), !,
 														getPossibleMoves(BoardI,PlayerT2,AllMoves), !,
 														
-														isGameOver(PlayerT2,GameOver),
-														(
-															(Valid = 1, 
-																playerGetColonies(PlayerT2,Colonies),
-																length(Colonies,CL),
-																playerGetTrades(PlayerT2,Trades),
-																length(Trades,TL),
-																makeMoveComputer(BoardI,PlayerT2,Nivel,Type,RowI,ColumnI,RowF,ColumnF,AllMoves,BoardF,PlayerF),
-																(
-																	(
-																	CL >= 16, TL < 4,
-																	Res = (Valid\RowI\ColumnI\RowF\ColumnF\'T'\BoardF\PlayerF)
-																	) ;
-																	(
-																	CL < 16, TL >= 4,
-																	Res = (Valid\RowI\ColumnI\RowF\ColumnF\'C'\BoardF\PlayerF)
-																	) ;
-																	(
-																	CL < 16, TL < 4,
-																	Res = (Valid\RowI\ColumnI\RowF\ColumnF\Type\BoardF\PlayerF)
-																	)
-																)
-															) ;
-															(Valid = 0,
-																Res = (Valid\'-1'\'-1'\'-1'\'-1'\'-1'\BoardI\PlayerI)
-															) ;
-															(GameOver = 1,
-																Res = (-1\'-1'\'-1'\'-1'\'-1'\'-1'\BoardI\PlayerI)
-															)
-														).
+														isGameOver(PlayerT2,GameOver), !,
+														checkMoveComputer(GameOver,AllMoves,Nivel,BoardI,PlayerT2,Res).
 														
-														
-														
-														
-																
+												
 parse_input(getWinner(Board,Player1,Player2),Res) :-	playerGetPoints(Board,Player1,ListLength1,Points1),	
 														playerGetPoints(Board,Player2,ListLength2,Points2),
 														biggestTerritoryPoints(ListLength1, Points1, NewPoints1, ListLength2, Points2, NewPoints2), 
@@ -190,14 +159,41 @@ parse_input(getWinner(Board,Player1,Player2),Res) :-	playerGetPoints(Board,Playe
 %%%%                                       Adicional PROLOG                                         %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+checkMoveComputer(0,AllMoves,Nivel,BoardI,PlayerI,Res) :- 	playerGetColonies(PlayerI,Colonies),
+															length(Colonies,CL),
+															playerGetTrades(PlayerI,Trades),
+															length(Trades,TL),
+															makeMoveComputer(BoardI,PlayerI,Nivel,RowI,ColumnI,RowF,ColumnF,AllMoves,BoardT2,PlayerT2),
+															(
+																(
+																CL = 16, TL < 4,
+																playerGetTeam(PlayerT2,Team),
+																setDominion(BoardT2,Team,RowF,ColumnF,'T',BoardF), !,
+																playerAddControl(PlayerT2,'T',[RowF|[ColumnF|[]]],PlayerF),
+																Res = (1\RowI\ColumnI\RowF\ColumnF\'T'\BoardF\PlayerF)
+																) ;
+																(
+																CL < 16, TL = 4,
+																playerGetTeam(PlayerT2,Team),
+																setDominion(BoardT2,Team,RowF,ColumnF,'C',BoardF), !,
+																playerAddControl(PlayerT2,'C',[RowF|[ColumnF|[]]],PlayerF),
+																Res = (1\RowI\ColumnI\RowF\ColumnF\'C'\BoardF\PlayerF)
+																) ;
+																(
+																CL < 16, TL < 4,
+																addControlComputer(Nivel,BoardT2,PlayerT2,RowF,ColumnF,Type,BoardF,PlayerF),
+																Res = (1\RowI\ColumnI\RowF\ColumnF\Type\BoardF\PlayerF)
+																)
+															).
+																							
+checkMoveComputer(0,_,_,BoardI,PlayerI,Res)	:-	Res = (0\'-1'\'-1'\'-1'\'-1'\'-1'\BoardI\PlayerI).
 
-makeMoveComputer(BoardI,PlayerI,Nivel,Type,RowI,ColumnI,RowF,ColumnF,AllMoves,BoardF,PlayerF) :-	movement(Nivel,BoardI,PlayerI,AllMoves,RowI,ColumnI,RowF,ColumnF),
-														
-																							addControlComputer(Nivel,BoardI,PlayerI,RowF,ColumnF,Type,BoardT2,PlayerT2),
-																						
-																							setShip(BoardT2,RowF,ColumnF,1,BoardT3), !,						
-																							setShip(BoardT3,RowI,ColumnI,-1,BoardF), !,						
-																							playerSetShip(PlayerT2,[RowI|[ColumnI|[]]],[RowF|[ColumnF|[]]],PlayerF).
+checkMoveComputer(1,_,_,BoardI,PlayerI,Res) :-	Res = (-1\'-1'\'-1'\'-1'\'-1'\'-1'\BoardI\PlayerI).
+
+makeMoveComputer(BoardI,PlayerI,Nivel,RowI,ColumnI,RowF,ColumnF,AllMoves,BoardF,PlayerF) :-	movement(Nivel,BoardI,PlayerI,AllMoves,RowI,ColumnI,RowF,ColumnF),
+																							setShip(BoardI,RowF,ColumnF,1,BoardT2), !,						
+																							setShip(BoardT2,RowI,ColumnI,-1,BoardF), !,						
+																							playerSetShip(PlayerI,[RowI|[ColumnI|[]]],[RowF|[ColumnF|[]]],PlayerF).
 																						
 makeMoveComputer(BoardI,PlayerI,Nivel,Type,RowI,ColumnI,RowF,ColumnF,AllMoves,BoardF,PlayerF) :- makeMoveComputer(BoardI,PlayerI,Nivel,Type,RowI,ColumnI,RowF,ColumnF,AllMoves,BoardF,PlayerF).
 
@@ -211,12 +207,12 @@ isGameOver(Player,1) :-		playerGetShips(Player,Ships),
 							length(Colonies,CL),
 							playerGetTrades(Player,Trades),
 							length(Trades,TL),
-							(SL = 0; (CL = 16; TL = 4)).
+							write(SL - CL - TL),
+							(SL = 0; (CL = 16, TL = 4)).
 isGameOver(Player,0).
 
 addControlComputer(Nivel,BoardI,PlayerI,Row,Column,Type,BoardF,PlayerF) :- 	addControlAux(Nivel,PlayerI,BoardI,Row,Column,Type), !,
 																			playerGetTeam(PlayerI,Team),
-																			\+ (Type == 'T', playerGetTrades(PlayerI,Trades),length(Trades,L), L >= 4,error(6)),
 																			setDominion(BoardI,Team,Row,Column,Type,BoardF), !,
 																			playerAddControl(PlayerI,Type,[Row|[Column|[]]],PlayerF).
 
