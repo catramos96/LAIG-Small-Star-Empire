@@ -39,6 +39,8 @@ XMLscene.prototype.init = function (application) {
     this.gameMode = 2;
     this.difficulties =  ["","Easy", "Hard"];
     this.difficulty = 1;	//default values for game
+	this.wins = [0,0]; //numero de jogos ganhos de cada equipa
+	this.endGame = false;
 
 	this.scenes = ["garden.dsx","room.dsx"];
 };
@@ -451,6 +453,7 @@ XMLscene.prototype.automaticCamera = function() {
 
 XMLscene.prototype.initGame = function() {
 	this.ongoing = true;
+    this.endGame = false;
 
     this.game = new Game(this,this.gameMode,this.difficulty);
     this.interface.addGameInfo();

@@ -26,12 +26,13 @@ function Game(scene,mode,difficulty) {
     this.player1 = new Player(1);
     this.player2 = new Player(2);
 	
-	this.winner = 0;
-	
     this.turn = this.player1;	//default
 
-    this.changingInfo = ["Red","Init"];
+    this.changingInfo = ["Red","Init",0];
     this.finalInfo = [null, 0, 0];
+    this.timePlayers = [10, 10];
+
+    this.initTime = 0;
 
 	this.init(2,mode,difficulty);
 }
@@ -387,20 +388,18 @@ Game.prototype.gameOver = async function (){
 	while(this.prolog.getServerResponse() == null)
 		await sleep(500);
 	
-	this.winner = this.prolog.getServerResponse();
-
-    this.finalInfo = [this.winner[0],this.winner[1],this.winner[2]];  //atualiza esta informacao
+	var winner = this.prolog.getServerResponse();
 	
 	var msg = "";
 	
-	if(this.winner[0] == 0)
+	if(winner[0] == 0)
 		msg = "DRAW";
-	else if(this.winner[0] == 1)
+	else if(winner[0] == 1)
 		msg = this.player1.getTeamName() + " WON!";
-	else if(this.winner[0] == 2)
+	else if(winner[0] == 2)
 		msg = this.player2.getTeamName() + " WON!";
-			
-	this.changingInfo[1] = msg;
+
+    this.finalInfo = [msg,winner[1],winner[2]];  //atualiza esta informacao
 	
     this.scene.interface.addFinalGameInfo();
 }
@@ -497,6 +496,8 @@ INITS
 
 Game.prototype.init = async function(boardSize,mode,difficulty){
     this.state = 'INIT';
+    this.initTime = this.scene.getCurrTime();
+
     this.prolog.makeRequest("initGame(" + boardSize + "," + difficulty + "," + mode + ")",1);
     await sleep(500);
 
@@ -576,7 +577,22 @@ Game.prototype.movie = function() {
 
 Game.prototype.display = function() {
 
+    if(this.state != 'END')
+    {
+        //contagem do tempo
+        var time = this.scene.getCurrTime()-this.initTime;
+        var sec = parseInt(time % 60);
+        var min = parseInt(time/60);
+        this.changingInfo[2] = min+" : "+sec;
+    }
+    else
+    {
+        this.scene.endGame = true;
+        this.scene.wins[this.turn.getTeam()-1]++;
+    }
+
     this.scene.interface.updateMatchInfo();
+    this.scene.endGame = false;
 
     this.scene.pushMatrix();
         this.scene.scale(10,10,10);

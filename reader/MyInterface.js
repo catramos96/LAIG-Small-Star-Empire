@@ -52,8 +52,11 @@ MyInterface.prototype.init = function(application) {
     this.initMenuFolder();
 
 	this.turn = null;
+	this.time = null;
     this.nextSelection = null;
     this.undo = null;
+    this.timeP1 = null;
+    this.timeP2 = null;
 
 	return true;
 };
@@ -97,18 +100,27 @@ MyInterface.prototype.addLights = function(id, isSpot) {
 
 MyInterface.prototype.addGameInfo = function () {
 
-	if(this.turn == null ||  this.nextSelection == null)    //significa que ainda nao ha informacoes (evita sobreposicoes)
+	if(this.turn == null ||  this.nextSelection == null || this.time == null)    //significa que ainda nao ha informacoes (evita sobreposicoes)
 	{
         this.mainMenuGroup = this.gui.removeFolder("Main Menu");
 
         this.gameMenuGroup = this.gui.addFolder("Game Menu");
         this.gameMenuGroup.open();
-        if(this.scene.gameMode != 3)    //nao adiciona o undo se for o gamemode m vs m
+        //jogos ganhos pelas equipas
+
+        if(this.scene.gameMode != 3)    //nao adiciona se for o gamemode m vs m
+        {
             this.undo = this.gameMenuGroup.add(this.scene,'undo').name("Undo");
+            this.timeP1 = this.matchMenuGroup.add(this.scene.game.timePlayers,0).name('Time for player 1 : ').listen();
+            this.timeP2 = this.matchMenuGroup.add(this.scene.game.timePlayers,1).name('Time for player 2 : ').listen();
+        }
         this.gameMenuGroup.add(this.scene,'quit').name("Quit");
+        this.wins1 = this.gameMenuGroup.add(this.scene.wins,0).name('Red Team Wins : ').listen();
+        this.wins2 = this.gameMenuGroup.add(this.scene.wins,1).name('Blue Team Wins : ').listen();
 
         this.matchMenuGroup = this.gui.addFolder("Match Board");
         this.matchMenuGroup.open();
+        this.time = this.matchMenuGroup.add(this.scene.game.changingInfo,2).name('Time').listen();
         this.turn = this.matchMenuGroup.add(this.scene.game.changingInfo,0).name('Turn').listen();
         this.nextSelection = this.matchMenuGroup.add(this.scene.game.changingInfo,1).name('State').listen();
         this.matchMenuGroup.add(this.scene.gameModes, this.scene.gameMode).name('Game Mode').listen();
@@ -118,10 +130,12 @@ MyInterface.prototype.addGameInfo = function () {
 
 MyInterface.prototype.addFinalGameInfo = function () {
     this.gameMenuGroup.add(this.scene.game,'movie').name("See movie");
-    if(this.undo != null){
+    if(this.undo != null)
+    {
         this.undo.remove();
         this.undo = null;
     }
+
     this.scoreGroup = this.scoreGroup = this.gui.addFolder("Score Board");
     this.scoreGroup.add(this.scene.game.finalInfo, 1).name('Player 1 Score').listen();
     this.scoreGroup.add(this.scene.game.finalInfo, 2).name('Player 2 Score').listen();
@@ -139,8 +153,11 @@ MyInterface.prototype.resetGameFolders = function () {
 
 	this.initMenuFolder();
     this.turn = null;
+    this.time = null;
     this.nextSelection = null;
     this.undo = null;
+    this.wins1 = null;
+    this.wins2 = null;
 };
 
 MyInterface.prototype.resetLightFolders = function () {
@@ -160,6 +177,31 @@ MyInterface.prototype.updateMatchInfo = function () {
     this.nextSelection.remove();
     this.nextSelection = null;
 
+    this.time.remove();
+    this.time = null;
+
+    if(this.scene.endGame)
+    {
+        this.wins1.remove();
+        this.wins1 = null;
+        this.wins2.remove();
+        this.wins2 = null;
+
+        this.wins1 = this.gameMenuGroup.add(this.scene.wins,0).name('Red Team Wins : ').listen();
+        this.wins2 = this.gameMenuGroup.add(this.scene.wins,1).name('Blue Team Wins : ').listen();
+    }
+
+    this.time = this.matchMenuGroup.add(this.scene.game.changingInfo,2).name('Time').listen();
+    if(this.scene.gameMode != 3)    //nao adiciona se for m vs m
+    {
+        this.timeP1.remove();
+        this.timeP1 = null;
+        this.timeP2.remove();
+        this.timeP2 = null;
+
+        this.timeP1 = this.matchMenuGroup.add(this.scene.game.timePlayers,0).name('Time for player 1 : ').listen();
+        this.timeP2 = this.matchMenuGroup.add(this.scene.game.timePlayers,1).name('Time for player 2 : ').listen();
+    }
     this.turn = this.matchMenuGroup.add(this.scene.game.changingInfo,0).name('Turn').listen();
     this.nextSelection = this.matchMenuGroup.add(this.scene.game.changingInfo,1).name('State').listen();
 }
