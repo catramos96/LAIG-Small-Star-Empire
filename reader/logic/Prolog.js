@@ -156,7 +156,7 @@ Prolog.prototype.requestType5 = function (data){
 		else if(points1 == points2)
 			winner = 0;
 		
-		this.game.prolog.setServerResponse(winner);
+		this.game.prolog.setServerResponse([winner,points1,points2]);
 	}
 }
 

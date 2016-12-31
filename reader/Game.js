@@ -381,7 +381,6 @@ Game.prototype.picking = function (obj,id) {
 }
 
 Game.prototype.gameOver = async function (){
-    this.finalInfo = [this.player1.getTeamName(), 0, 0];  //atualiza esta informacao
 
 	this.prolog.makeRequest("getWinner(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + "," + this.player2.getPrologRepresentation() + ")",5);
 	
@@ -389,14 +388,16 @@ Game.prototype.gameOver = async function (){
 		await sleep(500);
 	
 	this.winner = this.prolog.getServerResponse();
+
+    this.finalInfo = [this.winner[0],this.winner[1],this.winner[2]];  //atualiza esta informacao
 	
 	var msg = "";
 	
-	if(this.winner == 0)
+	if(this.winner[0] == 0)
 		msg = "DRAW";
-	else if(this.winner == 1)
+	else if(this.winner[0] == 1)
 		msg = this.player1.getTeamName() + " WON!";
-	else if(this.winner == 2)
+	else if(this.winner[0] == 2)
 		msg = this.player2.getTeamName() + " WON!";
 			
 	this.changingInfo[1] = msg;
