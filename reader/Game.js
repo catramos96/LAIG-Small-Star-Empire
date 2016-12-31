@@ -26,6 +26,8 @@ function Game(scene,mode,difficulty) {
     this.player1 = new Player(1);
     this.player2 = new Player(2);
 	
+	this.winner = 0;
+	
     this.turn = this.player1;	//default
 
     this.changingInfo = ["Red","Init"];
@@ -378,9 +380,27 @@ Game.prototype.picking = function (obj,id) {
     }
 }
 
-Game.prototype.gameOver = function (){
+Game.prototype.gameOver = async function (){
     this.finalInfo = [this.player1.getTeamName(), 0, 0];  //atualiza esta informacao
 
+	this.prolog.makeRequest("getWinner(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + "," + this.player2.getPrologRepresentation() + ")",5);
+	
+	while(this.prolog.getServerResponse() == null)
+		await sleep(500);
+	
+	this.winner = this.prolog.getServerResponse();
+	
+	var msg = "";
+	
+	if(this.winner == 0)
+		msg = "DRAW";
+	else if(this.winner == 1)
+		msg = this.player1.getTeamName() + " WON!";
+	else if(this.winner == 2)
+		msg = this.player2.getTeamName() + " WON!";
+			
+	this.changingInfo[1] = msg;
+	
     this.scene.interface.addFinalGameInfo();
 }
 
@@ -527,6 +547,13 @@ GETS
 
 Game.prototype.getTurn = function(){
     return this.turn;
+}
+
+Game.prototype.getPlayer = function(number){
+	if(number == 1)
+		return this.player1;
+	else if(number == 2)
+		return this.player2;
 }
 
 /**

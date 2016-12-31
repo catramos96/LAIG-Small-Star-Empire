@@ -164,11 +164,10 @@ parse_input(moveComputer(BoardI,PlayerI,Nivel),Res) :-	updateValidShips(BoardI,P
 														
 														
 																
-parse_input(getWinner(Board,Player1,Player2),Res) :-				playerGetPoints(Board,Player1,ListLength1,Points1),	
-																	playerGetPoints(Board,Player2,ListLength2,Points2),
-																	biggestTerritoryPoints(ListLength1, Points1, NewPoints1, ListLength2, Points2, NewPoints2), 
-																	chooseWinner(Board,P1,NewPoints1,P2,NewPoints2,winner),
-																	Res = (winner\NewPoints1\NewPoints2).
+parse_input(getWinner(Board,Player1,Player2),Res) :-	playerGetPoints(Board,Player1,ListLength1,Points1),	
+														playerGetPoints(Board,Player2,ListLength2,Points2),
+														biggestTerritoryPoints(ListLength1, Points1, NewPoints1, ListLength2, Points2, NewPoints2), 
+														Res = (NewPoints1\NewPoints2).
 																	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%                                       Adicional PROLOG                                         %%%%
