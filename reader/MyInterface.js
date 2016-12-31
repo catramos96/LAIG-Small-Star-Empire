@@ -103,7 +103,7 @@ MyInterface.prototype.addGameInfo = function () {
 
         this.gameMenuGroup = this.gui.addFolder("Game Menu");
         this.gameMenuGroup.open();
-        if(this.scene.gameMode != 2)    //nao adiciona o undo se for o gamemode m vs m
+        if(this.scene.gameMode != 3)    //nao adiciona o undo se for o gamemode m vs m
             this.undo = this.gameMenuGroup.add(this.scene,'undo').name("Undo");
         this.gameMenuGroup.add(this.scene,'quit').name("Quit");
 
@@ -117,7 +117,7 @@ MyInterface.prototype.addGameInfo = function () {
 };
 
 MyInterface.prototype.addFinalGameInfo = function () {
-    this.gameMenuGroup.add(this.scene,'movie').name("See movie");
+    this.gameMenuGroup.add(this.scene.game,'movie').name("See movie");
     if(this.undo != null){
         this.undo.remove();
         this.undo = null;

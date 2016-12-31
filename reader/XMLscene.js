@@ -449,10 +449,6 @@ XMLscene.prototype.automaticCamera = function() {
 
 }
 
-XMLscene.prototype.movie = function() {
-
-}
-
 XMLscene.prototype.initGame = function() {
 	this.ongoing = true;
 

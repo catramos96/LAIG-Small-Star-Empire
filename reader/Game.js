@@ -33,7 +33,6 @@ function Game(scene,mode,difficulty) {
     this.changingInfo = ["Red","Init"];
     this.finalInfo = [null, 0, 0];
 
-    console.log("mode "+mode+" difficulty "+difficulty);
 	this.init(2,mode,difficulty);
 }
 
@@ -211,7 +210,6 @@ Game.prototype.makeMove = async function(){
             currMove.makePieceMove(false);
             await sleep(2000);
 
-            console.log("done!");
 			this.changeState(); //muda para NEXT_TURN
 		}
         this.changeTurn();  //muda o turno e recomeca
@@ -220,9 +218,11 @@ Game.prototype.makeMove = async function(){
         this.setState('INIT');
         this.getTurnInformation();  //enquanto está no init recebe as informacoes do turn
     }
-    else {
+    else
+    {
         this.changingInfo[1] = "Game Over";
-        this.setState("END")
+        this.setState("END");
+        this.changeState();
     }
 }
 
@@ -431,6 +431,9 @@ Game.prototype.undo = async function ()
                     await sleep(2000);
                     if(this.gameSequence.undo())
                         await sleep(2000);      //se true, temos de esperar que o ship faca undo
+
+                    currMove = this.gameSequence.currMove();
+                    this.changeTurn(); //passo para o jogador anterior*/
                 }
 
                 //elimino a minha jogada
@@ -564,6 +567,10 @@ Game.prototype.changeTurn = function(){
         this.turn = this.player2;
     else
         this.turn = this.player1;
+}
+
+Game.prototype.movie = function() {
+    this.gameSequence.movie();
 }
 
 Game.prototype.display = function() {

@@ -37,6 +37,51 @@ GameSequence.prototype.undo = function(){
     return false;
 }
 
-GameSequence.prototype.movie = function(){
+GameSequence.prototype.movie = async function(){
+    //reset das posicoes no main Board -> volta as jogadas para tras e poe cada peca no seu lugar original
+    for(var j = this.sequence.length-1; j > 0; j--)
+    {
+        var move = this.sequence[j];
 
+        //para o destino tira a piece e o ship
+        var origin;
+        var ship;
+        var dest = move.getTile();
+
+        if(dest != null)
+        {
+            if (move.getType() == 'ship')
+            {
+                ship = move.getShip();
+                origin = move.getShipCell();
+                origin.setShip(ship);       //coloca o ship na origem (auxBoard)
+            }
+            else
+            {
+                var piece = move.getPiece();
+                origin = move.getPieceCell();
+                origin.setPiece(piece);
+                dest.setPiece(null);
+
+                ship = dest.getShip();
+                if (ship != null) {
+                    dest.setShip(null);
+                }
+            }
+        }
+    }
+
+    //execucao do filme de jogo
+    for(var i = 0; i < this.sequence.length-1; i++){
+        var move = this.sequence[i];
+
+        move.makeShipMove(false);
+        await sleep(2000);
+
+        if(move.getType() != 'ship')
+        {
+            move.makePieceMove(false);
+            await sleep(2000);
+        }
+    }
 }
