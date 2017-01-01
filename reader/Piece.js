@@ -3,9 +3,9 @@
  */
 function Piece(scene,id,cell,team) {
     this.scene = scene;
-    this.cell = cell;
+    this.cell = cell;					/*Pointer to the cell where the piece is*/
     this.id = id;
-    this.team = team;
+    this.team = team;					/*Team that possesses the piece*/
 
     this.animStartTime = 0;
     this.animation = null;
@@ -17,26 +17,64 @@ function Piece(scene,id,cell,team) {
     this.appearance = appearances.get("shiny").getAppearance();
 }
 
+/*
+SETS
+*/
+
+/*
+@brief Function that sets the piece's cell attributes
+@param cell
+*/
 Piece.prototype.setCell = function (cell) {
     this.cell = cell;
 }
 
+/*
+GETS
+*/
+
+/*
+@brief Function that gets the piece's cell attributes
+@returns cell
+*/
 Piece.prototype.getCell = function (cell) {
     return this.cell;
 }
 
+/*
+@brief Function that gets the piece's team attributes
+@returns team
+*/
 Piece.prototype.getTeam = function () {
     return this.team;
 }
 
+/*
+@brief Function that gets the piece's appearance attributes
+@returns appearance
+*/
 Piece.prototype.getAppearance = function () {
     return this.appearance;
 }
 
+/*
+@brief Function that gets the piece's texture attributes
+@returns texture
+*/
 Piece.prototype.getTexture = function () {
     return this.texture;
 }
 
+/*
+MOVE
+*/
+
+/*
+@brief Function that calculates the animationof the movement
+between to cells points
+@param pointO - origin point
+@param pointD - destination point
+*/
 Piece.prototype.move = function (pointO, pointD) {
     //aplica na peca uma eliptical animation de raio = metade da distancia
     this.animStartTime = this.scene.getCurrTime();
@@ -61,6 +99,13 @@ Piece.prototype.move = function (pointO, pointD) {
     this.animation = new KeyFrameAnimation(this.id,2,controlPoints);
 }
 
+/*
+DISPLAY
+*/
+
+/*
+@brief Function that displays the piece
+*/
 Piece.prototype.display = function ()
 {
     var currTime = this.scene.getCurrTime();
@@ -89,6 +134,3 @@ Piece.prototype.display = function ()
 
     this.displayAux(animTransformation);
 }
-
-//objetivos:
-// Definir e atualizar o estado da peça

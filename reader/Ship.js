@@ -3,7 +3,7 @@
  */
 function Ship(scene,data,cell,team) {
     this.piece = new MyVehicle(scene);
-    this.cell = cell;
+    this.cell = cell;					/*Pointer to the cell where the ship is*/
     this.id = data.getId();
 
     Piece.call(this,scene,this.id,cell,team);
@@ -14,6 +14,9 @@ function Ship(scene,data,cell,team) {
 
 Ship.prototype = Object.create(Piece.prototype);
 
+/*
+@brief Function that updates the transformation on the ship
+*/
 Ship.prototype.updateTransformation = function()
 {
     this.transformation = new MyTransformation(this.id);
@@ -25,7 +28,9 @@ Ship.prototype.updateTransformation = function()
         this.transformation.translate(0.5,0.1,0.5);
 }
 
-
+/*
+@brief Function that displays the ship piece
+*/
 Ship.prototype.displayAux = function(animTransformation){
     this.scene.pushMatrix();
 
