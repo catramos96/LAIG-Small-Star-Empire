@@ -1,43 +1,52 @@
-
+/**
+ * Object that handles the animation between 2 points of view
+ * @param scene
+ * @param cam1
+ * @param cam2
+ * @param initTime
+ * @param totalTime
+ * @constructor
+ */
 function CameraAnimation(scene, cam1, cam2, initTime, totalTime) {
     this.scene = scene;
-    this.cam1 = cam1;
-    this.cam2 = cam2;
+    this.cam1 = cam1;       //perpective
+    this.cam2 = cam2;       //perpective
     this.initTime = initTime;
     this.totalTime = totalTime;
+
+    this.done = false;
 };
 
-
-CameraAnimation.prototype.interpolate=function(deltaT,y0,y1)
+/**
+ * Interpolates the values, just like keyFrameAnimation
+ * @param deltaTime
+ * @param y0
+ * @param y1
+ * @returns {*}
+ */
+CameraAnimation.prototype.interpolate = function(deltaTime,y0,y1)
 {
-    var y;
-    if(this.span == 0)
-    {
-        y = y0;
-    }
-    else if(deltaT >= this.totalTime)
-    {
-        y = y1;
-    }
-    else
-    {
-        y = y0 + deltaT*(y1 - y0)/this.totalTime;
-    }
-
-    return y;
+    return y0 + deltaTime*(y1 - y0)/this.totalTime
 };
 
-CameraAnimation.prototype.update=function(currTime)
+/**
+ * Updates the camera position depending on currTime
+ * @param currTime
+ */
+CameraAnimation.prototype.update = function(currTime)
 {
-    var deltaT = (currTime - this.initTime);
+    var deltaTime = (currTime - this.initTime);     //elapsed time
 
+    //interpolated values 'from'
     for(var i = 0; i < 2; i++)
-        this.scene.camera.position[i] = this.interpolate(deltaT,this.cam1.getFromVec()[i],this.cam2.getFromVec()[i]);
+        this.scene.camera.position[i] = this.interpolate(deltaTime,this.cam1.getFromVec()[i],this.cam2.getFromVec()[i]);
 
+    //interpolated values 'to'
     for(var i = 0; i < 2; i++)
-        this.scene.camera.target[i] = this.interpolate(deltaT,this.cam1.getToVec()[i],this.cam2.getToVec()[i]);
+        this.scene.camera.target[i] = this.interpolate(deltaTime,this.cam1.getToVec()[i],this.cam2.getToVec()[i]);
 
-    if(deltaT > this.totalTime)
+    //end
+    if(deltaTime > this.totalTime)
     {
         this.done = true;
     }

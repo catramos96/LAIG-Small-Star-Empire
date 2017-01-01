@@ -1,6 +1,7 @@
 /**
- * Game Move
- * movimento do jogo
+ * Object that handles one move of the game
+ * @param type ship, normal or bot.
+ * @constructor
  */
 function GameMove(type) {
     this.type = type;
@@ -12,26 +13,46 @@ function GameMove(type) {
     this.tilePiece = null;  //origem da peca
 }
 
-GameMove.prototype.getType = function(){
-    return this.type;
-}
+/*
+ADITIONS
+ */
 
+/**
+ * Adds the tile of the destination to the move
+ * @param tile
+ */
 GameMove.prototype.addTile = function(tile){
     this.tileDest = tile;
 }
 
+/**
+ * Adds the ship that will be moved to the move.
+ * @param ship
+ */
 GameMove.prototype.addShip = function(ship){
     this.ship = ship;
     this.tileShip = ship.getCell();
 }
 
+/**
+ * Adds the piece that will be moved to the move.
+ * @param piece
+ */
 GameMove.prototype.addPiece = function(piece){
     this.piece = piece;
     this.tilePiece = piece.getCell();
 }
 
+/*
+GETS
+*/
+
 GameMove.prototype.getTile = function(){
     return this.tileDest;
+}
+
+GameMove.prototype.getType = function(){
+    return this.type;
 }
 
 GameMove.prototype.getShip = function(){
@@ -50,6 +71,13 @@ GameMove.prototype.getPieceCell = function(){
     return this.tilePiece;
 }
 
+/*
+MOVES
+ */
+/**
+ * make the movement of the ship between 2 cells.
+ * @param isUndo true : switches the origin with de destination
+ */
 GameMove.prototype.makeShipMove = function(isUndo){
     var origin;
     var dest;
@@ -76,6 +104,10 @@ GameMove.prototype.makeShipMove = function(isUndo){
     dest.setShip(this.ship);
 }
 
+/**
+ * make the movement of the piece between 2 cells.
+ * @param isUndo true : switches the origin with de destination
+ */
 GameMove.prototype.makePieceMove = function(isUndo){
     var origin;
     var dest;

@@ -1,15 +1,22 @@
 /**
  * Game Sequence
- * sequence of movements
+ * sequence of movements of the type GameMove
  */
 function GameSequence() {
     this.sequence = [];
 }
-
+/**
+ * Ads new move at the top of the sequence
+ * @param move
+ */
 GameSequence.prototype.addMove = function(move){
     this.sequence.push(move);
 }
 
+/**
+ * Gets the current move
+ * @returns {*}
+ */
 GameSequence.prototype.currMove = function(){
     if(this.sequence.length > 0)
         return this.sequence[this.sequence.length-1];
@@ -27,16 +34,17 @@ GameSequence.prototype.undo = function(){
     //verificar se no inicio da jogada houve movimento do ship (feito pelo jogo)
     if(this.currMove() != null && this.currMove().getType() == 'ship')
     {
-        //if(this.currMove().getType() == 'ship')
-        //{
-            this.currMove().makeShipMove(true);
-            this.sequence.pop();
-        //}
+        this.currMove().makeShipMove(true);
+        this.sequence.pop();
         return true;
     }
     return false;
 }
 
+/**
+ * Executes the movie of the game.
+ * First, places all the pieces in the original cells, then, executes the moves of the 'sequence'
+ */
 GameSequence.prototype.movie = async function(){
     //reset das posicoes no main Board -> volta as jogadas para tras e poe cada peca no seu lugar original
     for(var j = this.sequence.length-1; j > 0; j--)

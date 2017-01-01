@@ -4,7 +4,7 @@
   
     <scene root="sceneRoot" axis_length="0" /> 
   
-    <views default="up" >
+    <views default="front" >
 		<perspective id="front" type="normal" near="0.1" far="500" angle="50">
             <from x="20" y="30" z="20" />
             <to x="0" y="0" z="0" />

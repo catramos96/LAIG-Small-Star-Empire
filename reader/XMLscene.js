@@ -33,6 +33,7 @@ XMLscene.prototype.init = function (application) {
 */
 	this.lastTime = -1;		//for update scene
 
+    this.ongoing = false;
     this.gameModes =  ["","Human vs Human", "Human vs Machine", "Machine vs Machine"];
     this.gameMode = 2;
     this.difficulties =  ["","Easy", "Hard"];
@@ -330,7 +331,7 @@ XMLscene.prototype.onGraphLoaded = function () {
 	
 	this.initPrimitives();
 
-    this.ongoing = false;
+    this.setCamera(this.game.getTeamTurn());
 };
 
 /**

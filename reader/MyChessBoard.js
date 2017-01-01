@@ -35,17 +35,15 @@ function MyChessBoard(scene, data) {
 	console.log(this.shader.getUniformsValues());
  }
 
- 
  MyChessBoard.prototype = Object.create(CGFobject.prototype);
  MyChessBoard.prototype.constructor = MyChessBoard;
-
 
  MyChessBoard.prototype.getTexture= function() {
 		return this.texture;
   };
 
-  MyChessBoard.prototype.display= function() {
+ MyChessBoard.prototype.display= function() {
   	this.scene.setActiveShader(this.shader);				//shader
 	this.plane.display();
 	this.scene.setActiveShader(this.scene.defaultShader);	//default shader
-  };
+ };

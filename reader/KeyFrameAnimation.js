@@ -8,6 +8,11 @@ function KeyFrameAnimation(id,time,controlPoints) {
 
 KeyFrameAnimation.prototype = Object.create(Animation.prototype);
 
+/**
+ * Returns the position at the time received
+ * @param time
+ * @returns {Array}
+ */
 KeyFrameAnimation.prototype.getActualFrame = function(time)
 {
     var curFrame = [];
@@ -42,9 +47,6 @@ KeyFrameAnimation.prototype.getTransformation = function(time){
 
     //nova frame em funcao do tempo
     var frame = this.getActualFrame(time);
-
-   // console.log("FRAME : "+time);
-  //  console.log(frame);
 
     transformation.translate(frame[0],frame[1],frame[2]);
     transformation.rotate('x',frame[3]*Math.PI/180);
