@@ -53,12 +53,11 @@ Game.prototype.getTurnInformation = async function()
         await sleep(1500);  //tempo de mover o ship
 
     //verificacao das jogadas possiveis (apenas jogador humano)
-
     if(this.turn.getType() == "Human"){
         this.prolog.makeRequest("possibleMoves(" + this.board.getPrologRepresentation() + "," + this.turn.getPrologRepresentation() + ")",4);
 
         while(this.prolog.getServerResponse() == null)
-            await sleep(500);
+            await sleep(100);
 
         possibleMoves = this.prolog.getServerResponse();
 
@@ -173,7 +172,7 @@ Game.prototype.makeMove = async function(){
 	var info;
 	
 	while((info = this.prolog.getServerResponse()) == null)
-		await sleep(500);
+		await sleep(100);
 
     this.prolog.setServerResponse(null);    //reset
 
@@ -201,7 +200,7 @@ Game.prototype.makeMove = async function(){
 
             //movimento
             currMove.makeShipMove(false);
-            await sleep(2000);
+            await sleep(1500);
 
             //escolhe uma peca das do board auxiliar que corresponda a structure
             var auxBoard = this.turn.getAuxBoard();
@@ -214,7 +213,7 @@ Game.prototype.makeMove = async function(){
             currMove.addPiece(pieceCell.getPiece());
 
             currMove.makePieceMove(false);
-            await sleep(2000);
+            await sleep(1800);
 
 			this.changeState(); //muda para NEXT_TURN
 		}
@@ -237,10 +236,10 @@ Game.prototype.executeAnimation = async function(){
     if(this.state == 'ANIM1'){
         this.gameSequence.currMove().makeShipMove(false);
     }
-    if(this.state == 'ANIM2') {
+    else if(this.state == 'ANIM2') {
         this.gameSequence.currMove().makePieceMove(false);
     }
-    await sleep(2000);
+    await sleep(1500);
     this.changeState(); //Acabou o movimento, mudo de estado
 }
 
@@ -394,6 +393,7 @@ Game.prototype.picking = function (obj,id) {
 }
 
 Game.prototype.playerLose = function (){
+    this.scene.setCamera("up");
 
     this.scene.wins[this.finalInfo[0]-1]++;
 
@@ -401,11 +401,12 @@ Game.prototype.playerLose = function (){
 }
 
 Game.prototype.gameOver = async function (){
+    this.scene.setCamera("up");
 
     this.prolog.makeRequest("getWinner(" + this.board.getPrologRepresentation() + "," + this.player1.getPrologRepresentation() + "," + this.player2.getPrologRepresentation() + ")",5);
 
     while(this.prolog.getServerResponse() == null)
-        await sleep(500);
+        await sleep(100);
 
     var winner = this.prolog.getServerResponse();
 
@@ -437,7 +438,7 @@ Game.prototype.undo = async function ()
         if(oldState == 'SEL_SHIP' || oldState == 'SEL_TILE')    //undo da jogada anterior (implica mudar de turno)
         {
             if(this.gameSequence.undo())    //eliminar a propria jogada que ainda nao foi preenchida
-                await sleep(2000);          //se true, temos de esperar que o ship faca undo
+                await sleep(1500);          //se true, temos de esperar que o ship faca undo
 
             currMove = this.gameSequence.currMove();
 
@@ -448,11 +449,11 @@ Game.prototype.undo = async function ()
                 if(currMove.getType() == 'bot') //elimino a jogada do bot, caso o jogador anterior seja o bot
                 {
                     currMove.makePieceMove(true);
-                    await sleep(2000);
+                    await sleep(1500);
                     currMove.makeShipMove(true);
-                    await sleep(2000);
+                    await sleep(1500);
                     if(this.gameSequence.undo())
-                        await sleep(2000);      //se true, temos de esperar que o ship faca undo
+                        await sleep(1500);      //se true, temos de esperar que o ship faca undo
 
                     currMove = this.gameSequence.currMove();
                     this.changeTurn(); //passo para o jogador anterior*/
@@ -460,11 +461,11 @@ Game.prototype.undo = async function ()
 
                 //elimino a minha jogada
                 currMove.makePieceMove(true);
-                await sleep(2000);
+                await sleep(1500);
                 currMove.makeShipMove(true);
-                await sleep(2000);
+                await sleep(1500);
                 if(this.gameSequence.undo())
-                    await sleep(2000);      //se true, temos de esperar que o ship faca undo
+                    await sleep(1500);      //se true, temos de esperar que o ship faca undo
             }
         }
         else    //undo da propria jogada
@@ -472,12 +473,12 @@ Game.prototype.undo = async function ()
             if(oldState == 'NEXT_TURN')
             {
                 currMove.makePieceMove(true);
-                await sleep(2000);
+                await sleep(1500);
             }
             currMove.makeShipMove(true);
-            await sleep(2000);
+            await sleep(1500);
             if(this.gameSequence.undo())
-                await sleep(2000);      //se true, temos de esperar que o ship faca undo
+                await sleep(1500);      //se true, temos de esperar que o ship faca undo
         }
 
         this.changeState();
@@ -614,7 +615,10 @@ Game.prototype.initPlayTime = function() {
 }
 
 Game.prototype.update = function(currTime) {
-    if(this.state != 'END')
+
+    console.log(this.state);
+
+    if(this.state != 'END' && this.state != 'LOSE' )
     {
         //contagem do tempo
         var time = currTime-this.initTime;

@@ -76,12 +76,12 @@ GameSequence.prototype.movie = async function(){
         var move = this.sequence[i];
 
         move.makeShipMove(false);
-        await sleep(2000);
+        await sleep(1500);
 
         if(move.getType() != 'ship')
         {
             move.makePieceMove(false);
-            await sleep(2000);
+            await sleep(1500);
         }
     }
 }
