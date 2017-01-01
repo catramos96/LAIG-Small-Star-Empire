@@ -9,6 +9,7 @@ function MyPerspective() {
  	this.toPoint = new MyPoint(0,0,0);
  	this.fromPoint = new MyPoint(0,0,0);
  	this.default = false;
+ 	this.type = 'normal';
 }
 
 /**
@@ -42,7 +43,12 @@ function MyPerspective() {
  	this.fromPoint = point;
  }
 
- /**
+MyPerspective.prototype.setType = function(type){
+    this.type = type;
+}
+
+
+/**
   * GETS
   */
  MyPerspective.prototype.isDefault = function(){

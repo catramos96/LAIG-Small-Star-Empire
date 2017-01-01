@@ -16,8 +16,8 @@ function Game(scene,mode,difficulty) {
     this.board = new GameBoard(this.scene,new GameBoardData(100,[[]],new MyPoint(-7.2,0,0)));
 	
     //os tabuleiros auxiliares ja sao criados com as suas pecas
-    this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"red", new MyPoint(1.2,0,-9)));
-    this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"blue",new MyPoint(-12,0,-9)));
+    this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"red", new MyPoint(-12,0,-9)));
+    this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"blue",new MyPoint(1.2,0,-9)));
 
     //inicializacao da sequencia
     this.gameSequence = new GameSequence();
@@ -527,6 +527,10 @@ Game.prototype.init = async function(boardSize,mode,difficulty){
     console.log(this.player2.getPrologRepresentation());
     console.log("First Player - ", this.turn);
 
+    //aponta a camara para o player que esta em jogo
+    this.scene.setCamera(this.getTeamTurn());
+    console.log("devia mudar");
+
     this.getTurnInformation();  //enquanto está no init recebe as informacoes do turn
 }
 
@@ -583,6 +587,10 @@ Game.prototype.getPlayer = function(number){
 		return this.player2;
 }
 
+Game.prototype.getTeamTurn = function(){
+    return this.turn.getTeamName();
+}
+
 /**
  * OTHERS
  */
@@ -591,6 +599,9 @@ Game.prototype.changeTurn = function(){
         this.turn = this.player2;
     else
         this.turn = this.player1;
+
+    if(!this.freeCam)
+        this.scene.updateCamera();
 }
 
 Game.prototype.movie = function() {

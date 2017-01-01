@@ -5,27 +5,27 @@
     <scene root="garden" axis_length="3" />
 
     <views default="up" >
-		<perspective id="all" near="0.1" far="500" angle="45">
+		<perspective id="all" type="normal" near="0.1" far="500" angle="45">
             <from x="90" y="50" z="90" />
             <to x="0" y="0" z="0" />
         </perspective>
-		<perspective id="front" near="0.1" far="500" angle="50">
+		<perspective id="front" type="normal" near="0.1" far="500" angle="50">
             <from x="50" y="50" z="50" />
             <to x="0" y="0" z="0" />
         </perspective>
- 		<perspective id="back" near="0.1" far="500" angle="50">
+ 		<perspective id="back" type="normal" near="0.1" far="500" angle="50">
              <from x="-50" y="30" z="-30" />
              <to x="0" y="0" z="0" />
          </perspective>
-        <perspective id="up" near="0.1" far="500" angle="50">
+        <perspective id="up" type="normal" near="0.1" far="500" angle="50">
             <from x="2.5" y="20" z="0" />
             <to x="1.5" y="0" z="0" />
         </perspective>
-        <perspective id="player1" near="0.1" far="500" angle="50">
+        <perspective id="Red" type="animated" near="0.1" far="500" angle="50">
             <from x="-6" y="11" z="11" />
             <to x="-3" y="0" z="3" />
         </perspective>
-        <perspective id="player2" near="0.1" far="500" angle="50">
+        <perspective id="Blue" type="animated" near="0.1" far="500" angle="50">
             <from x="6" y="11" z="11" />
             <to x="3" y="0" z="3" />
         </perspective>

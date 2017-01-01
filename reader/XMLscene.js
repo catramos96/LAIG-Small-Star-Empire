@@ -40,7 +40,7 @@ XMLscene.prototype.init = function (application) {
     this.difficulties =  ["","Easy", "Hard"];
     this.difficulty = 1;	//default values for game
 	this.wins = [0,0]; //numero de jogos ganhos de cada equipa
-	this.endGame = false;
+    this.freeCam = true;
 
 	this.scenes = ["garden.dsx","room.dsx"];
 };
@@ -200,21 +200,56 @@ XMLscene.prototype.updateMaterials = function () {
  * Each time the numCamera is incrementes and searches in the perspectiveList the one with the numCamera number.
  */
 XMLscene.prototype.updateCamera = function () {
-	
+
 	this.numCamera++;
 	if(this.numCamera == this.graph.perspectiveList.size)
 		this.numCamera = 0;
 
 	var i = 0;
 	for (var [id, value] of this.graph.perspectiveList) {
-		if(i == this.numCamera){
-			this.camera = new CGFcamera(value.angle, value.near, value.far, value.getFromVec(), value.getToVec());
-			break;
-		}	
+		if(i == this.numCamera)	//encontra a camara
+		{
+			if(this.freeCam && value.type == 'animated')	//se estivermos em freeCam e for uma camara animada, passa a frente
+			{
+				this.updateCamera();
+				break;
+			}
+			else if (this.freeCam && value.type == 'normal') //se estivermos em freeCam e for uma camara normal, coloca-a independentemente do jogo
+			{
+				this.camera = new CGFcamera(value.angle, value.near, value.far, value.getFromVec(), value.getToVec());
+				break;
+			}
+
+			if (!this.freeCam && value.type == 'animated' && this.ongoing) //se nao estivermos em freeCam e for uma camara animada, coloca-a => obrigatorio o jogo estar a ocorrer
+			{
+				this.camera = new CGFcamera(value.angle, value.near, value.far, value.getFromVec(), value.getToVec());
+				break;
+			}
+			else  //se nao estivermos em freeCam e se nao for uma camara animada, passa a frente => obrigatorio o jogo estar a ocorrer
+			{
+				this.updateCamera();
+				break;
+			}
+		}
 		i++;
-    }
-    this.interface.setActiveCamera(this.camera);
+	}
+	this.interface.setActiveCamera(this.camera);
 };
+
+XMLscene.prototype.setCamera = function (name) {
+    var i = 0;
+    for (var [id, value] of this.graph.perspectiveList)
+    {
+		if(id == name)
+		{
+			this.numCamera = i;
+			this.camera = new CGFcamera(value.angle, value.near, value.far, value.getFromVec(), value.getToVec());
+			this.interface.setActiveCamera(this.camera);
+			break;
+		}
+		i++;
+	}
+}
 
 /**
  * Default appearance.
@@ -451,12 +486,22 @@ XMLscene.prototype.changeScene = function() {
 }
 
 XMLscene.prototype.automaticCamera = function() {
-
+	if(this.freeCam == true)
+	{
+        this.freeCam = false;	//desativa
+        //aponta a camara para o player que esta em jogo
+        this.setCamera(this.game.getTeamTurn());
+	}
+	else
+	{
+        this.freeCam = true;
+	}
+    this.interface.updateCam();
 }
 
 XMLscene.prototype.initGame = function() {
 	this.ongoing = true;
-    this.endGame = false;
+	this.freeCam = false;
 
     this.game = new Game(this,this.gameMode,this.difficulty);
     this.interface.addGameInfo();
@@ -468,5 +513,6 @@ XMLscene.prototype.undo = function() {
 
 XMLscene.prototype.quit = function (){
     this.ongoing = false;
+    this.freeCam = true;
     this.interface.resetGameFolders();
 }

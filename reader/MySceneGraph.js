@@ -271,7 +271,10 @@ MySceneGraph.prototype.parseViews = function(rootElement) {
 
 		if (defaultId == id)	
 			perspective.setDefault(true);
-			
+
+		var type = this.reader.getString(tempP,'type');
+
+		perspective.setType(this.reader.getString(tempP, 'type'));
 		perspective.setNear(this.reader.getFloat(tempP, 'near'));
 		perspective.setFar(this.reader.getFloat(tempP, 'far'));
 		perspective.setAngle(this.reader.getFloat(tempP, 'angle')*Math.PI*2/360);
