@@ -4,62 +4,102 @@
   
     <scene root="sceneRoot" axis_length="3" /> 
   
-    <views default="general" >
-		<perspective id="general" near="0.1" far="500" angle="35">
-            <from x="20" y="15" z="20" />
+    <views default="up" >
+		<perspective id="all" type="normal" near="0.1" far="500" angle="45">
+            <from x="90" y="50" z="90" />
             <to x="0" y="0" z="0" />
         </perspective>
-
-        <perspective id="from_above" near="0.1" far="500" angle="50">
-            <from x="3.1" y="20" z="3" />
+		<perspective id="front" type="normal" near="0.1" far="500" angle="50">
+            <from x="50" y="50" z="50" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+ 		<perspective id="back" type="normal" near="0.1" far="500" angle="50">
+             <from x="-50" y="30" z="-30" />
+             <to x="0" y="0" z="0" />
+         </perspective>
+        <perspective id="up" type="normal" near="0.1" far="500" angle="50">
+            <from x="2.5" y="20" z="0" />
+            <to x="1.5" y="0" z="0" />
+        </perspective>
+        <perspective id="Red" type="animated" near="0.1" far="500" angle="50">
+            <from x="-6" y="11" z="11" />
+            <to x="-3" y="0" z="3" />
+        </perspective>
+        <perspective id="Blue" type="animated" near="0.1" far="500" angle="50">
+            <from x="6" y="11" z="11" />
             <to x="3" y="0" z="3" />
         </perspective>
-		
-		<perspective id="from_front" near="0.1" far="500" angle="50">
-            <from x="15" y="6" z="15" />
-            <to x="0" y="3" z="0" />
-        </perspective>
-    </views>  
+    </views>
 
     <illumination doublesided="0" local="1" >
         <ambient r="0.1" g="0.1" b="0.1" a="1" />
-        <background r="0" g="0" b="0" a="1" />					      
+        <background r="0.6" g="0.85" b="0.92" a="1" />
     </illumination>
 
     <lights>
-        <omni id="omni_general" enabled="0" > 
-            <location x="30" y="30" z="30" w="1" />						
+        <omni id="omni_1" enabled="1" >
+            <location x="20" y="20" z="20" w="1" />
             <ambient r="0" g="0" b="0" a="0" />
             <diffuse r="0.7" g="0.7" b="0.7" a="1" />
             <specular r="0.7" g="0.7" b="0.7" a="1" />
         </omni>
-	
-        <spot id="spot_base1" enabled="1" angle="60" exponent="3">
-            <target x="2" y="1" z="9" />
-            <location x="2" y="5" z="9" />
-            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+        <omni id="omni_2" enabled="1" >
+            <location x="20" y="20" z="-20" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
             <diffuse r="0.7" g="0.7" b="0.7" a="1" />
-            <specular r="0.2" g="0.2" b="0.2" a="1" />
-        </spot>
-
-		<spot id="spot_zero" enabled="1" angle="60" exponent="6">
-            <target x="6" y="6" z="6" />
-            <location x="0" y="0" z="0" />
-            <ambient r="0.2" g="0.2" b="0.2" a="1" />
-            <diffuse r="0.6" g="0.6" b="0.6" a="1" />
-            <specular r="0.6" g="0.6" b="0.6" a="1" />
-        </spot>
-
-		<spot id="spot_base2" enabled="1" angle="60" exponent="8">
-            <target x="9" y="1" z="2" />
-            <location x="9" y="5" z="2" />
-            <ambient r="0.2" g="0.2" b="0.2" a="1" />
-            <diffuse r="1" g="1" b="1" a="1" />
-            <specular r="0.6" g="0.6" b="0.6" a="1" />
-        </spot>
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+        <omni id="omni_3" enabled="1" >
+            <location x="20" y="-20" z="20" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+        <omni id="omni_4" enabled="1" >
+            <location x="-20" y="20" z="20" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+		<omni id="omni_5" enabled="1" >
+            <location x="20" y="-20" z="-20" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+		<omni id="omni_6" enabled="1" >
+            <location x="-20" y="-20" z="20" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+		<omni id="omni_7" enabled="1" >
+            <location x="-20" y="20" z="-20" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
+		<omni id="omni_8" enabled="1" >
+            <location x="-20" y="-20" z="-20" w="1" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="0.7" g="0.7" b="0.7" a="1" />
+        </omni>
     </lights>
-
+        
     <textures>
+	 <!-- Texturas das Celulas do Board -->
+		<texture id="0planet" file="../resources/0planet.png" length_s="1" length_t="1" />
+		<texture id="1planet" file="../resources/1planet.png" length_s="1" length_t="1" />
+		<texture id="2planet" file="../resources/2planet.png" length_s="1" length_t="1" />
+		<texture id="3planet" file="../resources/3planet.png" length_s="1" length_t="1" />
+		<texture id="rnebula" file="../resources/rnebula.png" length_s="1" length_t="1" />
+		<texture id="bnebula" file="../resources/bnebula.png" length_s="1" length_t="1" />
+		<texture id="blackhole" file="../resources/blackhole.png" length_s="1" length_t="1" />
+		<texture id="rhomeworld" file="../resources/rhomeworld.png" length_s="1" length_t="1" />
+		<texture id="bhomeworld" file="../resources/bhomeworld.png" length_s="1" length_t="1" />
+		<texture id="marmore" file="../resources/marmore.jpg" length_s="1" length_t="1" />
+			
         <texture id="skyTexture" file="../resources/sky.png" length_s="0.4" length_t="0.4" />
         <texture id="neptuneTexture" file="../resources/neptune.jpg" length_s="1" length_t="1" />
         <texture id="earthTexture" file="../resources/earth.jpg" length_s="1" length_t="1" />
@@ -133,11 +173,6 @@
 			<translate x="4" y="1.5" z="5" />
 			<scale x="0.5" y = "0.5" z="0.5" />
         </transformation>
-		
-		<transformation id="stickPosition">
-			<translate x="4" y="1.5" z="5" />
-			<rotate axis="x" angle="90"/>
-        </transformation>
     </transformations>
 
     <primitives>
@@ -172,32 +207,6 @@
 		<primitive id="cylinder">
             <cylinder base="0.03" top="0.03" height="1.5" slices="6" stacks="10" />
         </primitive>
-		
-		<!-- novas primitivas -->
-	
-		<primitive id="firstBoard">
-       		<chessboard du="20" dv="20" textureref="satelliteTexture" su="8" sv="8">
-				<c1 r="0.3" g="0.15" b="0.15" a="1.0" />
-				<c2 r="0.8" g="0.6" b="0.6" a="1.0" />
-				<cs r="1.0" g="0.0" b="0.0" a="1.0" />
-            </chessboard>
-       </primitive>
-	   
-	   <primitive id="base1Board">
-       		<chessboard du="3" dv="15" textureref="marmoreTexture" su="-1" sv="-1">
-				<c1 r="0.25" g="0.5" b="0.5" a="1.0" />
-				<c2 r="0.75" g="0.75" b="0.75" a="1.0" />
-				<cs r="0.0" g="1.0" b="0.0" a="1.0" />
-            </chessboard>
-       </primitive>
-	   
-	   	<primitive id="base2Board">
-       		<chessboard du="50" dv="50" textureref="marmoreTexture" su="7" sv="3">
-				<c1 r="0.25" g="0.0" b="0.25" a="1.0" />
-				<c2 r="0.75" g="0.75" b="0.75" a="1.0" />
-				<cs r="0.0" g="0.0" b="1.0" a="1.0" />
-            </chessboard>
-       </primitive> 
 	   
 	   <primitive id="spaceShip">
        		<vehicle> </vehicle>
@@ -259,10 +268,10 @@
 							 
 			<children>
 				<componentref id="Space" />
-				<componentref id="Comets" />
+				<!-- <componentref id="Comets" />
 				<componentref id="Ovnis" />
 				<componentref id="Planets" />
-				<componentref id="Stars" />
+				<componentref id="Stars" /> -->
 			</children>   
 		</component>
 		
@@ -281,8 +290,6 @@
 
 			<children>
 				<componentref id = "Walls" />
-				<componentref id = "Boards" />
-				<componentref id = "Sticks" />
             </children>
             
         </component>
@@ -292,6 +299,8 @@
 		<component id="Walls">																														
         
             <transformation>
+				<translate x="-15" y ="-15" z ="-15"/>
+				<scale x="30" y="30" z="30" />
             </transformation>
        
 			<materials>
@@ -314,7 +323,6 @@
         <component id="Wall1">																
         
             <transformation>
-            	<scale x="12" y="12" z="12" />
             	<translate x="0" y ="0" z ="1"/>
             	<rotate axis="y" angle="90"/>	
             </transformation>
@@ -334,7 +342,6 @@
 		<component id="Wall2">																
         
             <transformation>
-            	<scale x="12" y="12" z="12" />
             </transformation>
        
 			<materials>
@@ -352,7 +359,6 @@
         <component id="Wall3">																
         
             <transformation>
-            	<scale x="12" y="12" z="12" />
             	<translate x="0" y ="0" z ="1"/>
             	<rotate axis="x" angle="-90"/>
             </transformation>
@@ -372,9 +378,7 @@
         <component id="Wall4">																
         
             <transformation>
-            	<translate x="12" y ="0" z ="1"/>
-            	<scale x="12" y="12" z="12" />
-            	<translate x="0" y ="0" z ="1"/>
+            	<translate x="1" y ="0" z ="1"/>
             	<rotate axis="y" angle="180"/>
             </transformation>
        
@@ -393,8 +397,7 @@
         <component id="Wall5">																
         
             <transformation>
-            	<translate x="12" y ="0" z ="1"/>
-            	<scale x="12" y="12" z="12" />
+            	<translate x="1" y ="0" z ="0"/>
             	<rotate axis="y" angle="-90"/>
             </transformation>
        
@@ -413,8 +416,7 @@
         <component id="Wall6">																
         
             <transformation>
-            	<translate x="0" y ="12" z ="0"/>
-            	<scale x="12" y="12" z="12" />
+            	<translate x="0" y ="1" z ="0"/>
             	<rotate axis="x" angle="90"/>	
             </transformation>
        
@@ -430,295 +432,6 @@
             
         </component>
 		
-		<!-- Boards -->
-	
-		<component id="Boards">																														
-        
-            <transformation>
-				<rotate axis="y" angle="-90"/>
-            	<rotate axis="x" angle="-90"/>
-            </transformation>
-       
-			<materials>
-				<material id="inherit" />
-            </materials>
-                         
-			<texture id="none" />
-
-			<children>
-            	<componentref id="Board1"/>
-				<componentref id="Board2"/>
-				<componentref id="Board3"/>
-            </children>
-            
-        </component>
-	
-		<component id="Board1">																														
-        
-            <transformation>
-            	<scale x="7" y="7" z="7" />
-            	<translate x="0.5" y ="0.5" z ="0.01"/>
-            </transformation>
-       
-			<materials>
-				<material id="inherit" />
-            </materials>
-                         
-			<texture id="none" />
-
-			<children>
-            	<primitiveref id="firstBoard"/>
-            </children>
-            
-        </component>
-		
-		<component id="Board2">																														
-        
-            <transformation>
-            	<scale x="2" y="2" z="1" />
-            	<translate x="5" y ="1" z ="1.5"/>
-            </transformation>
-       
-			<materials>
-				<material id="inherit" />
-            </materials>
-                         
-			<texture id="none" />
-
-			<children>
-            	<primitiveref id="base1Board"/>
-            </children>
-            
-        </component>
-		
-		<component id="Board3">																														
-        
-            <transformation>
-            	<scale x="3" y="3" z="1" />
-            	<translate x="0.8" y ="3.2" z ="1"/>
-            </transformation>
-       
-			<materials>
-				<material id="inherit" />
-            </materials>
-                         
-			<texture id="none" />
-
-			<children>
-            	<primitiveref id="base2Board"/>
-            </children>
-            
-        </component>
-		
-		<!-- Sticks -->
-		
-		<component id="Sticks">																														
-        
-            <transformation>
-				<transformationref id="stickPosition"/>
-            </transformation>
-       
-			<materials>
-				<material id="matt1" />
-				<material id="matt2" />
-				<material id="matt3" />
-            </materials>
-                         
-			<texture id="none" />
-
-			<children>
-            	<componentref id = "StickStar" />
-				<componentref id = "StickMercury" />
-				<componentref id = "StickVenus" />
-				<componentref id = "StickEarth" />
-				<componentref id = "StickMars" />
-				<componentref id = "StickJupiter" />
-				<componentref id = "StickSaturn" />
-				<componentref id = "StickUranus" />
-				<componentref id = "StickNeptune" />
-            </children>
-            
-        </component>
-		
-		<component id="StickStar">																
-        
-			<transformation>
-				<translate x="-1" y="-2" z="0"/>
-			</transformation>
-       
-			<materials>
-				<material id="inherit" />
-			</materials>
-							 
-			<texture id="none" />
-
-			<children>
-				<componentref id = "stick" />
-			</children>
-				
-        </component>
-		
-		<component id="StickMercury">																
-        
-			<transformation>
-				<translate x="0" y="1.25" z="0"/>
-			</transformation>
-       
-			<materials>
-				<material id="inherit" />
-			</materials>
-							 
-			<texture id="none" />
-
-			<children>
-				<componentref id = "stick" />
-			</children>
-				
-        </component>
-		
-		<component id="StickVenus">																
-        
-			<transformation>
-				<translate x="1" y="1" z="0" />
-			</transformation>
-       
-			<materials>
-				<material id="inherit" />
-			</materials>
-							 
-			<texture id="none" />
-
-			<children>
-				<componentref id = "stick" />
-			</children>
-				
-        </component>
-		
-		<component id="StickEarth">																
-        
-			<transformation>
-				<translate x="2" y="0" z="0" />
-			</transformation>
-       
-			<materials>
-				<material id="inherit" />
-			</materials>
-							 
-			<texture id="none" />
-
-			<children>
-				<componentref id = "stick" />
-			</children>
-				
-        </component>
-		
-		<component id="StickMars">																
-        
-			<transformation>
-				<translate x="2.5" y="-1.5" z="0" />
-			</transformation>
-       
-			<materials>
-				<material id="inherit" />
-			</materials>
-							 
-			<texture id="none" />
-
-			<children>
-				<componentref id = "stick" />
-			</children>
-				
-        </component>
-		
-		<component id="StickJupiter">																
-        
-			<transformation>
-				<translate x="2.1" y="-3" z="0" />
-			</transformation>
-       
-			<materials>
-				<material id="inherit" />
-			</materials>
-							 
-			<texture id="none" />
-
-			<children>
-				<componentref id = "stick" />
-			</children>
-				
-        </component>
-		
-		<component id="StickSaturn">																
-        
-			<transformation>
-				<translate x="0" y="-4" z="0" />
-			</transformation>
-       
-			<materials>
-				<material id="inherit" />
-			</materials>
-							 
-			<texture id="none" />
-
-			<children>
-				<componentref id = "stick" />
-			</children>
-				
-        </component>
-		
-		<component id="StickUranus">																
-        
-			<transformation>
-				<translate x="-2" y="-4" z="0" />
-			</transformation>
-       
-			<materials>
-				<material id="inherit" />
-			</materials>
-							 
-			<texture id="none" />
-
-			<children>
-				<componentref id = "stick" />
-			</children>
-				
-        </component>
-		
-		<component id="StickNeptune">																
-        
-			<transformation>
-				<translate x="-3.5" y="-3" z="0" />
-			</transformation>
-       
-			<materials>
-				<material id="inherit" />
-			</materials>
-							 
-			<texture id="none" />
-
-			<children>
-				<componentref id = "stick" />
-			</children>
-				
-        </component>
-		
-		<component id="stick">																
-        
-			<transformation>
-			</transformation>
-       
-			<materials>
-				<material id="inherit"/>
-			</materials>
-							 
-			<texture id="none" />
-
-			<children>
-				<primitiveref id = "cylinder" />
-			</children>
-			
-        </component>
-	
 	    <!-- Comets -->
 	
 		<component id="Comets">

@@ -2,30 +2,30 @@
 
 <dsx>
 
-    <scene root="room" axis_length="3" />
+    <scene root="garden" axis_length="3" />
 
-    <views default="all" >
-		<perspective id="all" near="0.1" far="500" angle="45">
+    <views default="up" >
+		<perspective id="all" type="normal" near="0.1" far="500" angle="45">
             <from x="90" y="50" z="90" />
             <to x="0" y="0" z="0" />
         </perspective>
-		<perspective id="front" near="0.1" far="500" angle="50">
+		<perspective id="front" type="normal" near="0.1" far="500" angle="50">
             <from x="50" y="50" z="50" />
             <to x="0" y="0" z="0" />
         </perspective>
- 		<perspective id="back" near="0.1" far="500" angle="50">
+ 		<perspective id="back" type="normal" near="0.1" far="500" angle="50">
              <from x="-50" y="30" z="-30" />
              <to x="0" y="0" z="0" />
          </perspective>
-        <perspective id="up" near="0.1" far="500" angle="50">
+        <perspective id="up" type="normal" near="0.1" far="500" angle="50">
             <from x="2.5" y="20" z="0" />
             <to x="1.5" y="0" z="0" />
         </perspective>
-        <perspective id="player1" near="0.1" far="500" angle="50">
+        <perspective id="Red" type="animated" near="0.1" far="500" angle="50">
             <from x="-6" y="11" z="11" />
             <to x="-3" y="0" z="3" />
         </perspective>
-        <perspective id="player2" near="0.1" far="500" angle="50">
+        <perspective id="Blue" type="animated" near="0.1" far="500" angle="50">
             <from x="6" y="11" z="11" />
             <to x="3" y="0" z="3" />
         </perspective>
@@ -85,6 +85,14 @@
 			<texture id="bhomeworld" file="../resources/bhomeworld.png" length_s="1" length_t="1" />
 			<texture id="marmore" file="../resources/marmore.jpg" length_s="1" length_t="1" />
 
+			<!-- restantes -->
+			<texture id="grass" file="../resources/grass.jpg" length_s="1" length_t="1" />
+			<texture id="pavimento" file="../resources/pavimento.jpg" length_s="11" length_t="11" />
+			<texture id="cimento" file="../resources/cimento.jpg" length_s="11" length_t="11" />
+			<texture id="azulejo" file="../resources/azulejo.jpg" length_s="3" length_t="3" />
+			<texture id="bola" file="../resources/bola.jpg" length_s="1" length_t="1" />
+			<texture id="madeira" file="../resources/madeira.jpg" length_s="1" length_t="1" />
+			<texture id="folhas" file="../resources/folhas.jpg" length_s="1" length_t="1" />
     </textures>
 
     <materials>
@@ -120,24 +128,36 @@
     </materials>
 
     <transformations>
-		<transformation id="roomPos">
+		<transformation id="gardenPos">
 			<translate x="0" y="-20" z="0"/>
             <rotate axis="x" angle="-90"/>
         </transformation>
     </transformations>
 
     <primitives>
-
+       <primitive id="cyl_floor">
+           <cylinder base="65" top="55" height="5" slices="20" stacks="10" />
+       </primitive>
     </primitives>
 
     <animations>
-
+        <animation id="fly" type="keyFrame">
+	        <controlpoint t="0" tx="0" ty="0" tz="0" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="3" tx="-3" ty="-3" tz="-3" rx="0" ry="0" rz="45" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="6" tx="0" ty="0" tz="5" rx="0" ry="-25" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="12" tx="0" ty="0" tz="5" rx="0" ry="0" rz="-120" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="16" tx="90" ty="-20" tz="0" rx="0" ry="0" rz="-120" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="21" tx="0" ty="0" tz="0" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="22" tx="0" ty="10" tz="-8" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="23" tx="-7" ty="0" tz="0" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	        <controlpoint t="24" tx="-8" ty="0" tz="-8" rx="0" ry="0" rz="0" sx="1" sy="1" sz="1"/>
+	    </animation>
 	</animations>
 
     <components>
-		<component id="room">
+		<component id="garden">
 			<transformation>
-			    <transformationref id="roomPos"/>
+			    <transformationref id="gardenPos"/>
 			</transformation>
 
 			<materials>
@@ -147,7 +167,8 @@
 			<texture id="none" />
 
 			<children>
+				<primitiveref id = "cyl_floor"/>
 			</children>
 		</component>
-
+   </components>
 </dsx>

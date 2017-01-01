@@ -42,7 +42,7 @@ XMLscene.prototype.init = function (application) {
 	this.wins = [0,0]; //numero de jogos ganhos de cada equipa
     this.freeCam = true;
 
-	this.scenes = ["garden.dsx","room.dsx"];
+	this.scenes = ["garden.dsx","room.dsx","mySolarSystem.dsx"];
 };
 
 /**
