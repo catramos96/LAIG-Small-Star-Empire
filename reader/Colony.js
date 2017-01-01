@@ -3,7 +3,7 @@
  */
 function Colony(scene,data,cell,team) {
     this.piece = new MyCylinder(scene,new MyCylinderData("col",0.4,0,0.8,10,5));
-    this.cell = cell;
+    this.cell = cell;						/*Pointer to cell where the piece is*/
     this.id = data.getId();
 
     Piece.call(this,scene,this.id,cell,team);
@@ -15,6 +15,9 @@ function Colony(scene,data,cell,team) {
 
 Colony.prototype = Object.create(Piece.prototype);
 
+/*
+@brief Function that updates the piece's transformation
+*/
 Colony.prototype.updateTransformation = function()
 {
     this.transformation = new MyTransformation(this.id);
@@ -27,7 +30,9 @@ Colony.prototype.updateTransformation = function()
         this.transformation.translate(1,-1,0.1);
 }
 
-
+/*
+@brief Function that displays the colony
+*/
 Colony.prototype.displayAux = function(animTransformation){
     this.scene.pushMatrix();
 

@@ -3,7 +3,7 @@
  */
 function Trade(scene,data,cell,team) {
     this.piece = new MyCylinder(scene,new MyCylinderData("tr",0.4,0.4,0.8,10,5));
-    this.cell = cell;
+    this.cell = cell;			/*Pointer to the cell where the trade is*/
     this.id = data.getId();
 
     Piece.call(this,scene,this.id,cell,team);
@@ -15,6 +15,9 @@ function Trade(scene,data,cell,team) {
 
 Trade.prototype = Object.create(Piece.prototype);
 
+/*
+@brief Function that updates the trade's transformation
+*/
 Trade.prototype.updateTransformation = function()
 {
     this.transformation = new MyTransformation(this.id);
@@ -27,6 +30,9 @@ Trade.prototype.updateTransformation = function()
         this.transformation.translate(1,-1,0.1);
 }
 
+/*
+@brief Function that displays the trade
+*/
 Trade.prototype.displayAux = function(animTransformation){
     this.scene.pushMatrix();
 
