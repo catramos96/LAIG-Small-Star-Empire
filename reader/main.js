@@ -54,7 +54,6 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js',
 
 								'logic/Player.js',
 								'logic/Prolog.js',
-								'logic/GameMove.js',
 								
 								'Piece.js',
 								'Colony.js',

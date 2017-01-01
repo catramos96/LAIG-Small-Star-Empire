@@ -1,3 +1,9 @@
+/*
+@brief Class Prolog
+Used to comunicate with prolog files and functions
+@param game
+@param serverResponse
+*/
 function Prolog(game) {
 	this.game = game;
 	this.serverResponse = null;
@@ -5,14 +11,27 @@ function Prolog(game) {
 
 Prolog.prototype.constructor=Prolog;
 
+/*
+@brief Function that returns the attribute serverResponse
+*/
 Prolog.prototype.getServerResponse = function(){
 	return this.serverResponse;
 }
 
+/*
+@brief Function that sets the value of the attribue serverResponse
+*/
 Prolog.prototype.setServerResponse = function(r){
 	this.serverResponse = r;
 }
 
+/*
+@brief Function that requests comunication with prolog
+@param requestString - predicate to be invoked from prolog
+@param onSuccess - in case of success this is executed
+@param onError - in case of error this is executed
+@port - port used to comunicate
+*/
 Prolog.prototype.callRequest = function(requestString, onSuccess, onError, port)
 {
 	var requestPort = port || 8081
@@ -27,6 +46,11 @@ Prolog.prototype.callRequest = function(requestString, onSuccess, onError, port)
 	request.send();
 };
 
+/*
+@brief Function that makes a request and analizes italics
+@param requestString - predicate to be invoked from prolog
+@param type - type of request, diferent types have diferent interpretations
+*/
 Prolog.prototype.makeRequest = function(requestString,type){
 	var getResponse;
 	switch(type){
@@ -54,6 +78,10 @@ Prolog.prototype.makeRequest = function(requestString,type){
 	this.callRequest(requestString,getResponse);
 };
 
+/*
+@brief Function that recieves information from prolog (data) and analizes it
+To be used for initialize the game
+*/
 Prolog.prototype.requestType1 = function (data){	
 
 	console.log("request 1");
@@ -67,21 +95,25 @@ Prolog.prototype.requestType1 = function (data){
 		var player2Info = info[3];
 		var turn = parseInt(info[4]);
 
-		this.game.setGameBoard(this.game.prolog.parseBoard(boardInfo),boardInfo);
-		var player1data = this.game.prolog.parsePlayer(player1Info);
-		var player2data = this.game.prolog.parsePlayer(player2Info);
+		this.game.setGameBoard(this.game.prolog.parseBoard(boardInfo),boardInfo);				/*Sets the game board*/
+		var player1data = this.game.prolog.parsePlayer(player1Info);							/*Sets the player1 info*/
+		var player2data = this.game.prolog.parsePlayer(player2Info);							/*Sets the player2 info*/
+				
+		var playerPrologRep1 = this.game.prolog.parsePlayerProlog(player1Info);					/*Sets the player1 info*/
+		var playerPrologRep2 = this.game.prolog.parsePlayerProlog(player2Info);					/*Sets the player2 info*/
 		
-		var playerPrologRep1 = this.game.prolog.parsePlayerProlog(player1Info);
-		var playerPrologRep2 = this.game.prolog.parsePlayerProlog(player2Info);
+		this.game.createPlayer(player1data[0],player1data[1],player1data[4],playerPrologRep1);	/*Creates player1 with info above*/
+		this.game.createPlayer(player2data[0],player2data[1],player2data[4],playerPrologRep2);	/*Creates player2 with info above*/
 		
-		this.game.createPlayer(player1data[0],player1data[1],player1data[4],playerPrologRep1);
-		this.game.createPlayer(player2data[0],player2data[1],player2data[4],playerPrologRep2);
-		
-		this.game.setTurn(turn);
+		this.game.setTurn(turn);																/*Set the turn of the game*/
 	}
 	
 };
 
+/*
+@brief Function that recieves information from prolog (data) and analizes it
+To be used when a Human player makes a move
+*/
 Prolog.prototype.requestType2 = function (data){	
 	console.log("request 2");
 	
@@ -93,15 +125,20 @@ Prolog.prototype.requestType2 = function (data){
 		var boardInfo = info[2];
 		var playerInfo = info[3];
 		
-		var playerParsed = this.game.prolog.parsePlayerProlog(playerInfo);
+		var playerParsed = this.game.prolog.parsePlayerProlog(playerInfo);	/*Parse player information*/
 		
-		this.game.getTurn().setRepresentation(playerParsed);
-		this.game.board.setRepresentation(boardInfo);
+		this.game.getTurn().setRepresentation(playerParsed);				/*Sets the new players info*/
+		this.game.board.setRepresentation(boardInfo);						/*Sets the new board info*/
 		
-		this.game.prolog.setServerResponse([valid]);
+		this.game.prolog.setServerResponse([valid]);						/*Sets the serverResponse with the validation of the move
+																			to be checked on the game side*/
 	}
 }
 
+/*
+@brief Function that recieves information from prolog (data) and analizes it
+To be used when a Computer player makes a move
+*/
 Prolog.prototype.requestType3 = function (data){	
 	console.log("request 3");
 	
@@ -119,21 +156,30 @@ Prolog.prototype.requestType3 = function (data){
 		var boardInfo = info[7];
 		var playerInfo = info[8];
 		
-		var playerParsed = this.game.prolog.parsePlayerProlog(playerInfo);
+		var playerParsed = this.game.prolog.parsePlayerProlog(playerInfo);	/*Parse player information*/
 		
-		this.game.getTurn().setRepresentation(playerParsed);
-		this.game.board.setRepresentation(boardInfo);
+		this.game.getTurn().setRepresentation(playerParsed);				/*Sets the new players info*/
+		this.game.board.setRepresentation(boardInfo);						/*Sets the new board info*/
 		
-		this.game.prolog.setServerResponse([valid,[rowI,columnI],[rowF,columnF],structure]);
+		this.game.prolog.setServerResponse([valid,[rowI,columnI],[rowF,columnF],structure]);	/*Sets the serverResponse with the validation of the move,
+																								the inicial and final cell, and the structure used*/
 	}
 }
 
+/*
+@brief Function that recieves information from prolog (data) and analizes it
+To be used when its requested the matrix of valid moves
+*/
 Prolog.prototype.requestType4 = function (data){
 	console.log("request 4");
 	var info = data.target.response;
-	this.game.prolog.setServerResponse(this.game.prolog.parseMatrix(info));
+	this.game.prolog.setServerResponse(this.game.prolog.parseMatrix(info));	/*Sets the serverResponse with the parsed matrix*/
 }
 
+/*
+@brief Function that recieves information from prolog (data) and analizes it
+To be used when the game is over and its necessary to parse the scores and the winner
+*/
 Prolog.prototype.requestType5 = function (data){
 	console.log("request 5");
 	var reply = data.target.response;
@@ -146,8 +192,8 @@ Prolog.prototype.requestType5 = function (data){
 		var points2 = info[2];
 		var winner = 0;
 		
-		this.game.getPlayer(1).setScore(points1);
-		this.game.getPlayer(2).setScore(points2);
+		this.game.getPlayer(1).setScore(points1);	/*Sets the score of the player1*/
+		this.game.getPlayer(2).setScore(points2);	/*Sets the score of the player2*/
 		
 		if(points1 > points2)
 			winner = 1;
@@ -156,10 +202,13 @@ Prolog.prototype.requestType5 = function (data){
 		else if(points1 == points2)
 			winner = 0;
 		
-		this.game.prolog.setServerResponse([winner,points1,points2]);
+		this.game.prolog.setServerResponse([winner,points1,points2]);	/*Sets the serverResponse with the winner and the points*/
 	}
 }
 
+/*
+@brief Function that parses the string of the players information to fix the char atribute
+*/
 Prolog.prototype.parsePlayerProlog = function (info){
 	var i;
 	var res = "";
@@ -174,6 +223,9 @@ Prolog.prototype.parsePlayerProlog = function (info){
 	return res;
 }
 
+/*
+@brief Function that parses the string of the player information in prolog
+*/
 Prolog.prototype.parsePlayer = function (info){
 	var data = [];
 	
@@ -232,6 +284,9 @@ Prolog.prototype.parsePlayer = function (info){
 	return data;
 };
 
+/*
+@brief Function that parses a matrix
+*/
 Prolog.prototype.parseMatrix = function (m){
 	var matrix = [];
 	var row = [];
@@ -285,6 +340,9 @@ Prolog.prototype.parseMatrix = function (m){
 	return matrix;
 }
 
+/*
+@brief Function that parses the board and it's codes
+*/
 Prolog.prototype.parseBoard = function (boardInfo){
 	var board = [];
 	var row = [];
