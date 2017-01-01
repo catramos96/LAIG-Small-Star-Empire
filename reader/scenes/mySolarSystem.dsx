@@ -5,16 +5,12 @@
     <scene root="sceneRoot" axis_length="0" /> 
   
     <views default="up" >
-		<perspective id="all" type="normal" near="0.1" far="500" angle="45">
-            <from x="90" y="50" z="90" />
-            <to x="0" y="0" z="0" />
-        </perspective>
 		<perspective id="front" type="normal" near="0.1" far="500" angle="50">
-            <from x="50" y="50" z="50" />
+            <from x="20" y="30" z="20" />
             <to x="0" y="0" z="0" />
         </perspective>
  		<perspective id="back" type="normal" near="0.1" far="500" angle="50">
-             <from x="-50" y="30" z="-30" />
+             <from x="-20" y="30" z="-20" />
              <to x="0" y="0" z="0" />
          </perspective>
         <perspective id="up" type="normal" near="0.1" far="500" angle="50">
@@ -33,7 +29,7 @@
 
     <illumination doublesided="0" local="1" >
         <ambient r="0.1" g="0.1" b="0.1" a="1" />
-        <background r="0.6" g="0.85" b="0.92" a="1" />
+        <background r="0" g="0" b="0" a="1" />
     </illumination>
 
     <lights>
@@ -662,15 +658,15 @@
         <component id="Satellite1">																
         
             <transformation>
-            	<translate x="-10" y="10" z ="-10"/>
+            	<translate x="-10" y="-5" z ="30"/>
             	<rotate axis = "x" angle = "-20" />
             	<rotate axis = "y" angle = "80" />
 				<scale x = "4" y ="4" z = "4" />
             </transformation>
        
 	   		<animation>
-				<animationref id="animSatellite1"/>
-				<animationref id="animSatellite2"/>
+				<!--<animationref id="animSatellite1"/>
+				<animationref id="animSatellite2"/>-->
 			</animation>
 			
 	   
@@ -689,15 +685,15 @@
         <component id="Satellite2">																
         
             <transformation>
-            	<translate x="10" y="10" z ="10"/>
+            	<translate x="-30" y="-10" z ="0"/>
             	<rotate axis = "x" angle = "-35" />
-            	<rotate axis = "y" angle = "-70" />
+            	<rotate axis = "y" angle = "-10" />
 				<scale x = "4" y ="4" z = "4" />
             </transformation>
 			
 			<animation>
-				<animationref id="animSatellite1"/>
-				<animationref id="animSatellite2"/>
+				<!--<animationref id="animSatellite1"/>
+				<animationref id="animSatellite2"/>-->
 			</animation>
 			
        

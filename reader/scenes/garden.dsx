@@ -2,7 +2,7 @@
 
 <dsx>
 
-    <scene root="garden" axis_length="3" />
+    <scene root="garden" axis_length="0" />
 
     <views default="up" >
 		<perspective id="all" type="normal" near="0.1" far="500" angle="45">
