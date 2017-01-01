@@ -44,7 +44,7 @@ XMLscene.prototype.init = function (application) {
     this.camAnimation = null;
 
     this.sceneNum = 0;
-	this.scenes = ["garden.dsx","room.dsx"];
+	this.scenes = ["garden.dsx","room.dsx","mySolarSystem.dsx"];
 };
 
 /**
