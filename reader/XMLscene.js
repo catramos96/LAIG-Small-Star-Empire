@@ -32,16 +32,18 @@ XMLscene.prototype.init = function (application) {
 	this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE);
 */
 	this.lastTime = -1;		//for update scene
-    this.sceneNum = 0;
-    this.numCamera = 0; 	//actual camera
 
     this.gameModes =  ["","Human vs Human", "Human vs Machine", "Machine vs Machine"];
     this.gameMode = 2;
     this.difficulties =  ["","Easy", "Hard"];
     this.difficulty = 1;	//default values for game
 	this.wins = [0,0]; //numero de jogos ganhos de cada equipa
-    this.freeCam = true;
 
+    this.numCamera = 0; 	//actual camera
+    this.freeCam = true;
+    this.camAnimation = null;
+
+    this.sceneNum = 0;
 	this.scenes = ["garden.dsx","room.dsx","mySolarSystem.dsx"];
 };
 
@@ -223,6 +225,10 @@ XMLscene.prototype.updateCamera = function () {
 			if (!this.freeCam && value.type == 'animated' && this.ongoing) //se nao estivermos em freeCam e for uma camara animada, coloca-a => obrigatorio o jogo estar a ocorrer
 			{
 				this.camera = new CGFcamera(value.angle, value.near, value.far, value.getFromVec(), value.getToVec());
+				if(id == "Red")
+                    this.camAnimation = new CameraAnimation(this,this.graph.perspectiveList.get("Blue"),value,this.deltaTime,2);
+				else
+                    this.camAnimation = new CameraAnimation(this,this.graph.perspectiveList.get("Red"),value,this.deltaTime,2);
 				break;
 			}
 			else  //se nao estivermos em freeCam e se nao for uma camara animada, passa a frente => obrigatorio o jogo estar a ocorrer
@@ -287,6 +293,13 @@ XMLscene.prototype.update = function(currTime) {
 
 	if(this.ongoing)
 		this.game.update(this.deltaTime);
+
+	if(this.camAnimation != null)
+	{
+		this.camAnimation.update(this.deltaTime);
+		if(this.camAnimation.done)
+            this.camAnimation = null;
+	}
 }
 
 XMLscene.prototype.getCurrTime = function() {
