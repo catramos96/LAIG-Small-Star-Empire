@@ -1,17 +1,25 @@
-/*
-Class NewChessBoard
-Modification of MyChessBoard where you can choose your planeDimensions
-*/
-function AuxiliarBoard(scene, data) {
+/**
+ * Class AuxiliarBoard derived from Board
+ * @param scene
+ * @param id
+ * @param color
+ * @param initialCoord
+ * @constructor
+ */
+function AuxiliarBoard(scene,id,color,initialCoord) {
 
 	this.team = 0;
-	if(data.getColor() == "red")
+    this.id = id;
+    this.color = color;
+    this.initialCoord = initialCoord;
+
+	if(color == "red")
 	{
         this.team = 1;
 	}
-    else if(data.getColor() == "blue")
+    else if(color == "blue")
     {
-        this.team= 2;
+        this.team = 2;
     }
 
     var boardM =   [[-2,0,0,0,0],
@@ -20,11 +28,16 @@ function AuxiliarBoard(scene, data) {
        				[-1,0,0,0,0,0],
         			[-2,0,0,0,0]];
 
-    Board.call(this,scene,data.getId(),boardM,data.getInitCoord());
+    Board.call(this,scene,id,boardM,initialCoord);
  }
 
 AuxiliarBoard.prototype = Object.create(Board.prototype);
 
+/**
+ * Method that transverses the board matrix and returns the first cell with some piece instance of the structure received
+ * @param structure colony, trade or ship
+ * @returns cell or null if there is no piece
+ */
 AuxiliarBoard.prototype.getFirstPiece = function(structure) {
 
     for(var i = 0; i < this.boardCells.length; i++)
@@ -39,6 +52,15 @@ AuxiliarBoard.prototype.getFirstPiece = function(structure) {
     }
     return null;
 }
+
+/**
+ * Color of the team
+ * @returns color
+ */
+AuxiliarBoard.prototype.getColor = function() {
+    return this.color;
+}
+
 /*
  Creates the cell with the correct texture and id and pushes to the boardCells
  */

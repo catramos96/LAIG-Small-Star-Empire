@@ -148,21 +148,6 @@ XMLscene.prototype.initPrimitives = function () {
         else if(value instanceof MyPatchData){			//aditional primitive
             this.primitivesInit.set(id,new MyPatch(this, value));
         }
-		/*else if(value instanceof AuxiliarBoardData) {		//aditional primitive
-            this.primitivesInit.set(id, new AuxiliarBoard(this, value));
-        }
-		else if(value instanceof TradeData){
-			this.primitivesInit.set(id,new Trade(this,value,null));
-		}
-        else if(value instanceof ColonyData){
-            this.primitivesInit.set(id,new Colony(this,value,null));
-        }
-        else if(value instanceof ShipData){
-            this.primitivesInit.set(id,new Ship(this,value,null));
-        }
-        else if(value instanceof GameBoardData){		//aditional primitive
-			this.primitivesInit.set(id,new GameBoard(this,value));
-		}*/
 	}
 }
 
