@@ -13,11 +13,11 @@ function Game(scene,mode,difficulty) {
 	this.prolog = new Prolog(this);
 
     //criacao de um board e dois boards auxiliares
-    this.board = new GameBoard(this.scene,new GameBoardData(100,[[]],new MyPoint(-7.2,0,0)));
+    this.board = new GameBoard(this.scene,100,[[]],new MyPoint(-7.2,0,0));
 	
     //os tabuleiros auxiliares ja sao criados com as suas pecas
-    this.boardAux1 = new AuxiliarBoard(scene, new AuxiliarBoardData(200,"red", new MyPoint(-12,0,-9)));
-    this.boardAux2 = new AuxiliarBoard(scene, new AuxiliarBoardData(300,"blue",new MyPoint(1.2,0,-9)));
+    this.boardAux1 = new AuxiliarBoard(scene, 200,"red", new MyPoint(-12,0,-9));
+    this.boardAux2 = new AuxiliarBoard(scene, 300,"blue",new MyPoint(1.2,0,-9));
 
     //inicializacao da sequencia
     this.gameSequence = new GameSequence();
