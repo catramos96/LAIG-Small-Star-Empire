@@ -9,6 +9,10 @@ function XMLscene() {
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
+/*
+INITS
+ */
+
 /**
  * Init scene with default values
  */
@@ -89,22 +93,6 @@ XMLscene.prototype.initTextures = function () {
 };
 
 /**
- * Returns the list of textures
- * Used to pass the textures to the board for the cell texture
- */
-XMLscene.prototype.getTextures = function () {
-    return this.graph.texturesList;
-};
-
-/**
- * Returns the list of materials
- * Used to pass the material to the board for the cell texture
- */
-XMLscene.prototype.getMaterials = function () {
-    return this.graph.materialsList;
-};
-
-/**
  * Init textures.
  * Search for the default camera ant initializes it
  */
@@ -151,6 +139,10 @@ XMLscene.prototype.initPrimitives = function () {
         }
 	}
 }
+
+/*
+UPDATES
+ */
 
 /**
  * Update Lights.
@@ -228,44 +220,6 @@ XMLscene.prototype.updateCamera = function () {
 	this.interface.setActiveCamera(this.camera);
 };
 
-XMLscene.prototype.setCamera = function (name) {
-    var i = 0;
-    for (var [id, value] of this.graph.perspectiveList)
-    {
-		if(id == name)
-		{
-			this.numCamera = i;
-			this.camera = new CGFcamera(value.angle, value.near, value.far, value.getFromVec(), value.getToVec());
-			this.interface.setActiveCamera(this.camera);
-			break;
-		}
-		i++;
-	}
-}
-
-/**
- * Default appearance.
- * Puts the default values in the scene and updates the global ambient light.
- * Also updates the color values interpreted by the parser.
- */
-XMLscene.prototype.setDefaultAppearance = function () {
-    this.setAmbient(0.2, 0.4, 0.8, 1.0);
-    this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-    this.setSpecular(0.2, 0.4, 0.8, 1.0);
-    this.setShininess(10.0);
-
-	//ambient
-	this.setGlobalAmbientLight(this.graph.getGlobals().getAmbient().getR(),
-					this.graph.getGlobals().getAmbient().getG(),
-					this.graph.getGlobals().getAmbient().getB(),
-					this.graph.getGlobals().getAmbient().getA());
-	//background
-	this.gl.clearColor(this.graph.getGlobals().getBackground().getR(),
-						this.graph.getGlobals().getBackground().getG(),
-						this.graph.getGlobals().getBackground().getB(),
-						this.graph.getGlobals().getBackground().getA());
-};
-
 /**
  * Update scene
  */
@@ -288,14 +242,13 @@ XMLscene.prototype.update = function(currTime) {
 	}
 }
 
-XMLscene.prototype.getCurrTime = function() {
-	return this.deltaTime;
-}
-
 /*
- * Picking Functions
+PICKING
  */
 
+/**
+ * Method that handles picking
+ */
 XMLscene.prototype.logPicking = function ()
 {
 	if (this.pickMode == false) {
@@ -305,13 +258,17 @@ XMLscene.prototype.logPicking = function ()
 				if (obj)
 				{
 					var customId = this.pickResults[i][1]; // o ID do objeto seleccionado
-					this.game.picking(obj,customId);
+					this.game.picking(obj,customId);	//execute picking in game
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}
 	}
 }
+
+/*
+GRAPH
+ */
 
 /**
  * Handler called when the graph is finally loaded. 
@@ -333,6 +290,10 @@ XMLscene.prototype.onGraphLoaded = function () {
 
     this.setCamera(this.game.getTeamTurn());
 };
+
+/*
+DISPLAYS
+ */
 
 /**
  * Display Components.
@@ -461,6 +422,7 @@ XMLscene.prototype.display = function () {
 		//Processes the components
 		this.displayComponents(this.graph.getRoot(),null,null);
 
+		//if the game is being played, displays it
 		if(this.ongoing)
 		{
             this.game.display();
@@ -468,13 +430,88 @@ XMLscene.prototype.display = function () {
 	}
 };
 
-/**
- * SETS
+/*
+GETS
  */
+
+XMLscene.prototype.getCurrTime = function() {
+    return this.deltaTime;
+}
+
+/**
+ * Returns the list of materials
+ * Used to pass the material to the board for the cell texture
+ */
+XMLscene.prototype.getMaterials = function () {
+    return this.graph.materialsList;
+};
+
+/**
+ * Returns the list of textures
+ * Used to pass the textures to the board for the cell texture
+ */
+XMLscene.prototype.getTextures = function () {
+    return this.graph.texturesList;
+};
+
+/*
+SETS
+ */
+
 XMLscene.prototype.setInterface = function(i) {
 	this.interface = i;
 }
 
+/**
+ * Default appearance.
+ * Puts the default values in the scene and updates the global ambient light.
+ * Also updates the color values interpreted by the parser.
+ */
+XMLscene.prototype.setDefaultAppearance = function () {
+    this.setAmbient(0.2, 0.4, 0.8, 1.0);
+    this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+    this.setSpecular(0.2, 0.4, 0.8, 1.0);
+    this.setShininess(10.0);
+
+    //ambient
+    this.setGlobalAmbientLight(this.graph.getGlobals().getAmbient().getR(),
+        this.graph.getGlobals().getAmbient().getG(),
+        this.graph.getGlobals().getAmbient().getB(),
+        this.graph.getGlobals().getAmbient().getA());
+    //background
+    this.gl.clearColor(this.graph.getGlobals().getBackground().getR(),
+        this.graph.getGlobals().getBackground().getG(),
+        this.graph.getGlobals().getBackground().getB(),
+        this.graph.getGlobals().getBackground().getA());
+};
+
+
+/**
+ * Set camera by name
+ * @param name
+ */
+XMLscene.prototype.setCamera = function (name) {
+    var i = 0;
+    for (var [id, value] of this.graph.perspectiveList)
+    {
+        if(id == name)
+        {
+            this.numCamera = i;
+            this.camera = new CGFcamera(value.angle, value.near, value.far, value.getFromVec(), value.getToVec());
+            this.interface.setActiveCamera(this.camera);
+            break;
+        }
+        i++;
+    }
+}
+
+/*
+INTERFACE
+ */
+
+/**
+ * Change between scenes
+ */
 XMLscene.prototype.changeScene = function() {
     this.sceneNum++;
     if(this.sceneNum == this.scenes.length)
@@ -484,12 +521,14 @@ XMLscene.prototype.changeScene = function() {
     this.interface.resetLightFolders();
 }
 
+/**
+ * change between free camera and automatic camera
+ */
 XMLscene.prototype.automaticCamera = function() {
 	if(this.freeCam == true)
 	{
         this.freeCam = false;	//desativa
-        //aponta a camara para o player que esta em jogo
-        this.setCamera(this.game.getTeamTurn());
+        this.setCamera(this.game.getTeamTurn());	 //aponta a camara para o player que esta em jogo
 	}
 	else
 	{
@@ -498,18 +537,27 @@ XMLscene.prototype.automaticCamera = function() {
     this.interface.updateCam();
 }
 
+/**
+ * Create new game
+ */
 XMLscene.prototype.initGame = function() {
 	this.ongoing = true;
-	this.freeCam = false;
+	this.freeCam = false;	//default -> auto camera
 
     this.game = new Game(this,this.gameMode,this.difficulty);
     this.interface.addGameInfo();
 }
 
+/**
+ * undo of one or more moves
+ */
 XMLscene.prototype.undo = function() {
     this.game.undo();
 }
 
+/**
+ * end game
+ */
 XMLscene.prototype.quit = function (){
     this.ongoing = false;
     this.freeCam = true;

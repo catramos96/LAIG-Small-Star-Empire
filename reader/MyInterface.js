@@ -61,8 +61,12 @@ MyInterface.prototype.init = function(application) {
 	return true;
 };
 
+/*
+INITS
+ */
+
 /**
- * Initializations
+ * Init the folder of the lights
  */
 MyInterface.prototype.initLightFolders = function () {
 
@@ -74,6 +78,9 @@ MyInterface.prototype.initLightFolders = function () {
     this.spotGroup.open();
 }
 
+/**
+ * Init the folders : cameras and main menu
+ */
 MyInterface.prototype.initMenuFolder = function () {
 
     this.camerasGroup = this.gui.addFolder("Cameras");
@@ -92,8 +99,14 @@ MyInterface.prototype.initMenuFolder = function () {
     this.mainMenuGroup.add(this.scene,'initGame').name("Play Game");
 };
 
+/*
+ADITIONS
+ */
+
 /**
- * Aditions
+ * Adds the light with the id received. The destination folder depends on the boolean isSpot
+ * @param id
+ * @param isSpot
  */
 MyInterface.prototype.addLights = function(id, isSpot) {
 	if(isSpot)
@@ -103,36 +116,12 @@ MyInterface.prototype.addLights = function(id, isSpot) {
 }
 
 /**
- * Quando atualiza a camara, se mudar para free, adiciona o botao de update, se não, retira-o
+ * Adds the new folders with game information
  */
-MyInterface.prototype.updateCam = function () {
-    if(this.scene.freeCam)  //freeCam => tem botao update
-    {
-        console.log('a');
-        if(this.updateButton == null)   //no fim do jogo coloca o botao de update
-        {
-            this.updateButton = this.camerasGroup.add(this.scene, 'updateCamera').name("Update Camera"); //botao para mudar de camara
-            console.log("coloca o update");
-        }
-    }
-    else //!freeCam => tira botao update
-    {
-        console.log(this.updateButton);
-        if(this.updateButton != null)   //no fim do jogo coloca o botao de update
-        {
-            this.updateButton.remove();
-            this.updateButton = null;
-            console.log("tira o update");
-        }
-    }
-
-    console.log("eu vim ate aqui");
-}
-
 MyInterface.prototype.addGameInfo = function () {
 
-	if(this.turn == null ||  this.nextSelection == null || this.time == null)    //significa que ainda nao ha informacoes (evita sobreposicoes)
-	{
+    if(this.turn == null ||  this.nextSelection == null || this.time == null)    //significa que ainda nao ha informacoes (evita sobreposicoes)
+    {
         this.camButton = this.camerasGroup.add(this.scene, 'automaticCamera').name("Free/Automatic Camera"); //adiciona quando comeca o jogo
         this.updateCam();
 
@@ -162,9 +151,12 @@ MyInterface.prototype.addGameInfo = function () {
         this.nextSelection = this.matchMenuGroup.add(this.scene.game.changingInfo,1).name('State').listen();
         this.matchMenuGroup.add(this.scene.gameModes, this.scene.gameMode).name('Game Mode').listen();
         this.matchMenuGroup.add(this.scene.difficulties, this.scene.difficulty).name('Difficulty').listen();
-	}
+    }
 };
 
+/**
+ * adds new folders when the game is over
+ */
 MyInterface.prototype.addFinalGameInfo = function () {
 
     this.gameMenuGroup.add(this.scene.game,'movie').name("See movie");
@@ -188,8 +180,8 @@ MyInterface.prototype.addFinalGameInfo = function () {
     this.scoreGroup.add(this.scene.game.finalInfo, 0).name('Winner').listen();
 };
 
-/**
- * removes and resets
+/*
+REMOVES AND RESETS
  */
 MyInterface.prototype.resetGameFolders = function () {
     this.camerasGroup = this.gui.removeFolder("Cameras");
@@ -221,8 +213,12 @@ MyInterface.prototype.resetLightFolders = function () {
     this.initLightFolders();
 };
 
+/*
+UPDATES
+ */
+
 /**
- * Updates
+ * information to be updated time to time
  */
 MyInterface.prototype.updateMatchInfo = function () {
     this.turn.remove();
@@ -249,6 +245,33 @@ MyInterface.prototype.updateMatchInfo = function () {
     this.nextSelection = this.matchMenuGroup.add(this.scene.game.changingInfo,1).name('State').listen();
 }
 
+
+/**
+ * Quando atualiza a camara, se mudar para free, adiciona o botao de update, se não, retira-o
+ */
+MyInterface.prototype.updateCam = function () {
+    if(this.scene.freeCam)  //freeCam => tem botao update
+    {
+        if(this.updateButton == null)   //no fim do jogo coloca o botao de update
+        {
+            this.updateButton = this.camerasGroup.add(this.scene, 'updateCamera').name("Update Camera"); //botao para mudar de camara
+        }
+    }
+    else //!freeCam => tira botao update
+    {
+        console.log(this.updateButton);
+        if(this.updateButton != null)   //no fim do jogo coloca o botao de update
+        {
+            this.updateButton.remove();
+            this.updateButton = null;
+        }
+    }
+}
+
+/*
+EVENTS
+ */
+
 /**
  * ProcessKeyboard
  * @param event {Event}
@@ -270,3 +293,11 @@ MyInterface.prototype.processKeyboard = function(event) {
 			break;
 	};
 };
+
+/**
+ * Just to be sure we dont move the scene
+ * @param event
+ */
+MyInterface.prototype.processMouseDown= function(event) {
+
+}
