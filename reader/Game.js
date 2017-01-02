@@ -418,7 +418,7 @@ Game.prototype.changeTurn = function(){
     else
         this.turn = this.player1;
 
-    if(!this.freeCam)
+    if(!this.scene.freeCam)
         this.scene.updateCamera();
 }
 
@@ -724,7 +724,7 @@ Game.prototype.update = function(currTime) {
             this.changeState();
         }
     }
-    
+
     if(!this.startCounting) //restart
     {
         this.timePlayers = [10,10];
