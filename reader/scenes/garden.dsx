@@ -18,8 +18,8 @@
              <to x="0" y="0" z="0" />
          </perspective>
         <perspective id="up" type="normal" near="0.1" far="500" angle="50">
-            <from x="2.5" y="20" z="0" />
-            <to x="1.5" y="0" z="0" />
+            <from x="1.5" y="22" z="0" />
+            <to x="0.5" y="0" z="0" />
         </perspective>
         <perspective id="Red" type="animated" near="0.1" far="500" angle="50">
             <from x="-6" y="11" z="11" />
@@ -39,7 +39,7 @@
     <lights>
         <spot id="spot_tab" enabled="0" angle="60" exponent="3">
             <target x="0" y="0" z="0" />
-            <location x="1" y="15" z="1" />
+            <location x="1" y="23" z="1" />
             <ambient r="0.2" g="0.2" b="0.2" a="1" />
             <diffuse r="0.7" g="0.7" b="0.7" a="1" />
             <specular r="0.2" g="0.2" b="0.2" a="1" />
