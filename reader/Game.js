@@ -538,6 +538,8 @@ Game.prototype.undo = async function ()
     var currMove = this.gameSequence.currMove();
     var oldState = this.state;
     this.setState("UNDO");
+    this.startCounting = false;
+    console.log("AQUI E "+this.startCounting );
 
     if(oldState != 'INIT' && oldState != 'ANIM1' && oldState != 'ANIM2' && oldState != 'BOT' && oldState != 'END')   //nao podemos mexer
     {
@@ -612,6 +614,7 @@ END GAME METHODS
 Game.prototype.playerLose = function (){
     this.scene.setCamera("up");
 
+    console.log("nao "+this.finalInfo[0]-1);
     this.scene.wins[this.finalInfo[0]-1]++;
 
     this.scene.interface.addFinalGameInfo();
@@ -643,7 +646,10 @@ Game.prototype.gameOver = async function (){
     this.finalInfo = [msg,winner[1],winner[2]];  //atualiza esta informacao
 
     if(winner[0] != 0)
+    {
+        console.log("Atualizou "+winner[0]);
         this.scene.wins[winner[0]]++;   //atualiza o numero de vitoria da equipa
+    }
 
     this.scene.interface.addFinalGameInfo();
 }
@@ -698,7 +704,10 @@ OBJECT
  */
 Game.prototype.update = function(currTime) {
 
-    if(this.state != 'END' && this.state != 'LOSE' )
+    console.log("STATE : "+this.state);
+    console.log("depois E "+this.startCounting );
+
+    if(this.state != 'END' && this.state != 'LOSE')
     {
         //contagem do tempo
         var time = currTime-this.initTime;
